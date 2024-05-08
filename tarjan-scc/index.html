@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="$\texttt{Upd 23.8.29}$ 修正错别字、证明，添加代码和注释  欢迎批评指正！ 注意：本文只针对有向图。 前置芝士 什么是强连通分量（SCC）？强连通分量，一般指 有向图的极大强连通子图，在这些子图中，所有点双向可达。 dfs 序：即 dfs 过程中访问点的顺序。 dfs 生成树：由 dfs 过程中访问的边组成的边集 和 原图的点集 组成的树。 树边，非树边：属于 dfs 过程中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tarjan 求强连通分量和缩点">
+<meta property="og:url" content="https://po7ed.github.io/tarjan-scc/index.html">
+<meta property="og:site_name" content="Po7ed&#39;s Blog">
+<meta property="og:description" content="$\texttt{Upd 23.8.29}$ 修正错别字、证明，添加代码和注释  欢迎批评指正！ 注意：本文只针对有向图。 前置芝士 什么是强连通分量（SCC）？强连通分量，一般指 有向图的极大强连通子图，在这些子图中，所有点双向可达。 dfs 序：即 dfs 过程中访问点的顺序。 dfs 生成树：由 dfs 过程中访问的边组成的边集 和 原图的点集 组成的树。 树边，非树边：属于 dfs 过程中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3266926/202308/3266926-20230828113020993-1881944476.png">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3266926/202308/3266926-20230828114451530-356312123.png">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/3266926/202308/3266926-20230828113528446-1633695776.png">
+<meta property="article:published_time" content="2023-08-28T05:39:00.000Z">
+<meta property="article:modified_time" content="2024-05-08T12:33:44.981Z">
+<meta property="article:author" content="Po7ed">
+<meta property="article:tag" content="Algorithms">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2023.cnblogs.com/blog/3266926/202308/3266926-20230828113020993-1881944476.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/ironpickaxe.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/ironpickaxe192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/ironpickaxe180x180.png">
+        
+      
+    
+    <!-- title -->
+    <title>Tarjan 求强连通分量和缩点</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Po7ed's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/Po7ed">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/tarjan-cut/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://po7ed.github.io/tarjan-scc/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://po7ed.github.io/tarjan-scc/&text=Tarjan 求强连通分量和缩点"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://po7ed.github.io/tarjan-scc/&title=Tarjan 求强连通分量和缩点"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://po7ed.github.io/tarjan-scc/&is_video=false&description=Tarjan 求强连通分量和缩点"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Tarjan 求强连通分量和缩点&body=Check out this article: https://po7ed.github.io/tarjan-scc/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://po7ed.github.io/tarjan-scc/&title=Tarjan 求强连通分量和缩点"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://po7ed.github.io/tarjan-scc/&title=Tarjan 求强连通分量和缩点"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://po7ed.github.io/tarjan-scc/&title=Tarjan 求强连通分量和缩点"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://po7ed.github.io/tarjan-scc/&title=Tarjan 求强连通分量和缩点"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://po7ed.github.io/tarjan-scc/&name=Tarjan 求强连通分量和缩点&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://po7ed.github.io/tarjan-scc/&t=Tarjan 求强连通分量和缩点"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E8%8A%9D%E5%A3%AB"><span class="toc-number">1.</span> <span class="toc-text">前置芝士</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan-%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">Tarjan 算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%A9%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">缩点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-number">3.1.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Tarjan 求强连通分量和缩点
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Po7ed</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-08-28T05:39:00.000Z" class="dt-published" itemprop="datePublished">2023-08-28</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Algorithms/" rel="tag">Algorithms</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>$\texttt{Upd 23.8.29}$ 修正错别字、证明，添加代码和注释</p>
+<hr>
+<p><strong>欢迎批评指正！</strong></p>
+<p><strong>注意：本文只针对有向图。</strong></p>
+<h2 id="前置芝士"><a href="#前置芝士" class="headerlink" title="前置芝士"></a>前置芝士</h2><ul>
+<li>什么是<strong>强连通分量</strong>（SCC）？<br>强连通分量，一般指 <em>有向图的极大强连通子图</em>，在这些子图中，<strong>所有点双向可达</strong>。</li>
+<li>dfs 序：即 dfs 过程中访问点的顺序。</li>
+<li>dfs 生成树：由 <em>dfs 过程中访问的边组成的边集</em> 和 <em>原图的点集</em> 组成的树。</li>
+<li>树边，非树边：属于 <em>dfs 过程中访问的边</em> 为树边，否则为非树边。</li>
+</ul>
+<p><img src="https://img2023.cnblogs.com/blog/3266926/202308/3266926-20230828113020993-1881944476.png" alt="image"></p>
+<ul>
+<li>返祖边（反向边）：从孩子连接到祖先的边。</li>
+<li>前向边：从祖先连接到孩子的边。</li>
+<li>横插边：除返祖边和前向边之外的非树边。（连接没有祖孙关系的两点的边。）</li>
+</ul>
+<p><img src="https://img2023.cnblogs.com/blog/3266926/202308/3266926-20230828114451530-356312123.png" alt="image"></p>
+<ul>
+<li>某个强连通分量的根：这个强连通分量重 dfs 序最小的节点。</li>
+</ul>
+<h2 id="Tarjan-算法"><a href="#Tarjan-算法" class="headerlink" title="Tarjan 算法"></a>Tarjan 算法</h2><p>设两个数组 $\mathit{dfn}$ 和 $\mathit{low}$，分别表示 dfs 序和<strong>至多通过 $1$ 条非树边所能到达的点的 $\mathit{dfn}$ 的最小值</strong>。</p>
+<p>看下面这张图：</p>
+<p><img src="https://img2023.cnblogs.com/blog/3266926/202308/3266926-20230828113528446-1633695776.png" alt="image"></p>
+<p>每个节点的编号就是它的 $\mathit{dfn}$，旁边标注的数字是 $\mathit{low}$，可以自行理解一下。</p>
+<p>另外，我们还需要一个栈 $\mathit{stk}$ 存节点。</p>
+<h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>Tarjan 是在 dfs 中实现的，每次访问到当前节点 $u$，就将它压入 $\mathit{stk}$ 中。随后访问所有相邻的点 $v$。</p>
+<ul>
+<li><p>如果没访问过，说明 $(u,v)$ 是一条树边，继续 dfs。</p>
+<p>  dfs $v$ 的子树结束后，更新 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{low}_v)$。因为根据 $\mathit{low}$ 的定义，走多少条树边都没关系，而 $(u,v)$ 是一条树边，我们可以从 $u$ 走到 $v$ 后再继续往上爬。也就是说，$v$ 能到的 $\mathit{low}_v$，$u$ 也能到。于是更新。</p>
+</li>
+<li>如果 $v$ 已被访问过且已属于另一个 SCC，说明 $(u,v)$ 是一条横插边，两个 SCC 无关，直接跳过，不予处理。</li>
+<li><p>如果 $v$ 被访问过且在 $\mathit{stk}$ 内，说明 $(u,v)$ 是一条返祖边，更新 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{dfn}_v)$。</p>
+<p>  因为 $\mathit{low}$ 的定义为仅通过 $1$ 条非树边，故可以直接走返祖边 $(u,v)$，如果 $\mathit{dfn}_v$ 比 $\mathit{low}_u$ 小，则更新。</p>
+<p>  关于为什么不是 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{low}_v)$，因为 $\mathit{low}_v$ 可能已经经过了一条非树边，如果再走返祖边 $(u,v)$，就可能走了两条非树边，与 $\mathit{low}$ 的定义相悖。（其实这样些也可以得到正确答案，但是求割点时就会错。）</p>
+</li>
+<li><p>然后判断 $u$ 是否是根：若 $\mathit{dfn}_u=\mathit{low}_u$，则是当前 SCC 的根，然后退栈到 $u$，保存答案。</p>
+<p>  因为 $\mathit{dfn}_u=\mathit{low}_u$，所以 $u$ 的子树内的所有点都不能通过返祖边到达 $\mathit{dfn}$ 比 $u$ 小的点（否则可以通过树边到达这些子节点，然后走返祖边。使 $\mathit{low}_u&lt;\mathit{dfn}_u$。）</p>
+<p>  关于为什么跳出子树至多经过 $1$ 条非树边：如果有 $2$ 条甚至更多，必然有走的最后一条边跳出了子树。那么跳出子树前的点必然在子树内，可以走树边到达，故至多（其实是要且只要）走 $1$ 条非树边。</p>
+</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[<span class="number">11451</span>],stk;<span class="comment">// e：边表</span></span><br><span class="line"><span class="type">int</span> bel[<span class="number">11451</span>];<span class="comment">// bel[i] 表示 i 属于哪个 SCC（编号）</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; scc=&#123;&#123;&#125;&#125;;<span class="comment">// 存每个强连通分量的点的编号</span></span><br><span class="line"><span class="type">int</span> cnt=<span class="number">1</span>,dfn[<span class="number">11451</span>],low[<span class="number">11451</span>];<span class="comment">// cnt：SCC数量（+1）</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dfncnt=<span class="number">1</span>;<span class="comment">// 时间戳</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[u]=low[u]=dfncnt++;</span><br><span class="line">	stk.<span class="built_in">push_back</span>(u);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> v:e[u])<span class="comment">// 范围 for，遍历邻居</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])<span class="comment">// 未访问</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v);</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],low[v]);<span class="comment">// 访问并更新</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(!bel[v])<span class="comment">// in stk</span></span><br><span class="line">		&#123;</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],dfn[v]);<span class="comment">// 单纯更新</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(low[u]==dfn[u])<span class="comment">// 是当前 SCC 的根</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> t;</span><br><span class="line">		scc.<span class="built_in">push_back</span>(&#123;&#125;);</span><br><span class="line">		<span class="keyword">while</span>(stk.<span class="built_in">back</span>()!=u)<span class="comment">// 退栈到 u</span></span><br><span class="line">		&#123;</span><br><span class="line">			t=stk.<span class="built_in">back</span>();</span><br><span class="line">			stk.<span class="built_in">pop_back</span>();</span><br><span class="line">			scc[cnt].<span class="built_in">push_back</span>(t);<span class="comment">// 保存</span></span><br><span class="line">			bel[t]=cnt;</span><br><span class="line">		&#125;</span><br><span class="line">		scc[cnt].<span class="built_in">push_back</span>(u);</span><br><span class="line">		<span class="built_in">sort</span>(scc[cnt].<span class="built_in">begin</span>(),scc[cnt].<span class="built_in">end</span>());</span><br><span class="line">		bel[u]=cnt++;</span><br><span class="line">		stk.<span class="built_in">pop_back</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意图可能不连通，所以主函数里要加上：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(!dfn[i])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">tarjan</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每次都调用一遍 <code>tarjan</code>。</p>
+<h2 id="缩点"><a href="#缩点" class="headerlink" title="缩点"></a>缩点</h2><p>缩点很好理解，就是将每个强连通分量中的点的信息合并，缩成一个点，形成一个 DAG（有向无环图）。</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">&#123;</span><br><span class="line">	newval[bel[i]]+=val[i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j:e[i])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(bel[i]!=bel[j])</span><br><span class="line">		&#123;</span><br><span class="line">			newe[bel[i]].<span class="built_in">push_back</span>(bel[j]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>e</code> 为原图，<code>newe</code> 为新图，<code>val</code> 为原图点权（或者什么类似点权的值），<code>newval</code> 为新图点权。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/349530425" title="推荐 ta 的文章！">这位大佬的博客</a></li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/Po7ed">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E8%8A%9D%E5%A3%AB"><span class="toc-number">1.</span> <span class="toc-text">前置芝士</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan-%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">Tarjan 算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%A9%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">缩点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-number">3.1.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://po7ed.github.io/tarjan-scc/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://po7ed.github.io/tarjan-scc/&text=Tarjan 求强连通分量和缩点"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://po7ed.github.io/tarjan-scc/&title=Tarjan 求强连通分量和缩点"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://po7ed.github.io/tarjan-scc/&is_video=false&description=Tarjan 求强连通分量和缩点"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Tarjan 求强连通分量和缩点&body=Check out this article: https://po7ed.github.io/tarjan-scc/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://po7ed.github.io/tarjan-scc/&title=Tarjan 求强连通分量和缩点"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://po7ed.github.io/tarjan-scc/&title=Tarjan 求强连通分量和缩点"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://po7ed.github.io/tarjan-scc/&title=Tarjan 求强连通分量和缩点"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://po7ed.github.io/tarjan-scc/&title=Tarjan 求强连通分量和缩点"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://po7ed.github.io/tarjan-scc/&name=Tarjan 求强连通分量和缩点&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://po7ed.github.io/tarjan-scc/&t=Tarjan 求强连通分量和缩点"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2024
+    Po7ed
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/Po7ed">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+</body>
+</html>
