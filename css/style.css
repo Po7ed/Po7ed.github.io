@@ -482,7 +482,7 @@ body {
   color: #383838;
   font-weight: 400;
   font-size: 14px;
-  font-family: "UbuntuMono Nerd Font", monospace;
+  font-family: UbuntuMono, monospace;
   line-height: 1.725;
   text-rendering: geometricPrecision;
   -moz-osx-font-smoothing: grayscale;
@@ -1410,7 +1410,7 @@ article .content .caption {
   font-display: swap;
   font-weight: 400;
   font-size: 11.200000000000001px;
-  font-family: "UbuntuMono Nerd Font", monospace;
+  font-family: UbuntuMono, monospace;
   line-height: 1.725;
   text-rendering: geometricPrecision;
   text-align: center;
@@ -1576,7 +1576,7 @@ pre {
   border: 1px dotted #666;
   border-radius: 4px;
   font-size: 13px;
-  font-family: "UbuntuMono Nerd Font", monospace;
+  font-family: UbuntuMono, monospace;
   line-height: 22px;
   -webkit-border-radius: 4px;
 }
@@ -1597,7 +1597,7 @@ code {
   padding: 10px 15px;
   border-radius: 4px;
   background: #fafafa;
-  font-family: "UbuntuMono Nerd Font", monospace;
+  font-family: UbuntuMono, monospace;
   -webkit-border-radius: 4px;
 }
 .highlight figcaption {
