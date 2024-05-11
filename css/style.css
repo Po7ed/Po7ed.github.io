@@ -482,7 +482,7 @@ body {
   color: #383838;
   font-weight: 400;
   font-size: 15px;
-  font-family: Ubuntu, monospace;
+  font-family: times, simsun, monospace;
   line-height: 1.725;
   text-rendering: geometricPrecision;
   -moz-osx-font-smoothing: grayscale;
@@ -1410,7 +1410,7 @@ article .content .caption {
   font-display: swap;
   font-weight: 400;
   font-size: 12px;
-  font-family: Ubuntu, monospace;
+  font-family: times, simsun, monospace;
   line-height: 1.725;
   text-rendering: geometricPrecision;
   text-align: center;
