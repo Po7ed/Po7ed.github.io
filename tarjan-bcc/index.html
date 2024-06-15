@@ -1,178 +1,75 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang="en">
+
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="注意：本文只针对无向图。 对于无向图，显然不能只考虑简单的连通关系，应该研究一些更强的连通关系：双连通。 前置芝士 点双连通分量：若一个连通分量任意两点间 都存在 至少两条不经过（除起点和终点外）相同点的路径，我们就称这个连通分量 为点双连通分量。 边双连通分量：同理，若一个连通分量任意两点间 都存在 至少两条不经过 相同边的路径，我们就称这个连通分量 为边双连通分量。 Tarjan 求割点和桥">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Tarjan 求双连通分量（点双连通分量、边双连通分量）">
-<meta property="og:url" content="https://po7ed.github.io/tarjan-bcc/index.html">
-<meta property="og:site_name" content="Po7ed&#39;s Blog">
-<meta property="og:description" content="注意：本文只针对无向图。 对于无向图，显然不能只考虑简单的连通关系，应该研究一些更强的连通关系：双连通。 前置芝士 点双连通分量：若一个连通分量任意两点间 都存在 至少两条不经过（除起点和终点外）相同点的路径，我们就称这个连通分量 为点双连通分量。 边双连通分量：同理，若一个连通分量任意两点间 都存在 至少两条不经过 相同边的路径，我们就称这个连通分量 为边双连通分量。 Tarjan 求割点和桥">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-09T12:41:00.000Z">
-<meta property="article:modified_time" content="2024-05-08T12:42:20.121Z">
-<meta property="article:author" content="Po7ed">
-<meta property="article:tag" content="Algorithms">
-<meta name="twitter:card" content="summary">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Tarjan 求双连通分量（点双连通分量、边双连通分量） |
     
+    Po7ed&#39;s Blog
+  </title>
+  <!-- Icon -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
     
-      
-        
-          <link rel="shortcut icon" href="/images/ironpickaxe.ico">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="/images/ironpickaxe192x192.png" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/ironpickaxe180x180.png">
-        
-      
-    
-    <!-- title -->
-    <title>Tarjan 求双连通分量（点双连通分量、边双连通分量）</title>
-    <!-- async scripts -->
-    <!-- Google Analytics -->
-
-
-    <!-- Umami Analytics -->
-
-
-    <!-- styles -->
-    
+  
 <link rel="stylesheet" href="/css/style.css">
 
-    <!-- persian styles -->
-    
-    <!-- rss -->
-    
-    
-	<!-- mathjax -->
-	
-		<script type="text/x-mathjax-config">
-		  MathJax.Hub.Config({
-			tex2jax: {
-			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-			  inlineMath: [['$','$']]
-			}
-		  });
-		</script>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
-	
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
 <meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Po7ed's Blog" type="application/atom+xml">
 </head>
 
-<body class="max-width mx-auto px3 ltr">    
-      <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">首页</a></li><!--
-     --><!--
-       --><li><a href="/archives/">归档</a></li><!--
-     --><!--
-       --><li><a href="/search/">搜索</a></li><!--
-     --><!--
-       --><li><a href="/about/">关于</a></li><!--
-     --><!--
-       --><li><a target="_blank" rel="noopener" href="http://github.com/Po7ed">项目</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" aria-label="上一篇" href="/hello-world/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" aria-label="下一篇" href="/tarjan-cut/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">上一篇</span>
-      <span id="i-next" class="info" style="display:none;">下一篇</span>
-      <span id="i-top" class="info" style="display:none;">返回顶部</span>
-      <span id="i-share" class="info" style="display:none;">分享文章</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://po7ed.github.io/tarjan-bcc/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://po7ed.github.io/tarjan-bcc/&text=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://po7ed.github.io/tarjan-bcc/&title=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://po7ed.github.io/tarjan-bcc/&is_video=false&description=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Tarjan 求双连通分量（点双连通分量、边双连通分量）&body=Check out this article: https://po7ed.github.io/tarjan-bcc/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://po7ed.github.io/tarjan-bcc/&title=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://po7ed.github.io/tarjan-bcc/&title=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://po7ed.github.io/tarjan-bcc/&title=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://po7ed.github.io/tarjan-bcc/&title=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://po7ed.github.io/tarjan-bcc/&name=Tarjan 求双连通分量（点双连通分量、边双连通分量）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://po7ed.github.io/tarjan-bcc/&t=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-tarjan-bcc" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
 
-    </div>
+  <div class="article-inner">
     
-    
-      <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E8%8A%9D%E5%A3%AB"><span class="toc-number">1.</span> <span class="toc-text">前置芝士</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan-%E6%B1%82%E7%82%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">Tarjan 求点双连通分量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan-%E6%B1%82%E8%BE%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F"><span class="toc-number">3.</span> <span class="toc-text">Tarjan 求边双连通分量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B-1"><span class="toc-number">3.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-number">3.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E7%BB%93%E6%92%92%E8%8A%B1%EF%BC%81"><span class="toc-number">4.</span> <span class="toc-text">完结撒花！</span></a></li></ol>
-      </div>
-    
-  </span>
-</div>
-
-    
-    <div class="content index py4 ">
-        
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle p-name" itemprop="name headline">
-        Tarjan 求双连通分量（点双连通分量、边双连通分量）
-    </h1>
-
-
-
-    <div class="meta">
-      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span class="p-name" itemprop="name">Po7ed</span>
-      </span>
+    <header class="article-header">
       
-    <div class="postdate">
-      
-        <time datetime="2024-04-09T12:41:00.000Z" class="dt-published" itemprop="datePublished">2024-04-09</time>
-        
-      
-    </div>
-
-
-      
-
-      
-    <div class="article-tag">
-        <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/Algorithms/" rel="tag">Algorithms</a>
-    </div>
-
-
-    </div>
-  </header>
+  
+  <h1 class="article-title" itemprop="name">
+    Tarjan 求双连通分量（点双连通分量、边双连通分量）
+  </h1>
+  
   
 
-  <div class="content e-content" itemprop="articleBody">
-    <p><strong>注意：本文只针对无向图。</strong></p>
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/tarjan-bcc/" class="article-date">
+  <time datetime="2024-04-09T12:41:00.000Z" itemprop="datePublished">2024-04-09</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+        <p><strong>注意：本文只针对无向图。</strong></p>
 <p>对于无向图，显然不能只考虑简单的连通关系，应该研究一些更强的连通关系：双连通。</p>
 <h2 id="前置芝士"><a href="#前置芝士" class="headerlink" title="前置芝士"></a>前置芝士</h2><ul>
 <li>点双连通分量：若一个连通分量任意两点间 都存在 至少两条不经过（除起点和终点外）相同点的路径，我们就称这个连通分量 为点双连通分量。</li>
@@ -202,147 +99,166 @@
 <h2 id="完结撒花！"><a href="#完结撒花！" class="headerlink" title="完结撒花！"></a>完结撒花！</h2><p>Tarjan <strong>连通</strong>系列正式完结啦！<del>（除了代码）</del>。</p>
 <p>以后可能还会更 LCA、LCT、splay 的文章（挖大坑）。</p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://po7ed.github.io/tarjan-bcc/" data-id="clxfztjur0003i4uefmmp45br" class="article-share-link">
+        分享
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
+
+    </footer>
+
   </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/hello-world/" class="article-nav-link">
+    <strong class="article-nav-caption">前一篇</strong>
+    <div class="article-nav-title">
+      
+      Hello World
+      
+    </div>
+  </a>
+  
+  
+  <a href="/tarjan-cut/" class="article-nav-link">
+    <strong class="article-nav-caption">后一篇</strong>
+    <div class="article-nav-title">Tarjan 求割点和桥</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
 </article>
-
-
-
-        
-          <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-        
-          <li><a href="/">首页</a></li>
-        
-          <li><a href="/archives/">归档</a></li>
-        
-          <li><a href="/search/">搜索</a></li>
-        
-          <li><a href="/about/">关于</a></li>
-        
-          <li><a target="_blank" rel="noopener" href="http://github.com/Po7ed">项目</a></li>
-        
-      </ul>
-    </div>
-
-    
-    
-      <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E8%8A%9D%E5%A3%AB"><span class="toc-number">1.</span> <span class="toc-text">前置芝士</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan-%E6%B1%82%E7%82%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">Tarjan 求点双连通分量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan-%E6%B1%82%E8%BE%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F"><span class="toc-number">3.</span> <span class="toc-text">Tarjan 求边双连通分量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B-1"><span class="toc-number">3.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-number">3.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E7%BB%93%E6%92%92%E8%8A%B1%EF%BC%81"><span class="toc-number">4.</span> <span class="toc-text">完结撒花！</span></a></li></ol>
-      </div>
-    
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://po7ed.github.io/tarjan-bcc/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://po7ed.github.io/tarjan-bcc/&text=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://po7ed.github.io/tarjan-bcc/&title=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://po7ed.github.io/tarjan-bcc/&is_video=false&description=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Tarjan 求双连通分量（点双连通分量、边双连通分量）&body=Check out this article: https://po7ed.github.io/tarjan-bcc/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://po7ed.github.io/tarjan-bcc/&title=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://po7ed.github.io/tarjan-bcc/&title=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://po7ed.github.io/tarjan-bcc/&title=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://po7ed.github.io/tarjan-bcc/&title=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://po7ed.github.io/tarjan-bcc/&name=Tarjan 求双连通分量（点双连通分量、边双连通分量）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://po7ed.github.io/tarjan-bcc/&t=Tarjan 求双连通分量（点双连通分量、边双连通分量）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
-        
-          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
-        
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
-    </div>
-
-  </div>
-</div>
-
-        
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
-    
-    
-    2024
-    Po7ed
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">首页</a></li><!--
-     --><!--
-       --><li><a href="/archives/">归档</a></li><!--
-     --><!--
-       --><li><a href="/search/">搜索</a></li><!--
-     --><!--
-       --><li><a href="/about/">关于</a></li><!--
-     --><!--
-       --><li><a target="_blank" rel="noopener" href="http://github.com/Po7ed">项目</a></li><!--
-     -->
-      </ul>
-    </nav>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>Po7ed&#39;s Blog &copy; 2024</li>
+      
+        <li>
+          
+            <a href="https://beian.miit.gov.cn/" target="_blank"></a>
+            
+        </li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+    <p><ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt tooltip" data-tooltip="UV"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark tooltip" data-tooltip="PV"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul></p>
   </div>
 </footer>
-
-    </div>
-    <!-- styles -->
-
-
-
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
-
-
-    <!-- jquery -->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
-
-
-
-
-<!-- clipboard -->
-
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="Po7ed&#39;s Blog"></a>
+  </div>
   
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
-    btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
-    });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "复制成功！");
-      e.clearSelection();
-    })
-  })
-  </script>
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
 
 
-<script src="/js/main.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
 
-<!-- search -->
 
-<!-- Baidu Analytics -->
+<script src="/js/lazyload.min.js"></script>
 
-<!-- Cloudflare Analytics -->
 
-<!-- Disqus Comments -->
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
 
-<!-- utterances Comments -->
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -361,4 +277,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
 </body>
+
 </html>
