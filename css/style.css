@@ -888,7 +888,7 @@ html {
 body {
   position: relative;
   background-color: #fff;
-  font-family: 'UbuntuMono Nerd Font', SimSun, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: Ubuntu, SimSun, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   font-size: 1.5rem;
   line-height: 1.7;
   color: #1e3e3f;
@@ -2321,7 +2321,7 @@ a.toc-link {
 }
 .article-entry pre,
 .article-entry code {
-  font-family: inherit;
+  font-family: 'UbuntuMono Nerd Font', Consolas;
   text-shadow: none;
 }
 .article-entry code {
