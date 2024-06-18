@@ -98,7 +98,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/testpath/" data-id="clxk79zyd0007s0ue85p5h8vo" class="article-share-link">
+      <a data-url="https://po7ed.github.io/testpath/" data-id="clxk7h3al0007icue1t0ofdh7" class="article-share-link">
         分享
       </a>
       
@@ -157,7 +157,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/%E6%B5%8B%E8%AF%95/" data-id="clxk79zz2000ds0uecoheawlv" class="article-share-link">
+      <a data-url="https://po7ed.github.io/%E6%B5%8B%E8%AF%95/" data-id="clxk7h3b8000dicuehlbp41uu" class="article-share-link">
         分享
       </a>
       
@@ -206,19 +206,17 @@
       
       
         <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+        
+          <p>
+            <a class="article-more-link" href="/hello-world/">
+              Read More...
+            </a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/hello-world/" data-id="clxk79zxz0001s0ueh9sl56wx" class="article-share-link">
+      <a data-url="https://po7ed.github.io/hello-world/" data-id="clxk7h3a90001icuecfic6k08" class="article-share-link">
         分享
       </a>
       
@@ -268,38 +266,17 @@
       
         <p><strong>注意：本文只针对无向图。</strong></p>
 <p>对于无向图，显然不能只考虑简单的连通关系，应该研究一些更强的连通关系：双连通。</p>
-<h2 id="前置芝士"><a href="#前置芝士" class="headerlink" title="前置芝士"></a>前置芝士</h2><ul>
-<li>点双连通分量：若一个连通分量任意两点间 都存在 至少两条不经过（除起点和终点外）相同点的路径，我们就称这个连通分量 为点双连通分量。</li>
-<li>边双连通分量：同理，若一个连通分量任意两点间 都存在 至少两条不经过 相同边的路径，我们就称这个连通分量 为边双连通分量。</li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chargedcreeper/p/tarjan-cut.html">Tarjan 求割点和桥</a></li>
-</ul>
-<p>首先要明确的是，若一点（或边）对于原图是割点（或桥），对于其任意包含该点（或边）的子图，该点（或边）仍是割点（或桥）。</p>
-<p>可以想到，在一张无向图的点双连通分量中，一个割点所连的点有且只有 $1$ 个（注意这个点必须是指定点双连通分量中的）。<strong>注意不是度数为</strong> $1$，因为可能有重边。原因是若某割点连接了一点双连通分量中的两个点，必然有删去它后该点双连通分量不连通。反之它就不是割点。</p>
-<p>同样的，在一张无向图的边双连通分量中，必然不包含桥。</p>
-<h2 id="Tarjan-求点双连通分量"><a href="#Tarjan-求点双连通分量" class="headerlink" title="Tarjan 求点双连通分量"></a>Tarjan 求点双连通分量</h2><h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>首先维护一个栈 $\mathit{stk}$，一访问点 $u$，就将 $u$ 压入 $\mathit{stk}$。</p>
-<p>书接上回，当判断一点是割点后，我们可以从 $\mathit{stk}$ 中退点，将这些点加入新的点双中，一直退到 $v$，注意不要退出 $u$，但要在当前点双中加入 $u$。</p>
-<p>因为上文说了，虽在一个点双中，割点连接的点只有 $1$ 个，即 $v$，但 $u$ 还可能在其他点双中，故不能退栈（或者你退完压回去也可以）。</p>
-<p>所以注意，不同于强连通分量和接下来要说的边双，一个点可能在多个点双中。</p>
-<p>进一步的，我们甚至可以求出删去 $u$ 后连通分量的增加个数，记为 $cut_u$。每当满足 $\mathit{low}_v\ge \mathit{dfn}_u$，$cut_u\gets cut_u+1$。因为一旦删去 $u$，$v$ 将与 $u$ 的祖先脱离联系，导致连通分量数量增加 $1$。</p>
-<p>其他与求割点相同。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>暂无。</p>
-<!-- ```cpp
-``` -->
-<h2 id="Tarjan-求边双连通分量"><a href="#Tarjan-求边双连通分量" class="headerlink" title="Tarjan 求边双连通分量"></a>Tarjan 求边双连通分量</h2><h3 id="算法流程-1"><a href="#算法流程-1" class="headerlink" title="算法流程"></a>算法流程</h3><p>还是同样的维护 $\mathit{stk}$，当判定边 $(u,v)$ 为桥后，可将 $stk$ 退到 $v$，并将退的点加入一个新的边双中。有没有发现边双比点双简单多了？是的，由于桥不能存在于边双中，故退到 $v$ 即可，没有太多可叽叽歪歪的。</p>
-<p>其他与求桥相同。</p>
-<p>$\texttt{Upd}$：实现中，为了避免根节点（可设为 $1$）所在的边双未被退栈，可以按以下实现：</p>
-<p>对 $u$ 的 dfs 即将结束时，判断 $dfn_u=low_u$（可得 $(u,\mathit{fa}_u)$ 为桥），若为真，则将 $stk$ 退到 $u$ 结束。这样的实现相当于在上文的 $v$ dfs 结束时直接退栈，而不是回溯到 $u$ 的 dfs 时判断、退栈。应为根节点没有父亲。</p>
-<p>当然你也可以依然按算法流程的实现，但要加一个超级源点 $0$ 只连接根节点，这样就能保证根节点所在边双被退栈。</p>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><p>暂无。</p>
-<!-- ```cpp
-``` -->
-<h2 id="完结撒花！"><a href="#完结撒花！" class="headerlink" title="完结撒花！"></a>完结撒花！</h2><p>Tarjan <strong>连通</strong>系列正式完结啦！<del>（除了代码）</del>。</p>
-<p>以后可能还会更 LCA、LCT、splay 的文章（挖大坑）。</p>
-
+        
+          <p>
+            <a class="article-more-link" href="/tarjan-bcc/">
+              Read More...
+            </a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-bcc/" data-id="clxk79zy70004s0uefqqeakcf" class="article-share-link">
+      <a data-url="https://po7ed.github.io/tarjan-bcc/" data-id="clxk7h3ad0003icue3r5db7bp" class="article-share-link">
         分享
       </a>
       
@@ -356,46 +333,17 @@
 <li>桥（割边）：同理，对于一条边 $(u,v)$，若删除 $(u,v)$ 会使当前无向图中连通分量增多，我们就称 $(u,v)$ 为该图的桥。</li>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chargedcreeper/p/tarjan-scc.html">Tarjan 求强连通分量和缩点</a></li>
 </ul>
-<h2 id="Tarjan-求割点"><a href="#Tarjan-求割点" class="headerlink" title="Tarjan 求割点"></a>Tarjan 求割点</h2><p>设两个数组 $\mathit{dfn}$ 和 $\mathit{low}$，表示 dfs 序和<strong>至多通过 $1$ 条非树边所能到达的点的 $\mathit{dfn}$ 的最小值</strong>。</p>
-<p>注意，这里的树边是有向边，是无向边中按 dfs 序访问的那个方向。非树边包含树边的反向边。<br>在 dfs 过程中维护这两个数组。</p>
-<p>当 $u$ 和其儿子 $v$ 满足 $\mathit{low}_v\ge \mathit{dfn}_u$ 时，称 $u$ 是割点。</p>
-<p>感性理解：因为这说明 $v$ 无法通过非树边“逃出”$u$ 的子树，只能通过 $u$，那么当 $u$ 被删除时，$v$ 就与其他点脱离了联系。</p>
-<p>但有一个特例：如果 $u$ 是 dfs 树的根，那么只要有两个或更多儿子，$u$ 就是割点，因为删除根节点后这两个或更多子树将互不相连。</p>
-<h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>dfs 到 $u$ 时：</p>
-<ul>
-<li>给 $\mathit{dfn}_u$、$\mathit{low}_u$ 赋值。</li>
-<li>遍历每个子节点 $v$：<ul>
-<li>如果未被访问过，就先 dfs，然后更新 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{low}_v)$。</li>
-<li>如果访问过，就更新 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{dfn}_v)$。</li>
-<li>如果你想知道为什么这样更新，请看<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chargedcreeper/p/tarjan-scc.html">这个</a>。</li>
-<li>如果满足 $\mathit{low}_v\ge \mathit{dfn}_u$，将 $u$ 标记为割点。但要特判根节点。</li>
-</ul>
-</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[<span class="number">21145</span>];<span class="comment">// 边表</span></span><br><span class="line">bitset&lt;20008&gt; cut;<span class="comment">// 标记是否为割点</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dfn[<span class="number">21145</span>],low[<span class="number">21145</span>],cnt=<span class="number">1</span>,root;<span class="comment">// cnt：时间戳，root：当前 dfs 树的根</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u=root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> chd=<span class="number">0</span>;<span class="comment">// 孩子数量</span></span><br><span class="line">	low[u]=dfn[u]=cnt++;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> v:e[u])<span class="comment">// 遍历所有孩子</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])<span class="comment">// 若未遍历过</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v);</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],low[v]);<span class="comment">// 更新 low</span></span><br><span class="line">			<span class="keyword">if</span>(low[v]&gt;=dfn[u])<span class="comment">// 判断是否为割点</span></span><br><span class="line">			&#123;</span><br><span class="line">				cut[u]=<span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			chd++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],dfn[v]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(u==root)<span class="comment">// 特判是否为根节点</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(chd&gt;=<span class="number">2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			cut[u]=<span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			cut[u]=<span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Tarjan-求桥"><a href="#Tarjan-求桥" class="headerlink" title="Tarjan 求桥"></a>Tarjan 求桥</h2><p>求桥时，需要稍微修改 $\mathit{low}$ 的定义：那条非树边不得是树边的反向边（即不能从儿子走到父亲）。原因下面解释。</p>
-<p>如果边 $(u,v)$ 满足 $\mathit{dfn}_u&lt;\mathit{low}_v$，那么边 $(u,v)$ 是桥。</p>
-<p>证明：</p>
-<p>如果 $(u,v)$ 不是桥，那么根据桥的定义一定有另一条路径可使 $v$ 到达 $u$，而这只能通过走返祖边实现，于是 $\mathit{dfn}_u\ge \mathit{low}_v$，与条件相悖。</p>
-<p>同时，因为 $(u,v)$ 在检查是否是桥的过程中应假设 $(u,v)$ 被删除，所以 $(u,v)$ 正走反走都不行，于是限定不能走树边的反向边，否则一个桥都找不到。</p>
-<p>注意：<strong>重边不能忽略，因此在 dfs 时不能传父节点，应传父节点连过来的边。</strong></p>
-<h3 id="算法流程-1"><a href="#算法流程-1" class="headerlink" title="算法流程"></a>算法流程</h3><p>dfs 到 $u$ 时：</p>
-<ul>
-<li>给 $\mathit{dfn}_u$、$\mathit{low}_u$ 赋值。</li>
-<li>遍历每个子节点 $v$，如果 $(u,v)$ 不是来时的边：<ul>
-<li>如果未被访问过，就先 dfs，然后更新 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{low}_v)$。<ul>
-<li>如果满足 $\mathit{low}_v&gt;\mathit{dfn}_u$，将 $(u,v)$ 标记为桥。</li>
-</ul>
-</li>
-<li>如果访问过，就更新 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{dfn}_v)$。</li>
-</ul>
-</li>
-</ul>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m;</span><br><span class="line">vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;&gt; e[<span class="number">21145</span>];<span class="comment">// 边表，pair存，.first 是连向的点的编号，.second 是边的编号</span></span><br><span class="line">bitset&lt;200008&gt; cut;<span class="comment">// 标记是否为桥</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> edgecnt=<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">addedge</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	e[u].<span class="built_in">push_back</span>(&#123;v,edgecnt&#125;);</span><br><span class="line">	e[v].<span class="built_in">push_back</span>(&#123;u,edgecnt++&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dfn[<span class="number">21145</span>],low[<span class="number">21145</span>],cnt=<span class="number">1</span>,root;<span class="comment">// cnt：时间戳，root：当前 dfs 树的根</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u=root,<span class="type">int</span> pre=<span class="number">0</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=cnt++;</span><br><span class="line">	<span class="keyword">for</span>(pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; to:e[u])<span class="comment">// 遍历所有孩子</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(to.second==pre)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">int</span> v=to.first;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])<span class="comment">// 若未遍历过</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v,to.second);</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],low[v]);<span class="comment">// 更新 low</span></span><br><span class="line">			<span class="keyword">if</span>(low[v]&gt;dfn[u])<span class="comment">// 判断是否为桥</span></span><br><span class="line">			&#123;</span><br><span class="line">				cut[to.second]=<span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],dfn[v]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <p>
+            <a class="article-more-link" href="/tarjan-cut/">
+              Read More...
+            </a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-cut/" data-id="clxk79zy40003s0ueasq04tg0" class="article-share-link">
+      <a data-url="https://po7ed.github.io/tarjan-cut/" data-id="clxk7h3ag0004icue2xpafvot" class="article-share-link">
         分享
       </a>
       
@@ -465,41 +413,17 @@
 <ul>
 <li>某个强连通分量的根：这个强连通分量重 dfs 序最小的节点。</li>
 </ul>
-<h2 id="Tarjan-算法"><a href="#Tarjan-算法" class="headerlink" title="Tarjan 算法"></a>Tarjan 算法</h2><p>设两个数组 $\mathit{dfn}$ 和 $\mathit{low}$，分别表示 dfs 序和<strong>至多通过 $1$ 条非树边所能到达的点的 $\mathit{dfn}$ 的最小值</strong>。</p>
-<p>看下面这张图：</p>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/mvsbjut7.png" alt="image"></p>
-<p>每个节点的编号就是它的 $\mathit{dfn}$，旁边标注的数字是 $\mathit{low}$，可以自行理解一下。</p>
-<p>另外，我们还需要一个栈 $\mathit{stk}$ 存节点。</p>
-<h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>Tarjan 是在 dfs 中实现的，每次访问到当前节点 $u$，就将它压入 $\mathit{stk}$ 中。随后访问所有相邻的点 $v$。</p>
-<ul>
-<li><p>如果没访问过，说明 $(u,v)$ 是一条树边，继续 dfs。</p>
-<p>  dfs $v$ 的子树结束后，更新 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{low}_v)$。因为根据 $\mathit{low}$ 的定义，走多少条树边都没关系，而 $(u,v)$ 是一条树边，我们可以从 $u$ 走到 $v$ 后再继续往上爬。也就是说，$v$ 能到的 $\mathit{low}_v$，$u$ 也能到。于是更新。</p>
-</li>
-<li>如果 $v$ 已被访问过且已属于另一个 SCC，说明 $(u,v)$ 是一条横插边，两个 SCC 无关，直接跳过，不予处理。</li>
-<li><p>如果 $v$ 被访问过且在 $\mathit{stk}$ 内，说明 $(u,v)$ 是一条返祖边，更新 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{dfn}_v)$。</p>
-<p>  因为 $\mathit{low}$ 的定义为仅通过 $1$ 条非树边，故可以直接走返祖边 $(u,v)$，如果 $\mathit{dfn}_v$ 比 $\mathit{low}_u$ 小，则更新。</p>
-<p>  关于为什么不是 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{low}_v)$，因为 $\mathit{low}_v$ 可能已经经过了一条非树边，如果再走返祖边 $(u,v)$，就可能走了两条非树边，与 $\mathit{low}$ 的定义相悖。（其实这样些也可以得到正确答案，但是求割点时就会错。）</p>
-</li>
-<li><p>然后判断 $u$ 是否是根：若 $\mathit{dfn}_u=\mathit{low}_u$，则是当前 SCC 的根，然后退栈到 $u$，保存答案。</p>
-<p>  因为 $\mathit{dfn}_u=\mathit{low}_u$，所以 $u$ 的子树内的所有点都不能通过返祖边到达 $\mathit{dfn}$ 比 $u$ 小的点（否则可以通过树边到达这些子节点，然后走返祖边。使 $\mathit{low}_u&lt;\mathit{dfn}_u$。）</p>
-<p>  关于为什么跳出子树至多经过 $1$ 条非树边：如果有 $2$ 条甚至更多，必然有走的最后一条边跳出了子树。那么跳出子树前的点必然在子树内，可以走树边到达，故至多（其实是要且只要）走 $1$ 条非树边。</p>
-</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[<span class="number">11451</span>],stk;<span class="comment">// e：边表</span></span><br><span class="line"><span class="type">int</span> bel[<span class="number">11451</span>];<span class="comment">// bel[i] 表示 i 属于哪个 SCC（编号）</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; scc=&#123;&#123;&#125;&#125;;<span class="comment">// 存每个强连通分量的点的编号</span></span><br><span class="line"><span class="type">int</span> cnt=<span class="number">1</span>,dfn[<span class="number">11451</span>],low[<span class="number">11451</span>];<span class="comment">// cnt：SCC数量（+1）</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dfncnt=<span class="number">1</span>;<span class="comment">// 时间戳</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[u]=low[u]=dfncnt++;</span><br><span class="line">	stk.<span class="built_in">push_back</span>(u);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> v:e[u])<span class="comment">// 范围 for，遍历邻居</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])<span class="comment">// 未访问</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v);</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],low[v]);<span class="comment">// 访问并更新</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(!bel[v])<span class="comment">// in stk</span></span><br><span class="line">		&#123;</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],dfn[v]);<span class="comment">// 单纯更新</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(low[u]==dfn[u])<span class="comment">// 是当前 SCC 的根</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> t;</span><br><span class="line">		scc.<span class="built_in">push_back</span>(&#123;&#125;);</span><br><span class="line">		<span class="keyword">while</span>(stk.<span class="built_in">back</span>()!=u)<span class="comment">// 退栈到 u</span></span><br><span class="line">		&#123;</span><br><span class="line">			t=stk.<span class="built_in">back</span>();</span><br><span class="line">			stk.<span class="built_in">pop_back</span>();</span><br><span class="line">			scc[cnt].<span class="built_in">push_back</span>(t);<span class="comment">// 保存</span></span><br><span class="line">			bel[t]=cnt;</span><br><span class="line">		&#125;</span><br><span class="line">		scc[cnt].<span class="built_in">push_back</span>(u);</span><br><span class="line">		<span class="built_in">sort</span>(scc[cnt].<span class="built_in">begin</span>(),scc[cnt].<span class="built_in">end</span>());</span><br><span class="line">		bel[u]=cnt++;</span><br><span class="line">		stk.<span class="built_in">pop_back</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意图可能不连通，所以主函数里要加上：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(!dfn[i])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">tarjan</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>每次都调用一遍 <code>tarjan</code>。</p>
-<h2 id="缩点"><a href="#缩点" class="headerlink" title="缩点"></a>缩点</h2><p>缩点很好理解，就是将每个强连通分量中的点的信息合并，缩成一个点，形成一个 DAG（有向无环图）。</p>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">&#123;</span><br><span class="line">	newval[bel[i]]+=val[i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j:e[i])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(bel[i]!=bel[j])</span><br><span class="line">		&#123;</span><br><span class="line">			newe[bel[i]].<span class="built_in">push_back</span>(bel[j]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中 <code>e</code> 为原图，<code>newe</code> 为新图，<code>val</code> 为原图点权（或者什么类似点权的值），<code>newval</code> 为新图点权。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/349530425" title="推荐 ta 的文章！">这位大佬的博客</a></li>
-</ol>
-
+        
+          <p>
+            <a class="article-more-link" href="/tarjan-scc/">
+              Read More...
+            </a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-scc/" data-id="clxk79zyb0006s0ue1g4ae4j1" class="article-share-link">
+      <a data-url="https://po7ed.github.io/tarjan-scc/" data-id="clxk7h3ak0006icue0uqfdu5w" class="article-share-link">
         分享
       </a>
       
@@ -560,15 +484,15 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/archives">archive_a</a>
+      <a class="nav-item-link" href="/archives">Archives</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/categories">category</a>
+      <a class="nav-item-link" href="/categories">Categories</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/tags">tags</a>
+      <a class="nav-item-link" href="/tags">Tags</a>
     </li>
     
     <li class="nav-item">
