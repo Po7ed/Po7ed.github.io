@@ -1,75 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang=zh>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  
-  
-  <title>
-    Tarjan 求割点和桥 |
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="欢迎批评指正！ 注意：本文只针对无向图。 前置芝士 割点：对于一个点 $u$，若删除 $u$ 会使当前无向图中连通分量增多，我们就称 $u$ 为该图的割点。 桥（割边）：同理，对于一条边 $(u,v)$，若删除 $(u,v)$ 会使当前无向图中连通分量增多，我们就称 $(u,v)$ 为该图的桥。 Tarjan 求强连通分量和缩点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tarjan 求割点和桥">
+<meta property="og:url" content="https://po7ed.github.io/tarjan-cut/index.html">
+<meta property="og:site_name" content="Po7ed&#39;s Blog">
+<meta property="og:description" content="欢迎批评指正！ 注意：本文只针对无向图。 前置芝士 割点：对于一个点 $u$，若删除 $u$ 会使当前无向图中连通分量增多，我们就称 $u$ 为该图的割点。 桥（割边）：同理，对于一条边 $(u,v)$，若删除 $(u,v)$ 会使当前无向图中连通分量增多，我们就称 $(u,v)$ 为该图的桥。 Tarjan 求强连通分量和缩点">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-29T03:54:00.000Z">
+<meta property="article:modified_time" content="2024-06-18T09:31:57.254Z">
+<meta property="article:author" content="Po7ed">
+<meta property="article:tag" content="Algorithms">
+<meta name="twitter:card" content="summary">
     
-    Po7ed&#39;s Blog
-  </title>
-  <!-- Icon -->
-  
-    <link rel="shortcut icon" href="/favicon.ico">
     
-  
+      
+        
+          <link rel="shortcut icon" href="/images/ironpickaxe.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/ironpickaxe192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/ironpickaxe180x180.png">
+        
+      
+    
+    <!-- title -->
+    <title>Tarjan 求割点和桥</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
 <link rel="stylesheet" href="/css/style.css">
 
-  
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
-<script src="/js/pace.min.js"></script>
-
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
 <meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Po7ed's Blog" type="application/atom+xml">
 </head>
 
-<body>
-  <main class="content">
-    <section class="outer">
-  <article id="post-tarjan-cut" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
+<body class="max-width mx-auto px3 ltr">    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/Po7ed">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/tarjan-bcc/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/tarjan-scc/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://po7ed.github.io/tarjan-cut/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://po7ed.github.io/tarjan-cut/&text=Tarjan 求割点和桥"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://po7ed.github.io/tarjan-cut/&title=Tarjan 求割点和桥"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://po7ed.github.io/tarjan-cut/&is_video=false&description=Tarjan 求割点和桥"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Tarjan 求割点和桥&body=Check out this article: https://po7ed.github.io/tarjan-cut/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://po7ed.github.io/tarjan-cut/&title=Tarjan 求割点和桥"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://po7ed.github.io/tarjan-cut/&title=Tarjan 求割点和桥"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://po7ed.github.io/tarjan-cut/&title=Tarjan 求割点和桥"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://po7ed.github.io/tarjan-cut/&title=Tarjan 求割点和桥"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://po7ed.github.io/tarjan-cut/&name=Tarjan 求割点和桥&description=&lt;p&gt;&lt;strong&gt;欢迎批评指正！&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：本文只针对无向图。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;前置芝士&#34;&gt;&lt;a href=&#34;#前置芝士&#34; class=&#34;headerlink&#34; title=&#34;前置芝士&#34;&gt;&lt;/a&gt;前置芝士&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;割点：对于一个点 $u$，若删除 $u$ 会使当前无向图中连通分量增多，我们就称 $u$ 为该图的割点。&lt;/li&gt;
+&lt;li&gt;桥（割边）：同理，对于一条边 $(u,v)$，若删除 $(u,v)$ 会使当前无向图中连通分量增多，我们就称 $(u,v)$ 为该图的桥。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cnblogs.com/chargedcreeper/p/tarjan-scc.html&#34;&gt;Tarjan 求强连通分量和缩点&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://po7ed.github.io/tarjan-cut/&t=Tarjan 求割点和桥"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h1 class="article-title" itemprop="name">
-    Tarjan 求割点和桥
-  </h1>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/tarjan-cut/" class="article-date">
-  <time datetime="2023-08-29T03:54:00.000Z" itemprop="datePublished">2023-08-29</time>
-</a>
-      
     </div>
     
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E8%8A%9D%E5%A3%AB"><span class="toc-number">1.</span> <span class="toc-text">前置芝士</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan-%E6%B1%82%E5%89%B2%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">Tarjan 求割点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan-%E6%B1%82%E6%A1%A5"><span class="toc-number">3.</span> <span class="toc-text">Tarjan 求桥</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B-1"><span class="toc-number">3.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-number">3.2.</span> <span class="toc-text">代码</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
 
     
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
     
-<div class="tocbot"></div>
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Tarjan 求割点和桥
+    </h1>
 
-    
 
-    <div class="article-entry" itemprop="articleBody">
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Po7ed</span>
+      </span>
       
+    <div class="postdate">
       
+        <time datetime="2023-08-29T03:54:00.000Z" class="dt-published" itemprop="datePublished">2023-08-29</time>
+        
       
-        <p><strong>欢迎批评指正！</strong></p>
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Algorithms/" rel="tag">Algorithms</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p><strong>欢迎批评指正！</strong></p>
 <p><strong>注意：本文只针对无向图。</strong></p>
 <h2 id="前置芝士"><a href="#前置芝士" class="headerlink" title="前置芝士"></a>前置芝士</h2><ul>
 <li>割点：对于一个点 $u$，若删除 $u$ 会使当前无向图中连通分量增多，我们就称 $u$ 为该图的割点。</li>
@@ -113,174 +222,153 @@
 </li>
 </ul>
 <h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m;</span><br><span class="line">vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;&gt; e[<span class="number">21145</span>];<span class="comment">// 边表，pair存，.first 是连向的点的编号，.second 是边的编号</span></span><br><span class="line">bitset&lt;200008&gt; cut;<span class="comment">// 标记是否为桥</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> edgecnt=<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">addedge</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	e[u].<span class="built_in">push_back</span>(&#123;v,edgecnt&#125;);</span><br><span class="line">	e[v].<span class="built_in">push_back</span>(&#123;u,edgecnt++&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dfn[<span class="number">21145</span>],low[<span class="number">21145</span>],cnt=<span class="number">1</span>,root;<span class="comment">// cnt：时间戳，root：当前 dfs 树的根</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u=root,<span class="type">int</span> pre=<span class="number">0</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=cnt++;</span><br><span class="line">	<span class="keyword">for</span>(pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; to:e[u])<span class="comment">// 遍历所有孩子</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(to.second==pre)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">int</span> v=to.first;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])<span class="comment">// 若未遍历过</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v,to.second);</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],low[v]);<span class="comment">// 更新 low</span></span><br><span class="line">			<span class="keyword">if</span>(low[v]&gt;dfn[u])<span class="comment">// 判断是否为桥</span></span><br><span class="line">			&#123;</span><br><span class="line">				cut[to.second]=<span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],dfn[v]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-cut/" data-id="clxk7h3ag0004icue2xpafvot" class="article-share-link">
-        分享
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
+  </div>
+</article>
 
-    </footer>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a href="/search/">搜索</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/Po7ed">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E8%8A%9D%E5%A3%AB"><span class="toc-number">1.</span> <span class="toc-text">前置芝士</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan-%E6%B1%82%E5%89%B2%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">Tarjan 求割点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan-%E6%B1%82%E6%A1%A5"><span class="toc-number">3.</span> <span class="toc-text">Tarjan 求桥</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B-1"><span class="toc-number">3.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-number">3.2.</span> <span class="toc-text">代码</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://po7ed.github.io/tarjan-cut/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://po7ed.github.io/tarjan-cut/&text=Tarjan 求割点和桥"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://po7ed.github.io/tarjan-cut/&title=Tarjan 求割点和桥"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://po7ed.github.io/tarjan-cut/&is_video=false&description=Tarjan 求割点和桥"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Tarjan 求割点和桥&body=Check out this article: https://po7ed.github.io/tarjan-cut/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://po7ed.github.io/tarjan-cut/&title=Tarjan 求割点和桥"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://po7ed.github.io/tarjan-cut/&title=Tarjan 求割点和桥"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://po7ed.github.io/tarjan-cut/&title=Tarjan 求割点和桥"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://po7ed.github.io/tarjan-cut/&title=Tarjan 求割点和桥"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://po7ed.github.io/tarjan-cut/&name=Tarjan 求割点和桥&description=&lt;p&gt;&lt;strong&gt;欢迎批评指正！&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：本文只针对无向图。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;前置芝士&#34;&gt;&lt;a href=&#34;#前置芝士&#34; class=&#34;headerlink&#34; title=&#34;前置芝士&#34;&gt;&lt;/a&gt;前置芝士&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;割点：对于一个点 $u$，若删除 $u$ 会使当前无向图中连通分量增多，我们就称 $u$ 为该图的割点。&lt;/li&gt;
+&lt;li&gt;桥（割边）：同理，对于一条边 $(u,v)$，若删除 $(u,v)$ 会使当前无向图中连通分量增多，我们就称 $(u,v)$ 为该图的桥。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cnblogs.com/chargedcreeper/p/tarjan-scc.html&#34;&gt;Tarjan 求强连通分量和缩点&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://po7ed.github.io/tarjan-cut/&t=Tarjan 求割点和桥"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
 
   </div>
+</div>
 
-  
-  
-<nav class="article-nav">
-  
-  <a href="/tarjan-bcc/" class="article-nav-link">
-    <strong class="article-nav-caption">前一篇</strong>
-    <div class="article-nav-title">
-      
-      Tarjan 求双连通分量（点双连通分量、边双连通分量）
-      
-    </div>
-  </a>
-  
-  
-  <a href="/tarjan-scc/" class="article-nav-link">
-    <strong class="article-nav-caption">后一篇</strong>
-    <div class="article-nav-title">Tarjan 求强连通分量和缩点</div>
-  </a>
-  
-</nav>
-
-  
-
-  
-  
-  
-  
-
-</article>
-</section>
-    <footer class="footer">
-  <div class="outer">
-    <ul class="list-inline">
-      <li>Po7ed&#39;s Blog &copy; 2024</li>
-      
-        <li>
-          
-            <a href="https://beian.miit.gov.cn/" target="_blank"></a>
-            
-        </li>
-      
-      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
-      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
-    </ul>
-    <p><ul class="list-inline">
-  
-  <li><i class="fe fe-smile-alt tooltip" data-tooltip="UV"></i> <span id="busuanzi_value_site_uv"></span></li>
-  
-  <li><i class="fe fe-bookmark tooltip" data-tooltip="PV"></i> <span id="busuanzi_value_page_pv"></span></li>
-  
-</ul></p>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2024
+    Po7ed
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/Po7ed">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
   </div>
 </footer>
-  </main>
-  <aside class="sidebar">
-    <button class="navbar-toggle"></button>
-<nav class="navbar">
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
   
-  <div class="logo">
-    <a href="/"><img src="/images/hexo.svg" alt="Po7ed&#39;s Blog"></a>
-  </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
   
-  <ul class="nav nav-main">
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/">Home</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/archives">Archives</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/categories">Categories</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/tags">Tags</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/about">About</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="搜索">
-        <i class="fe fe-search"></i>
-        搜索
-      </a>
-    </li>
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      <div class="totop" id="totop">
-  <i class="fe fe-rocket"></i>
-</div>
-    </li>
-    <li class="nav-item">
-      
-      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-        <i class="fe fe-feed"></i>
-      </a>
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-  </aside>
-  
-<script src="/js/jquery-2.0.3.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
 
 
-<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-<script src="/js/lazyload.min.js"></script>
+<!-- Baidu Analytics -->
 
+<!-- Cloudflare Analytics -->
 
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
+<!-- Disqus Comments -->
 
-
-
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-
-<script src="/js/tocbot.min.js"></script>
-
-
-<script>
-  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
-  tocbot.init({
-    tocSelector: '.tocbot',
-    contentSelector: '.article-entry',
-    headingSelector: 'h1, h2, h3, h4, h5, h6',
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    positionFixedSelector: '.tocbot',
-    positionFixedClass: 'is-position-fixed',
-    fixedSidebarOffset: 'auto',
-  });
-</script>
-
-
-
-<script src="/js/ocean.js"></script>
+<!-- utterances Comments -->
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -299,5 +387,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
 </body>
-
 </html>
