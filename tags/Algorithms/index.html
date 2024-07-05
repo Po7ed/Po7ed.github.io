@@ -153,22 +153,6 @@
 <hr>
 <p><strong>欢迎批评指正！</strong></p>
 <p><strong>注意：本文只针对有向图。</strong></p>
-<h2 id="前置芝士"><a href="#前置芝士" class="headerlink" title="前置芝士"></a>前置芝士</h2><ul>
-<li>什么是<strong>强连通分量</strong>（SCC）？<br>强连通分量，一般指 <em>有向图的极大强连通子图</em>，在这些子图中，<strong>所有点双向可达</strong>。</li>
-<li>dfs 序：即 dfs 过程中访问点的顺序。</li>
-<li>dfs 生成树：由 <em>dfs 过程中访问的边组成的边集</em> 和 <em>原图的点集</em> 组成的树。</li>
-<li>树边，非树边：属于 <em>dfs 过程中访问的边</em> 为树边，否则为非树边。</li>
-</ul>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/jmxeajyk.png" alt="image"></p>
-<ul>
-<li>返祖边（反向边）：从孩子连接到祖先的边。</li>
-<li>前向边：从祖先连接到孩子的边。</li>
-<li>横插边：除返祖边和前向边之外的非树边。（连接没有祖孙关系的两点的边。）</li>
-</ul>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/h861nfw4.png" alt="image"></p>
-<ul>
-<li>某个强连通分量的根：这个强连通分量重 dfs 序最小的节点。</li>
-</ul>
     
     
     
