@@ -8,6 +8,7 @@
   
   
   <title>
+    最大流与最小割 |
     
     Po7ed&#39;s Blog
   </title>
@@ -31,35 +32,8 @@
 
 <body>
   <main class="content">
-    <section class="jumbotron">
-  <div class="video">
-    
-    <div class="video-frame">
-      <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
-    </div>
-    
-    <div class="video-media">
-      <img src="https://cdn.luogu.com.cn/upload/image_hosting/fyieznn7.png" style="object-fit: cover;">
-      <div class="video-overlay"></div>
-    </div>
-    <div class="video-inner text-center text-white">
-      <h1><a href="/">Po7ed&#39;s Blog</a></h1>
-      <p></p>
-      <div><img src="/images/hexo-inverted.svg" class="brand" alt="Po7ed&#39;s Blog"></div>
-    </div>
-    <div class="video-learn-more">
-      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
-    </div>
-  </div>
-</section>
-<div id="landingpage">
-  <section class="outer">
-  <article class="articles">
-    
-    <h1 class="page-type-title"></h1>
-    
-    
-    <article id="post-combinatorics" class="article article-type-post" itemscope
+    <section class="outer">
+  <article id="post-max_flow-min_cut" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -67,756 +41,9 @@
     <header class="article-header">
       
   
-  <h2 class="article-title" itemprop="name">
-    <a href="/combinatorics/">组合数学</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/combinatorics/" class="article-date">
-  <time datetime="2024-06-19T04:26:00.000Z" itemprop="datePublished">2024-06-19</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-      
-        <p>设 $0!=0^0=1$。</p>
-<p>施工中。有部分空缺。</p>
-<h2 id="加法-amp-乘法原理"><a href="#加法-amp-乘法原理" class="headerlink" title="加法 &amp; 乘法原理"></a>加法 &amp; 乘法原理</h2><h3 id="加法原理"><a href="#加法原理" class="headerlink" title="加法原理"></a>加法原理</h3><p>完成一个任务有 $n$ 类办法，第 $i$ 类办法有 $a_i$ 个方法，则完成该任务共有 $\sum_{i=1}^{n}a_i$ 种不同的方法。</p>
-<h3 id="乘法原理"><a href="#乘法原理" class="headerlink" title="乘法原理"></a>乘法原理</h3><p>完成一个任务有 $n$ 个步骤，第 $i$ 个步骤有 $a_i$ 个方法，则完成该任务共有 $\prod_{i=1}^{n}a_i$ 种不同的方法。</p>
-<h2 id="排列-amp-组合数"><a href="#排列-amp-组合数" class="headerlink" title="排列 &amp; 组合数"></a>排列 &amp; 组合数</h2><h3 id="排列数"><a href="#排列数" class="headerlink" title="排列数"></a>排列数</h3><p>从 $n$ 个互不相同的元素中取出 $m$（$m\le n$，$m,n\in\Bbb{N}$）个并按照一定的顺序排列，所得到的排列称为 <strong>$n$ 中取 $m$ 的一个排列</strong>。设完成这个任务的方案数（也是所得排列的个数）为 $\mathrm{A}_n^m$，有计算 $\mathrm{A}_n^m$ 的公式</p>
-<script type="math/tex; mode=display">
-\mathrm{A}_n^m=n\times (n-1)\times\cdots\times (n-(m-1))=\prod_{i=1}^{m}(n-(i-1))=\cfrac{n!}{(n-m)!}\tag{1}</script><p>$(1)$ 可以用乘法原理解释。上述任务共分 $m$ 步，其中第 $i$ 步执行“从剩余 $(n-(i-1))$ 个元素中取出 $1$ 个”，显然第 $i$ 步有 $(n-i+1)$ 个方案，于是累乘。</p>
-<h3 id="组合数"><a href="#组合数" class="headerlink" title="组合数"></a>组合数</h3><p>从 $n$ 个互不相同的元素中取出 $m$（$m\le n$，$m,n\in\Bbb{N}$）个组成集合，所得到的集合称为 <strong>$n$ 中取 $m$ 的一个组合</strong>，设所得的组合个数（重复的不计）为 $\mathrm{C}_n^m=\dbinom{n}{m}$。</p>
-<p>显然的，对于每个组合 $C$，都可以得出 $m!$ 个以 $C$ 内元素组成的排列。（只需将 $C$ 内 $m$ 个元素全排列即可。）于是，</p>
-<script type="math/tex; mode=display">
-m!\dbinom{n}{m}=\mathrm{A}_n^m</script><p>于是有计算 $\dbinom{n}{m}$ 的公式</p>
-<script type="math/tex; mode=display">
-\dbinom{n}{m}=\cfrac{\mathrm{A}_n^m}{m!}=\cfrac{n!}{(n-m)!m!}\tag{2}</script><p>在 OI 中，由于 $m&gt;n$ 的情况对于定义无意义，故设此时 $\mathrm{A}_n^m=\dbinom{n}{m}=0$，代表无方案。（一般地，无意义的情况组合、排列数均默认为 $0$。）</p>
-<h3 id="圆排列"><a href="#圆排列" class="headerlink" title="圆排列"></a>圆排列</h3><h3 id="多重组合数"><a href="#多重组合数" class="headerlink" title="多重组合数"></a>多重组合数</h3><h3 id="杨辉三角"><a href="#杨辉三角" class="headerlink" title="杨辉三角"></a>杨辉三角</h3><p>容易通过下面将要介绍的 $(3)$ 式得到杨辉三角 $\iff$ 组合数。</p>
-<p>这里给出一个表格</p>
-<script type="math/tex; mode=display">
-\text{The table of }\dbinom{n}{m}\\
-\begin{array}{|r|c|c|c|c|c|c|c|c|c|c|}\hline
-    n\backslash m&\bold{0}&\bold{1}&\bold{2}&\bold{3}&\bold{4}&\bold{5}&\bold{6}&\bold{7}&\bold{8}&\bold{9}\\\hline
-    \bold{0}&1\\\hline
-    \bold{1}&1&1\\\hline
-    \bold{2}&1&2&1\\\hline
-    \bold{3}&1&3&3&1\\\hline
-    \bold{4}&1&4&6&4&1\\\hline
-    \bold{5}&1&5&10&10&5&1\\\hline
-    \bold{6}&1&6&15&20&15&6&1\\\hline
-    \bold{7}&1&7&21&35&35&21&7&1\\\hline
-    \bold{8}&1&8&28&56&70&56&28&8&1\\\hline
-    \bold{9}&1&9&36&84&126&126&84&36&9&1\\\hline
-\end{array}</script><p>将组合数操作转化到为杨辉三角上研究是一个常用方法。下面的性质也可以结合杨辉三角理解（下面的部分可能偏形式化）。</p>
-<h2 id="组合数常见性质（公式）"><a href="#组合数常见性质（公式）" class="headerlink" title="组合数常见性质（公式）"></a>组合数常见性质（公式）</h2><p><del>方便起见，以下 $\sout{k\in\Bbb{N},k\le n}$。</del></p>
-<h3 id="对称公式"><a href="#对称公式" class="headerlink" title="对称公式"></a>对称公式</h3><script type="math/tex; mode=display">
-\dbinom{n}{k}=\dbinom{n}{n-k}\tag{3}</script><p>即对换取与不取（$C\leftrightarrows \complement_{\{1,\cdots,n\}} C$）。</p>
-<h3 id="加法公式（递推式）"><a href="#加法公式（递推式）" class="headerlink" title="加法公式（递推式）"></a>加法公式（递推式）</h3><script type="math/tex; mode=display">
-\dbinom{n}{k}=\dbinom{n-1}{k}+\dbinom{n-1}{k-1}\tag{4}</script><p>可视为最后一个元素取与不取之和。不取则从 $n-1$ 中选 $k$，取则从 $n-1$ 中选 $k-1$。</p>
-<h3 id="吸收公式"><a href="#吸收公式" class="headerlink" title="吸收公式"></a>吸收公式</h3><script type="math/tex; mode=display">
-\dbinom{n}{k}=\cfrac{n}{k}\dbinom{n-1}{k-1}\tag{5}</script><p>由通项公式 $(2)$ 可得：</p>
-<script type="math/tex; mode=display">
-\dbinom{n}{k}=\cfrac{n!}{(n-k)!k!}=\cfrac{n\times(n-1)!}{k\times(n-k)!(k-1)!}=\cfrac{n}{k}\dbinom{n-1}{k-1}</script><h3 id="二次选择"><a href="#二次选择" class="headerlink" title="二次选择"></a>二次选择</h3><script type="math/tex; mode=display">
-\dbinom{n}{m}\dbinom{m}{k}=\dbinom{n}{k}\dbinom{n-k}{m-k}\tag{6}</script><p>设 $|A|=n,|B|=m,|C|=k,C\subseteq B\subseteq A$，则</p>
-<p>从 $A$ 中选出 $B$，再从 $B$ 中选出 $C$ 的方案数 等于 先从 $A$ 中选出 $C$，然后从 $\complement_A C$ 中选出 $B’$，则 $B=B’\cup C$ 的方案数。</p>
-<p>换个角度，使用定义，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \dbinom{n}{m}\dbinom{m}{k}&=\cfrac{n!}{(n-m)!m!}\times\cfrac{m!}{(m-k)!k!}\\
-    &=\cfrac{n!}{(n-m)!}\times\cfrac{1}{(m-k)!k!}\\
-    &=\cfrac{n!}{k!}\times\cfrac{1}{(m-k)!(n-m)!}\\
-    &=\cfrac{n!}{(n-k)!k!}\times\cfrac{(n-k)!}{(m-k)!(n-m)!}\\
-    &=\dbinom{n}{k}\dbinom{n-k}{m-k}
-\end{aligned}</script><h3 id="行求和"><a href="#行求和" class="headerlink" title="行求和"></a>行求和</h3><script type="math/tex; mode=display">
-\sum_{i=0}^{n}\dbinom{n}{i}=2^n\tag{7}</script><p>即所有选择的方案数等于所有长度为 $i$ 的方案数之和（$0\le i\le n$）。</p>
-<p>换个角度，由 $(4)$ 得</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{n}\dbinom{n}{i}=\sum_{i=0}^{n}\left[\dbinom{n-1}{i-1}+\dbinom{n-1}{i}\right]=\sum_{i=-1}^{n-1}\dbinom{n-1}{i}+\sum_{i=0}^{n}\dbinom{n-1}{i}=2\sum_{i=0}^{n-1}\dbinom{n-1}{i}</script><p>即行求和等于上一行求和的两倍。$n=0$ 时，</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{n}\dbinom{n}{i}=\dbinom{0}{0}=1=2^0=2^n</script><p>故运用数学归纳法可得式 $(7)$。</p>
-<p>其实 $(7)$ 式可由二项式定理代入 $a=1,b=1$ 得到。下文会介绍。</p>
-<h3 id="带符号行求和"><a href="#带符号行求和" class="headerlink" title="带符号行求和"></a>带符号行求和</h3><script type="math/tex; mode=display">
-\sum_{i=0}^{n}(-1)^i\dbinom{n}{i}=[n=0]\tag{8}</script><p>同样由 $(4)$ 得（$n\ne 0$ 时）</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{n}(-1)^i\dbinom{n}{i}=\sum_{i=0}^{n}(-1)^i\left[\dbinom{n-1}{i-1}+\dbinom{n-1}{i}\right]=\dbinom{n-1}{-1}+\dbinom{n-1}{n}=0</script><p>上面的推导运用了类似裂项的技巧，前后两项可以消去，只剩头尾。当 $n=0$ 时，</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{n}(-1)^i\dbinom{n}{i}=(-1)^0\times\dbinom{0}{0}=1</script><p>综上可得 $(8)$。同样，其可由二项式定理代入 $a=1,b=-1$ 得到。</p>
-<h3 id="带权行求和"><a href="#带权行求和" class="headerlink" title="带权行求和"></a>带权行求和</h3><script type="math/tex; mode=display">
-\sum_{i=0}^{n}i\dbinom{n}{i}=n2^{n-1}\tag{9}</script><script type="math/tex; mode=display">
-\sum_{i=0}^{n}i^2\dbinom{n}{i}=n(n+1)2^{n-1}\tag{10}</script><h3 id="列求和"><a href="#列求和" class="headerlink" title="列求和"></a>列求和</h3><script type="math/tex; mode=display">
-\sum_{i=k}^{n}\dbinom{i}{k}=\dbinom{n+1}{k+1}\tag{11}</script><p>考虑 $\dbinom{k}{k}=\dbinom{k+1}{k+1}=1$，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \sum_{i=k}^{n}\dbinom{i}{k}&=\dbinom{k}{k}+\sum_{i=k+1}^{n}\dbinom{i}{k}\\
-    &=\dbinom{k+1}{k+1}+\sum_{i=k+1}^{n}\dbinom{i}{k}\\
-    &=\dbinom{k+1}{k+1}+\dbinom{k+1}{k}+\sum_{i=k+2}^{n}\dbinom{i}{k}\\
-    &=\dbinom{k+2}{k+1}+\sum_{i=k+2}^{n}\dbinom{i}{k}\\
-    &\quad\vdots\\
-    &=\dbinom{k+j-1}{k+1}+\sum_{i=k+j-1}^{n}\dbinom{i}{k}\\
-    &=\dbinom{k+j-1}{k+1}+\dbinom{k+j-1}{k}+\sum_{i=k+j}^{n}\dbinom{i}{k}\\
-    &=\dbinom{k+j}{k+1}+\sum_{i=k+j}^{n}\dbinom{i}{k}\\
-    &\quad\vdots\\
-    &=\dbinom{k+(n-k+1)}{k+1}+\sum_{\mathclap{i=k+(n-k+1)}}^{n}\dbinom{i}{k}\\
-    &=\dbinom{n+1}{k+1}
-\end{aligned}</script><p>很吓人？其实就是一行行地向下迭代。</p>
-<h3 id="主对角线（方向）求和"><a href="#主对角线（方向）求和" class="headerlink" title="主对角线（方向）求和"></a>主对角线（方向）求和</h3><script type="math/tex; mode=display">
-\sum_{i=0}^{k}\dbinom{n+i}{i}=\dbinom{n+k+1}{k}\tag{12}</script><p>考虑 $\dbinom{n}{0}=\dbinom{n+1}{0}=1$，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \sum_{i=0}^{k}\dbinom{n+i}{i}&=\dbinom{n}{0}+\sum_{i=1}^{k}\dbinom{n+i}{i}\\
-    &=\dbinom{n+1}{0}+\sum_{i=1}^{k}\dbinom{n+i}{i}\\
-    &=\dbinom{n+1}{0}+\dbinom{n+1}{1}+\sum_{i=2}^{k}\dbinom{n+i}{i}\\
-    &=\dbinom{n+2}{1}+\sum_{i=2}^{k}\dbinom{n+i}{i}\\
-    &\quad\vdots\\
-    &=\dbinom{n+j}{j-1}+\sum_{i=j}^{k}\dbinom{n+i}{i}\\
-    &\quad\vdots\\
-    &=\dbinom{n+(k+1)}{(k+1)-1}+\sum_{i=k+1}^{k}\dbinom{n+i}{i}\\
-    &=\dbinom{n+k+1}{k}
-\end{aligned}</script><h3 id="辅对角线（方向）求和"><a href="#辅对角线（方向）求和" class="headerlink" title="辅对角线（方向）求和"></a>辅对角线（方向）求和</h3><script type="math/tex; mode=display">
-\sum_{i=0}^{\left\lfloor\frac{n}{2}\right\rfloor}\dbinom{n-i}{i}=F_{n+1}\tag{13}</script><p>其实累加上界并不重要，即上界是比较松的，因为 $i&gt;\left\lfloor\dfrac{n}{2}\right\rfloor$ 时 $n-i&lt;i$，无意义。这里可以放大，视为 $n$，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \sum_{i=0}^{n}\dbinom{n-i}{i}&=\sum_{i=0}^{n}\left[\dbinom{n-i-1}{i}+\dbinom{n-i-1}{i-1}\right]\\
-    &=\sum_{i=0}^{n}\dbinom{n-i-1}{i}+\sum_{i=0}^{n}\dbinom{n-i-1}{i-1}\\
-    &=\sum_{i=0}^{n}\dbinom{(n-1)-i}{i}+\sum_{i=0}^{n}\dbinom{(n-2)-(i-1)}{i-1}\\
-    &=\sum_{i=0}^{n-1}\dbinom{(n-1)-i}{i}+\sum_{i=0}^{n-2}\dbinom{(n-2)-i}{i}\\
-\end{aligned}</script><p>注意到上式满足斐波那契数列的递推式，同时 $n=0$ 时式 $(11)$ 等于 $1$，$n=1$ 时式 $(13)$ 也等于 $1$，故式 $(13)$ 得证（数学归纳法）。</p>
-<h3 id="范德蒙德卷积"><a href="#范德蒙德卷积" class="headerlink" title="范德蒙德卷积"></a>范德蒙德卷积</h3><script type="math/tex; mode=display">
-\sum_{i=0}^k\binom{n}{i}\binom{m}{k-i}=\binom{n+m}{k}\tag{14}</script><p>证明使用二项式定理（设 $l=i+j$）</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \sum_{k=0}^{n+m}\binom{n+m}{k}x^k&=(x+1)^{n+m}\\
-    &=(x+1)^n(x+1)^m\\
-    &=\left[\sum_{i=0}^n\binom{n}{i}x^i\right]\left[\sum_{j=0}^m\binom{m}{j}x^j\right]\\
-    &=\sum_{i=0}^n\sum_{j=0}^m\binom{n}{i}\binom{m}{j}x^l\\
-    &=\sum_{l=0}^{n+m}\sum_{i=0}^l\binom{n}{i}\binom{m}{k-i}x^l\\
-    \sum_{k=0}^{n+m}{\color{blue}\binom{n+m}{k}}x^k&=\sum_{l=0}^{n+m}{\color{red}\sum_{i=0}^l\binom{n}{i}\binom{m}{k-i}}x^l\\
-    \binom{n+m}{k}&=\sum_{i=0}^l\binom{n}{i}\binom{m}{k-i}\\
-\end{aligned}</script><p>换个角度，考虑其组合意义。设 $|S|=n,|T|=m$，$S,T$ 中的元素每个都相同。在大小 $n+m$ 的集合 $S\cup T$ 中取出 $k$ 个元素，等价于从 $S$ 中取 $i$ 个，$T$ 中取 $k-i$ 个，合并。取法二中，枚举 $i$ 累加所有方案数，即与取法一方案数相等。</p>
-<p>而上述意义是更利于记忆的。</p>
-<h4 id="推论-1"><a href="#推论-1" class="headerlink" title="推论 $1$"></a>推论 $1$</h4><script type="math/tex; mode=display">
-\sum_{i=-a}^{b}\dbinom{n}{a+i}\dbinom{m}{b-i}=\dbinom{n+m}{a+b}\tag{15}</script><p>证明类似。同样可以用形式化证明或组合意义。</p>
-<h4 id="推论-2"><a href="#推论-2" class="headerlink" title="推论 $2$"></a>推论 $2$</h4><script type="math/tex; mode=display">
-\sum_{i=1}^{n}\dbinom{n}{i}\dbinom{n}{i-1}=\dbinom{2n}{n-1}\tag{16}</script><p>考虑转化为 $(14)$，</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}\dbinom{n}{i}\dbinom{n}{i-1}=\sum_{i=1}^{n}\dbinom{n}{n-i}\dbinom{n}{i-1}=\sum_{i=0}^{n-1}\dbinom{n}{n-1-i}\dbinom{n}{i}=\dbinom{2n}{n-1}</script><h4 id="推论-3"><a href="#推论-3" class="headerlink" title="推论 $3$"></a>推论 $3$</h4><script type="math/tex; mode=display">
-\sum_{i=0}^{n}\dbinom{n}{i}^2=\dbinom{2n}{n}\tag{17}</script><p>依然转化，</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{n}\dbinom{n}{i}^2=\sum_{i=0}^{n}\dbinom{n}{i}\dbinom{n}{n-i}=\dbinom{2n}{n}</script><h4 id="推论-4"><a href="#推论-4" class="headerlink" title="推论 $4$"></a>推论 $4$</h4><script type="math/tex; mode=display">
-\sum_{i=0}^{m}\dbinom{n}{i}\dbinom{m}{i}=\dbinom{n+m}{m}\tag{18}</script><p>还是转化</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{m}\dbinom{n}{i}\dbinom{m}{i}=\sum_{i=0}^{m}\dbinom{n}{i}\dbinom{m}{m-i}=\dbinom{n+m}{m}</script><p>其中 $\dbinom{n+m}{m}$ 是网格图计数。设 $(x,y)$ 表示 $x$ 行 $y$ 列，则从 $(0,0)$ 走到 $(n,m)$，共需向下 $n$ 步、向右 $m$ 步，总步数为 $n+m$，从中选出 $m$ 步向右即为方案数 $\dbinom{n+m}{m}$。</p>
-<p>若先走 $n$ 步，其中 $i$ 步向右，则剩下 $m$ 步需 $m-i$ 步向左，为 $\dbinom{n}{i}\dbinom{m}{m-i}$，枚举 $i$ 累加也是答案。故左右相等。</p>
-<h2 id="插板法"><a href="#插板法" class="headerlink" title="插板法"></a>插板法</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>有 $n$ 个完全相同的元素，将其分成 $k$ 份，设第 $i$ 份有 $x_i$ 个（$\sum_{i=1}^{k}x_i=n$），求方案数。</p>
-<h3 id="正整数"><a href="#正整数" class="headerlink" title="正整数"></a>正整数</h3><p>限制条件：$\forall 1\le i\le k,x_i&gt;0$。</p>
-<p>考虑将 $k-1$ 个板子插到 $n-1$ 个空中，表示将 $n$ 个元素分成 $k$ 份，由于 $n$ 个元素又是完全相同的，于是答案即为 $\dbinom{n-1}{k-1}=\dbinom{n-1}{n-k}$。</p>
-<h3 id="非负整数"><a href="#非负整数" class="headerlink" title="非负整数"></a>非负整数</h3><p>限制条件：$\forall 1\le i\le k,x_i\ge 0$。</p>
-<p>考虑加入 $k$ 个同样的元素，均分给 $k$ 份（每份都有 $1$ 个）。设现在第 $i$ 份有 $x’_i$ 个，于是有 $x’_i=x_i+1\ge 1&gt;0$，转化成了正整数情况。于是我们算出 $x’$ 的取值个数后，$x_i=x’_i-1$，即可得到 $x$ 相对应的非负整数情况。显然对于每个 $x,x’$，二者是一一对应的。</p>
-<p>于是，有答案 $\dbinom{n+k-1}{k-1}=\dbinom{n+k-1}{n}$。</p>
-<h3 id="更一般的限制情况"><a href="#更一般的限制情况" class="headerlink" title="更一般的限制情况"></a>更一般的限制情况</h3><p>限制条件：$\forall 1\le i\le k,x_i\ge a_i\ge 0$，其中设 $\sum a=\sum_{i=1}^{k}a_i\le n$。</p>
-<p>考虑转化成非负整数限制，我们从第 $i$ 份中偷走 $a_i$ 个。设现在第 $i$ 份有 $x’_i$ 个，有 $x’_i=x_i-a_i$。</p>
-<p>设</p>
-<script type="math/tex; mode=display">
-n'=\sum_{i=1}^{k}x'_i=\sum_{i=1}^{k}x_i-\sum_{i=1}^{k}a_i=n-\sum a</script><p>故 $x’$ 取值个数为</p>
-<script type="math/tex; mode=display">
-\dbinom{n'+k-1}{n'}=\dbinom{n-\sum a+k-1}{n-\sum a}</script><p>求出 $x’$ 取值个数后，将偷走的元素还回去，即可一一对应得到相同取值个数的 $x$，故答案即为上式。</p>
-<h3 id="不相邻组合个数"><a href="#不相邻组合个数" class="headerlink" title="不相邻组合个数"></a>不相邻组合个数</h3><p>从 $n$ 中选 $k$ 的组合 $C$，要求 $\forall i,j\in C,i\ne j+1$，求满足这样条件的 $C$ 的个数。</p>
-<p>考虑将选的 $k$ 个数视为板，将未选的 $n-k$ 个数视为相同的元素，将 $k$ 个板插进 $n-k+1$ 个空中（空包括两侧），满足了板两两不相邻，即问题的要求，于是答案即为 $\dbinom{n-k+1}{k}$。</p>
-<h2 id="容斥原理"><a href="#容斥原理" class="headerlink" title="容斥原理"></a>容斥原理</h2><p>对于集合 $U$ 中的元素，有 $n$ 个互不相同的属性。拥有第 $i$ 种属性的元素构成集合 $S_i$。注意一个元素可能有多个属性。</p>
-<p>我们有</p>
-<script type="math/tex; mode=display">
-\left|\bigcup_{i=1}^{n}S_i\right|=\sum_{j=1}^{n}(-1)^{j-1}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}\qquad\left|\bigcap_{i=1}^{j}S_{a(i)}\right|\tag{19}</script><p>可以通过统计每个元素贡献得证。</p>
-<p>同时若求全集 $U$ 下的集合并，可得</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \left|\bigcap_{i=1}^{n}S_i\right|&=\left|\overline{\bigcup_{i=1}^{n}\overline{S_i}}\right|\\
-    &=|U|-\left|\bigcup_{i=1}^{n}\overline{S_i}\right|\\
-    &=|U|-\sum_{j=1}^{n}(-1)^{j-1}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}\qquad\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|\\
-    &=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}\qquad\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|\tag{20}
-\end{aligned}</script><p>用容斥，<del>不过用完容斥不是又要求并了吗？</del></p>
-<h2 id="二项式定理"><a href="#二项式定理" class="headerlink" title="二项式定理"></a>二项式定理</h2><p>二项式定理阐明了一个二项多项式展开后的系数与组合数的关系</p>
-<script type="math/tex; mode=display">
-(a+b)^n=\sum_{i=0}^{n}\dbinom{n}{i}a^ib^{n-i}\tag{21}</script><p>可以用组合意义证明，比较显然。</p>
-<h2 id="二项式反演"><a href="#二项式反演" class="headerlink" title="二项式反演"></a>二项式反演</h2><blockquote>
-<p>二项式反演为一种反演形式，常用于通过 “指定某若干个” 求 “恰好若干个” 的问题。——<a target="_blank" rel="noopener" href="http://www.cnblogs.com/GXZlegend">GXZlegend</a></p>
-</blockquote>
-<h3 id="第-0-形式"><a href="#第-0-形式" class="headerlink" title="第 $0$ 形式"></a>第 $0$ 形式</h3><script type="math/tex; mode=display">
-\left|\bigcap_{i=1}^{n}\overline{S_i}\right|=|U|-\left|\bigcup_{i=1}^{n}S_i\right|=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}\qquad\left|\bigcap_{i=1}^{j}S_{a(i)}\right|\\
-\left|\bigcap_{i=1}^{n}S_i\right|=|U|-\left|\bigcup_{i=1}^{n}\overline{S_i}\right|=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}\qquad\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|</script><p>当集合的交集大小只与所交的集合的数量有关时，若设 $f(j)$ 表示任意 $j$ 个集合的补集的交集大小，$g(j)$ 表示任意 $j$ 个集合的交集大小，即</p>
-<script type="math/tex; mode=display">
-f(j)\equiv\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|\qquad(\forall 1\le a_k<a_{k+1}\le n)\\
-g(j)\equiv\left|\bigcap_{i=1}^{j}S_{a(i)}\right|\qquad(\forall 1\le a_k<a_{k+1}\le n)</script><p>代入，</p>
-<script type="math/tex; mode=display">
-f(n)=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}g(j)=\sum_{j=0}^{n}(-1)^{j}\dbinom{n}{j}g(j)\\
-g(n)=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}f(j)=\sum_{j=0}^{n}(-1)^{j}\dbinom{n}{j}f(j)</script><p>这里之所以 $|U|$ 能被吸收进 sigma 中是因为 $\cap$ 的单位元是全集 $U$。当 $j=0$ 时，$(-1)^{j}\dbinom{n}{j}g(j)=1\times 1\times g(0)=|U|$。</p>
-<p>于是我们得到了二项式反演的第 $0$ 形式：</p>
-<script type="math/tex; mode=display">
-f(n)=\sum_{j=0}^{n}(-1)^{j}\dbinom{n}{j}g(j)
-\iff
-g(n)=\sum_{j=0}^{n}(-1)^{j}\dbinom{n}{j}f(j)\tag{22}</script><h3 id="第-1-形式"><a href="#第-1-形式" class="headerlink" title="第 $1$ 形式"></a>第 $1$ 形式</h3><p>考虑设 $h(j)=(-1)^jg(j)$，代入，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    f(n)=\sum_{j=0}^{n}\dbinom{n}{j}h(j)
-    &\iff\cfrac{h(n)}{(-1)^{n}}=\sum_{j=0}^{n}(-1)^{j}\dbinom{n}{j}f(j)\\
-    &\iff h(n)=\sum_{j=0}^{n}(-1)^{n+j}\dbinom{n}{j}f(j)\\
-    &\iff h(n)=\sum_{j=0}^{n}(-1)^{n-j}\dbinom{n}{j}f(j)\\
-\end{aligned}</script><p>于是我们得到了二项式反演的第 $1$ 形式：</p>
-<script type="math/tex; mode=display">
-f(n)=\sum_{j=0}^{n}\dbinom{n}{j}h(j)
-\iff
-h(n)=\sum_{j=0}^{n}(-1)^{n-j}\dbinom{n}{j}f(j)\tag{23}</script><h3 id="第-1-5-形式"><a href="#第-1-5-形式" class="headerlink" title="第 $1.5$ 形式"></a>第 $1.5$ 形式</h3><p>第 $1$ 形式更加一般的情况，</p>
-<script type="math/tex; mode=display">
-f(n)=\sum_{j=m}^{n}\dbinom{n}{j}h(j)
-\iff
-h(n)=\sum_{j=m}^{n}(-1)^{n-j}\dbinom{n}{j}f(j)\tag{24}</script><p>考虑证明：</p>
-<p>代入（记 $k=j-i$）</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    f(n)&=\sum_{j=m}^{n}\dbinom{n}{j}\sum_{i=m}^{j}(-1)^{j-i}\dbinom{j}{i}f(i)\\
-    &=\sum_{j=m}^{n}\sum_{i=m}^{j}(-1)^{j-i}\dbinom{n}{j}\dbinom{j}{i}f(i)\\
-    &=\sum_{j=m}^{n}\sum_{i=m}^{j}(-1)^{j-i}\dbinom{n}{i}\dbinom{n-i}{j-i}f(i)\\
-    &=\sum_{i=m}^{n}\sum_{j=i}^{n}(-1)^{j-i}\dbinom{n}{i}\dbinom{n-i}{j-i}f(i)\\
-    &=\sum_{i=m}^{n}\dbinom{n}{i}f(i)\sum_{j=i}^{n}(-1)^{j-i}\dbinom{n-i}{j-i}\\
-    &=\sum_{i=m}^{n}\dbinom{n}{i}f(i)\sum_{k=0}^{n-i}(-1)^{k}\dbinom{n-i}{k}\\
-    &=\sum_{i=m}^{n}\dbinom{n}{i}f(i)[n-i=0]\\
-    &=\dbinom{n}{n}f(n)\\
-    &=f(n)&\square\\
-\end{aligned}</script><h3 id="第-2-形式"><a href="#第-2-形式" class="headerlink" title="第 $2$ 形式"></a>第 $2$ 形式</h3><script type="math/tex; mode=display">
-f(n)=\sum_{j=n}^{m}\dbinom{j}{n}g(j)
-\iff
-g(n)=\sum_{j=n}^{m}(-1)^{j-n}\dbinom{j}{n}f(j)\tag{25}</script><p>证明与第 $1.5$ 形式类似，略。<del>简称懒得写了（</del>。</p>
-<h2 id="康托展开"><a href="#康托展开" class="headerlink" title="康托展开"></a>康托展开</h2><h3 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h3><p>有一个长度为 $n$ 的排列 $P$。</p>
-<p>定义排列通过字典序比大小，即若长度为 $n$ 的排列 $A,B$ 有</p>
-<ul>
-<li>任意 $1\le j&lt;i\le n,A_j=B_j$；</li>
-<li>$A_i&lt;B_i$，</li>
-</ul>
-<p>则有排列 $A&lt;B$。这里不考虑长度不一样的情况。</p>
-<p>定义一个排列 $P$ 的排名 $rnk(P)$ 为比它小的排列数量 $+1$。</p>
-<h3 id="康托展开-1"><a href="#康托展开-1" class="headerlink" title="康托展开"></a>康托展开</h3><p>给定 $P$，求 $rnk(P)$。</p>
-<p>等价于：求长度为 $n$ 的排列 $Q$，满足 $Q&lt;P$ 的数量（$+1$）。</p>
-<p>考虑枚举定义中的 $i$。于是 $\forall 1\le j&lt;i\le n,Q_j=P_j$。那么 $Q_i$ 可以是哪些数呢？</p>
-<ul>
-<li>$Q_i&lt;P_i\implies Q_i\ne P_i\implies i\ne k$。</li>
-<li>$Q_i\ne Q_j\iff \exist k,i\le k,Q_i=P_k$。</li>
-</ul>
-<p>$\implies\exist k,i&lt;k,Q_i=P_k&lt;P_i$，故 $Q_i$ 的取值数量（记为 $f(i)$）即为</p>
-<script type="math/tex; mode=display">
-f(i)=\sum_{k=i+1}^{n}[P_k<P_i]</script><p>其中 $[X]$ 表示条件 $X$ 是真（$1$）/假（$0$）。</p>
-<p>这是典型的二维偏序问题。可以用树状数组实现。</p>
-<p>求出了 $Q_i$ 取值数量，考虑求 $Q_{i+1}\sim Q_n$ 的排列数量。</p>
-<p>由于已经满足 $Q_i&lt;P_i$，故后面 $(n-i)$ 个数可以随便排列，排列数量为 $(n-i)!$。故在 $i$ 处小于 $P$ 的排列数量为</p>
-<script type="math/tex; mode=display">
-(n-i)!\times f(i)</script><p>将所有 $i$ 的贡献相加，即可得到</p>
-<script type="math/tex; mode=display">
-rnk(P)=1+\sum_{i=1}^{n}(n-i)!\times f(i)</script><p>倒序枚举 $i$，$f(i)$ 可以使用树状数组在 $O(\log n)$ 时间计算，故该算法可以在 $O(n\log n)$ 时间内计算某个排列的排名，被称为<strong>康托展开</strong>。</p>
-<h3 id="逆康托展开"><a href="#逆康托展开" class="headerlink" title="逆康托展开"></a>逆康托展开</h3><p>排名可以逆推得到排列。</p>
-<p>但可以发现有 $n=20$ 时，全排列数量 $n!=2432902008176640000&gt;10^{18}$。</p>
-<p>所以，若题目给的排名 $rnk(P)\le 10^{18}$（不需要高精），有 $n=|P|\le 20$。</p>
-<p>于是，我们可以完成如下 $n$ 次操作：</p>
-<ul>
-<li>设 $r_0=rnk(P)-1$，集合 $S=\{1,2,\cdots,n\}$。</li>
-<li>对于第 $j$ 次操作，$r_j\gets r_{j-1}\bmod (n-j)!$，$k_j\gets\cfrac{r_{j-1}-r_j}{(n-j)!}$。</li>
-<li>从 $S$ 中取出第 $(k_j+1)$ 大的元素 $x$，有 $P_j=x$。从 $S$ 中删除 $x$。</li>
-<li>重复进行上面两步 $n$ 次。</li>
-</ul>
-<p>解释一下：</p>
-<p>每次操作从 $r_{j-1}$ 中分离出 $f(j)$，以 $j=1$ 为例</p>
-<script type="math/tex; mode=display">
-r_0=\sum_{i=1}^{n}(n-i)!\times f(i)\\
-\begin{aligned}
-    r_1&\gets r_0\bmod (n-1)!\\
-    &=\left(\sum_{i=1}^{n}(n-i)!\times f(i)\right)\bmod (n-1)!\\
-    &=\sum_{i=1}^{n}\Big((n-i)!\times f(i)\bmod (n-1)!\Big)\\
-    &=\Big((n-1)!\times f(1)\bmod (n-1)!\Big)+\sum_{i=2}^{n}\Big((n-i)!\times f(i)\bmod (n-1)!\Big)\\
-    &=\sum_{i=2}^{n}\Big((n-i)!\times f(i)\bmod (n-1)!\Big)
-\end{aligned}\\
-\begin{aligned}
-    \because & f(i)=\sum_{k=i+1}^{n}[P_k<P_i]\le n-i<n-i+1\\
-    \therefore & (n-i)!\times f(i)<(n-i)!\times (n-i+1)=(n-i+1)!\le (n-1)!\\
-    \therefore & (n-i)!\times f(i)<(n-1)!\\
-    \therefore & (n-i)!\times f(i)\bmod (n-1)!=(n-i)!\times f(i)\\
-    \therefore & r_1\gets \sum_{i=2}^{n}\Big((n-i)!\times f(i)\bmod (n-1)!\Big)=\sum_{i=2}^{n}(n-i)!\times f(i)
-\end{aligned}\\</script><p>有没有发现 $r_1$ 与 $r_0$ 几乎一致（除了 sigma 下界从 $1$ 变成 $2$）？</p>
-<p>对于 $k_1$，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    k_1&\gets\cfrac{r_0-r_1}{(n-1)!}\\
-    &=\cfrac{\sum_{i=1}^{n}(n-i)!\times f(i)-\sum_{i=2}^{n}(n-i)!\times f(i)}{(n-1)!}\\
-    &=\cfrac{(n-1)!\times f(1)}{(n-1)!}\\
-    &=f(1)
-\end{aligned}</script><p>如此这般，我们进行了完美的迭代，每次将 $f(j)$ 分离，从 $S$ 中找出合适的 $x$。然后将 $r_{j-1}$ 中 $i=j$ 那项消去（simga 上界加 $1$）。</p>
-<p>形式化地说，我们的处理方式使得有 $r_j,k_j$ 的通项公式</p>
-<script type="math/tex; mode=display">
-r_j=\sum_{i=j+1}^{n}(n-i)!\times f(i)\\
-k_j=f(j)</script><hr>
-<p>$S$ 可以用 <code>vector</code> 维护，复杂度 $O(n^2)$。因为 $n\le 20$，复杂度足够。</p>
-<p>若毒瘤出题人让 $rnk(P)&gt;10^{18}$，也不要紧。上线段树二分维护 $S$ 即可。</p>
-<h2 id="抽屉原理"><a href="#抽屉原理" class="headerlink" title="抽屉原理"></a>抽屉原理</h2><h3 id="简单情况"><a href="#简单情况" class="headerlink" title="简单情况"></a>简单情况</h3><p>对于 $n+1$ 个物品分为 $n$ 组，必存在某组分到的物品数大于 $1$ 个。</p>
-<p>显然的，可以用反证法证明。</p>
-<h3 id="一般情况"><a href="#一般情况" class="headerlink" title="一般情况"></a>一般情况</h3><p>对于 $n$ 个物品分到 $k$ 组，必存在某组分到的物品数大于等于 $\left\lceil\dfrac{n}{k}\right\rceil$ 个。</p>
-<p>反证法：若每一组均小于 $\left\lceil\dfrac{n}{k}\right\rceil$ 个，则由 $\left\lceil\dfrac{n}{k}\right\rceil&lt;\dfrac{n}{k}+1$ 可得</p>
-<script type="math/tex; mode=display">
-n\le\left(\left\lceil\dfrac{n}{k}\right\rceil-1\right)\times k<\left(\dfrac{n}{k}+1-1\right)\times k=n</script><p>矛盾。</p>
-<h2 id="错位排列"><a href="#错位排列" class="headerlink" title="错位排列"></a>错位排列</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>对于长度为 $n$ 的排列 $P$，若 $\forall 1\le i\le n,P_i\ne n$，则称它是一个错位排列。</p>
-<p>设 $D_n$ 为长度为 $n$ 的错位排列数，求 $D_n$。</p>
-<h3 id="基于容斥原理"><a href="#基于容斥原理" class="headerlink" title="基于容斥原理"></a>基于容斥原理</h3><p>考虑容斥解决。我们有全集 $U$ 为 $n$ 的全排列（$|U|=n!$），$n$ 个属性，第 $i$ 个为 $P_i\ne i$。</p>
-<p>我们有（这里去掉了 $1\le a(k)&lt;a(k+1)\le n$ 方便展示）</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    D_n&=\left|\bigcap_{i=1}^{n}S_i\right|\\
-    &=|U|-\left|\bigcup_{i=1}^{n}\overline{S_i}\right|\\
-    &=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{a(k)}\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|\\
-\end{aligned}\tag{26}</script><p>考虑上式的意义。可以发现 $\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|$ 即为满足 $P_{a(i)}=a_i$ 的排列数量，固定的共有 $j$ 位，剩下 $n-j$ 为可以随意选择，于是有 $(n-j)!$ 个排列。</p>
-<p>同时，选择出 $j$ 个 $a_i$ 方案数为 $\dbinom{n}{j}$，故</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    D_n&=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{a(k)}\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|\\
-    &=|U|+\sum_{j=1}^{n}(-1)^{j}\dbinom{n}{j}(n-j)!\\
-    &=(-1)^0\dbinom{n}{0}n!+\sum_{j=1}^{n}(-1)^{j}\cfrac{n!}{j!(n-j)!}\times (n-j)!\\
-    &=\sum_{j=0}^{n}(-1)^j\cfrac{n!}{j!}\\
-    &=n!\sum_{j=0}^{n}\cfrac{(-1)^j}{j!}\\
-\end{aligned}\tag{26}</script><p>另外，观察到式 $(26)$ 的形式与 $\mathrm{e}^x$ 类似</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \mathrm{e}^x&=\sum_{i=0}^{\infty}\cfrac{x^i}{i!}\\
-    \mathrm{e}^{-1}&=\sum_{i=0}^{\infty}\cfrac{(-1)^i}{i!}\\
-    \cfrac{n!}{\mathrm{e}}&\approx n!\sum_{i=0}^{n}\cfrac{(-1)^i}{i!}=D_n
-\end{aligned}</script><p>我们有 $D_n\approx\cfrac{n!}{\mathrm{e}}$。除了美观，没什么用。</p>
-<h3 id="基于递推"><a href="#基于递推" class="headerlink" title="基于递推"></a>基于递推</h3><p>对于 $n$ 的错排，暂且假设 $P_n=n$，有以下两种方式可以一步将 $P$ 改成错排</p>
-<ul>
-<li>若 $P_1\sim P_{n-1}$ 是错排，那么任意 $1\le i&lt;n$，交换 $P_i,P_n$ 即可。$i$ 有 $n-1$ 个可能的取值，$P_1\sim P_{n-1}$ 错排方案数为 $D_{n-1}$。</li>
-<li>若 $P_1\sim P_{n-1}$ 不是错排，有且只有一个位置 $i$，满足 $P_i=i$，那么依然交换 $P_i,P_n$。同样的，$i$ 有 $n-1$ 个可能的取值，而除 $i$ 外的其他部分为错排，方案数为 $D_{n-2}$。</li>
-</ul>
-<p>于是得到</p>
-<script type="math/tex; mode=display">
-D_n=(n-1)D_{n-1}+(n-1)D_{n-2}=(n-1)(D_{n-1}+D_{n-2})\tag{27}</script><p>另有</p>
-<script type="math/tex; mode=display">
-D_n=nD_{n-1}+(-1)^{n}</script><h2 id="常见数（列）"><a href="#常见数（列）" class="headerlink" title="常见数（列）"></a>常见数（列）</h2><h3 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>斐波那契数列的定义如下：</p>
-<script type="math/tex; mode=display">
-F_i=\begin{cases}
-    0 & i=0\\
-    1 & i=1\\
-    F_{i-1}+F_{i-2} & \text{otherwise}
-\end{cases}\tag{28}</script><p>同时我们有卢卡斯数列：</p>
-<script type="math/tex; mode=display">
-L_i=\begin{cases}
-    2 & i=0\\
-    1 & i=1\\
-    L_{i-1}+L_{i-2} & \text{otherwise}
-\end{cases}\tag{29}</script><h4 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h4><p>斐波那契数列可以 $O(n)$ 递推计算，但还有更快的计算方法。</p>
-<p>我们有斐波那契数列的通项公式：</p>
-<script type="math/tex; mode=display">
-F_n=\cfrac{\left(\frac{1+\sqrt{5}}{2}\right)^n-\left(\frac{1-\sqrt{5}}{2}\right)^n}{\sqrt{5}}\tag{30}</script><p>在模意义下有意义。平常用不到。</p>
-<p>对于卢卡斯数列：</p>
-<script type="math/tex; mode=display">
-F_n=\left(\frac{1+\sqrt{5}}{2}\right)^n+\left(\frac{1-\sqrt{5}}{2}\right)^n\tag{31}</script><p>当然，可以使用矩阵加速递推</p>
-<script type="math/tex; mode=display">
-\begin{bmatrix}
-    F_n & F_{n+1}
-\end{bmatrix}
-=
-\begin{bmatrix}
-    F_{n-1} & F_{n}
-\end{bmatrix}
-\begin{bmatrix}
-    0 & 1\\
-    1 & 1
-\end{bmatrix}
-=
-\begin{bmatrix}
-    F_0 & F_1
-\end{bmatrix}
-\begin{bmatrix}
-    0 & 1\\
-    1 & 1
-\end{bmatrix}^n
-\tag{32}</script><p>于是运用矩阵快速幂，我们可以 $O(\log n)$ 时间内计算斐波那契数列。</p>
-<p>也可以使用倍增的技巧。考虑斐波那契数列的递推式，对它进行拓展</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    F_{i+1}&=F_{i}+F_{i-1}\\
-    F_{i+2}=F_{i+1}+F_{i}&=2F_{i}+F_{i-1}\\
-    F_{i+3}=F_{i+2}+F_{i+1}&=3F_{i}+2F_{i-1}\\
-    F_{i+4}=F_{i+3}+F_{i+2}&=5F_{i}+3F_{i-1}\\
-    F_{i+5}=F_{i+4}+F_{i+3}&=8F_{i}+5F_{i-1}\\
-\end{aligned}</script><p>可得：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    F_{i+j}&=F_{j+1}F_{i}+F_{j}F_{i-1}\\
-    F_{2k}&=F_{k+1}F_{k}+F_{k}F_{k-1}=F_{k}F_{k+1}+F_{k}(F_{k+1}-F_{k})=F_{k}(2F_{k+1}-F_{k})\\
-    F_{2k+1}&=F_{k+1}F_{k+1}+F_{k}F_{k-1+1}=F_{k+1}^2+F_{k}^2
-\end{aligned}\tag{33}</script><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; <span class="title">fib</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!n)<span class="keyword">return</span> &#123;<span class="number">0</span>,<span class="number">1</span>&#125;;</span><br><span class="line">	<span class="keyword">auto</span> r=<span class="built_in">fib</span>(n&gt;&gt;<span class="number">1</span>);</span><br><span class="line">	<span class="type">int</span> c=p.first*(<span class="number">2</span>*p.second-p.first),</span><br><span class="line">		d=p.first*p.first+p.second*p.second;</span><br><span class="line">	<span class="keyword">return</span> (n&amp;<span class="number">1</span>)?&#123;d,c+d&#125;:&#123;c+d&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
-<li>$F_{n-1}F_{n+1}-F_n^2=(-1)^n$；</li>
-<li>$(33)$ 式；</li>
-<li>$\forall k\in\Bbb{N},F_n|F_{nk}$；</li>
-<li>$\forall F_a|F_b,a|b$；</li>
-<li>$\gcd(F_a,F_b)=F_{\gcd(a,b)}$；</li>
-<li>以斐波那契数列相邻两项作为输入会使欧几里德算法达到最坏复杂度。</li>
-</ul>
-<h3 id="卡特兰数"><a href="#卡特兰数" class="headerlink" title="卡特兰数"></a>卡特兰数</h3><h4 id="相关问题（应用）"><a href="#相关问题（应用）" class="headerlink" title="相关问题（应用）"></a>相关问题（应用）</h4><p>卡特兰数列 $H_n$ 一般应用于以下基本问题：</p>
-<ol>
-<li>将大小为 $n$ 的问题分解为规模之和为 $n-1$ 的两个子问题。比如二叉树的构造方案数、不相交弦本质不同方案数、凸包三角形划分方案数等。</li>
-</ol>
-<p>对于另一种看似也很基本的问题，其实可以转化为上述基本问题：</p>
-<ol>
-<li>可以抽象为平面直角坐标系上行走的问题。具体的，从 $(0,0)$ 走到 $(2n,0)$，每次从 $(x,y)$ 向右上 $(x+1,y+1)$ 或右下 $(x+1,y-1)$ 走，且不走到 $x$ 轴下方，的路径方案数。如出栈序列数、买票找零等。以出栈序列数为例，可以证明出栈序列与操作序列是一一对应的，而操作序列中入栈操作可以视为向右上走，出栈可以视为向右下走，横坐标对应时间，纵坐标对应栈的大小，触碰 $x$ 轴对应栈空。</li>
-</ol>
-<p>如何将这种问题（2）转化为基本问题（1）呢？</p>
-<!-- ![](https://img2024.cnblogs.com/blog/3266926/202407/3266926-20240706142522054-67626412.png) -->
-<p><img src="https://img2024.cnblogs.com/blog/3266926/202407/3266926-20240706160632991-895952306.png" alt=""><br><!-- 
-\documentclass[tikz,border=3mm]{standalone}
-\usepackage{tikz}
-\usepackage{graphicx, graphics}
-\begin{document}
-    \begin{tikzpicture}
-        \draw[->] (0,0)--(8,0)node[right]{$x$};
-        \draw[->] (0,0)--(0,3)node[right]{$y$};
-        \draw (0,0)node[left]{$(0,0)$}--(1,1)node[above]{$(1,1)$};
-        \draw[dashed] (1,1)--(3,1)node[above]{$(2i-1,1)$};
-        \draw (3,1)--(4,0)node[below]{$(2i,0)$};
-        \draw[dashed] (6,0)node[below]{$(2n,0)$} arc (0:180:1);
-    \end{tikzpicture}
-\end{document}
- --></p>
-<p>对于这种问题，我们假设路径在 $(2i,0)$ 处第一次触碰 $x$ 轴（除起点外，可以是终点）。为了保证第一次，从 $(0,0)$ 到 $(2i,0)$ 的路径不能触碰 $x$ 轴。怎样保证呢？考虑先从 $(0,0)$ 走到 $(1,1)$，然后保证路径不在 $y=1$ 下方，即不会触碰 $x$ 轴，走到 $(2i-1,1)$。然后在从 $(2i-1,1)$ 走到 $(2i,0)$，完成第一次触碰。接下来可以只需不走到 $x$ 轴下方，从 $(2i,0)$ 走到 $(2n,0)$ 即可。</p>
-<p>于是我们得到第一部分路径方案数为 $H_{i-1}$，第二部分则为 $H_{n-i}$。根据乘法原理和加法原理，我们枚举每个 $i$ 即可得到</p>
-<script type="math/tex; mode=display">
-H_n=\begin{cases}
-    1&n=0,1\\
-    \sum\limits_{i=1}^{n}H_{i-1}H_{n-i}&\text{otherwise}
-\end{cases}\tag{34}</script><p>而基本问题（1）的方案数显然也是上式。于是我们就得到了二问题等价。$(34)$ 式为卡特兰数的一个递推式。</p>
-<p>注：对于问题（2），其他资料中常有等价描述：设非降路径是指只能向上或向右走的路径，求不走到对角线 $y=x$ 上方（但可以触碰）的情况下从 $(0,0)$ 到达 $(n,n)$ 的可能路径数。可以通过旋转、轴对称发现二描述等价。本文为了方便思考、与出栈序列问题相对应，采用了不同的描述方式。</p>
-<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p>我们考虑问题（2）的组合意义。若不考虑“不走到 $x$ 轴下方”这一限制条件，我们有答案 $\dbinom{2n}{n}$，即在 $2n$ 步中，选出 $n$ 步向右上，另外 $n$ 步向右下。</p>
-<p>考虑如何处理走到 $x$ 轴下方的情况。对于所有不合法路径（即走到 $x$ 轴下方的路径），我们将第一次走到 $x$ 轴下方<strong>之后的路径</strong>，即第一次触碰 $y=-1$ <strong>之后的路径</strong>，以 $y=-1$ 为对称轴翻转。<strong>之前的路径不变</strong>。可以证明，翻转后的路径均可以和原路径一一对应。</p>
-<!-- ![](https://img2024.cnblogs.com/blog/3266926/202407/3266926-20240706162600674-1209538865.png) -->
-<p><img src="https://img2024.cnblogs.com/blog/3266926/202407/3266926-20240707102716670-697915472.png" alt=""><br>&lt;!—<br>\documentclass[tikz,border=3mm]{standalone}<br>\usepackage{tikz}<br>\usepackage{graphicx, graphics}<br>\begin{document}<br>    \begin{tikzpicture}<br>        \draw[-&gt;,thick] (-1,0)—(9,0)node[right]{$x$};<br>        \draw[-&gt;,thick] (0,-1.5)—(0,1)node[right]{$y$};<br>        \draw (-0.5,-1)—(8,-1)node[right]{$y=-1$};<br>        \draw[dash dot] (0,0)—(1,1);<br>        \draw[dash dot] (1,1)—(3,-1);</p>
-<pre><code>    \draw[dashed] (3,-1)--(4,-2);
-    \draw[dashed] (4,-2)--(7,1);
-    \draw[dashed] (7,1)--(8,0);
-
-    \draw[dotted] (3,-1)--(4,0);
-    \draw[dotted] (4,0)--(7,-3);
-    \draw[dotted] (7,-3)--(8,-2);
-\end&#123;tikzpicture&#125;
-</code></pre><p>\end{document}<br> —&gt;</p>
-<p>如图，虚线为翻转前的不合法路径，点线为翻转后的路径，点划线则为二者公共部分。</p>
-<p>经过观察，发现翻转后的路径从 $(0,0)$ 走到 $(2n,-2)$。即在 $2n$ 步中选出 $n-1$ 步向右上，其他向右下的路径。方案数为 $\dbinom{2n}{n-1}$。将全部方案减去不合法方案，即得到全部合法方案数为：</p>
-<script type="math/tex; mode=display">
-H_n=\dbinom{2n}{n}-\dbinom{2n}{n-1}\tag{35}</script><p>进一步地，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    H_n&=\dbinom{2n}{n}-\dbinom{2n}{n-1}\\
-    &=\cfrac{(2n)!}{n!n!}-\cfrac{(2n!)}{(n-1)!(n+1)!}\\
-    &\text{Let $t=(n-1)!$}\\
-    &=(2n)!\left[\cfrac{1}{n^2t^2}-\cfrac{1}{n(n+1)t^2}\right]\\
-    &=\cfrac{(2n)!}{t^2n}\left(\cfrac{1}{n}-\cfrac{1}{n+1}\right)\\
-    &=\cfrac{(2n)!}{t^2n}\times\cfrac{n+1-n}{n(n+1)}\\
-    &=\cfrac{(2n)!}{t^2n^2(n+1)}\\
-    &=\cfrac{(2n)!}{n!n!(n+1)}\\
-    H_n&=\cfrac{\dbinom{2n}{n}}{n+1}
-\end{aligned}\tag{36}</script><p>更进一步，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    H_n&=\cfrac{(2n)!}{t^2n^2(n+1)}\\
-    &=\cfrac{(2n-2)!(2n)(2n-1)}{(n-1)!(n-1)!n^2(n+1)}\\
-    &=\cfrac{\dbinom{2n-2}{n-1}}{n}\times\cfrac{2n(2n-1)}{n(n+1)}\\
-    H_n&=\cfrac{H_{n-1}(4n-2)}{n+1}
-\end{aligned}\tag{37}</script><p>这便是最简单的递推式。至此，所有卡特兰数的公式证毕。</p>
-<h3 id="第二类斯特林数"><a href="#第二类斯特林数" class="headerlink" title="第二类斯特林数"></a>第二类斯特林数</h3><p>第二类斯特林数，也称斯特林子集数，记做 $\begin{Bmatrix}n\ k\end{Bmatrix}$，表示将 $n$ 个互不相同的元素，划分为 $k$ 个相同的非空子集的方案数。</p>
-<h4 id="递推式"><a href="#递推式" class="headerlink" title="递推式"></a>递推式</h4><script type="math/tex; mode=display">
-\begin{cases}
-    [n=0]&k=0\\
-    \begin{Bmatrix}n\\ k\end{Bmatrix}=\begin{Bmatrix}n-1\\ k-1\end{Bmatrix}+k\begin{Bmatrix}n-1\\ k\end{Bmatrix}&\text{otherwise}
-\end{cases}\tag{38}</script><p>可以使用组合意义证明。对于第 $n$ 个物品，</p>
-<ul>
-<li>若新开一个集合，则方案数为 $\begin{Bmatrix}n-1\ k-1\end{Bmatrix}$；</li>
-<li>若将其放入现有的 $k$ 个集合（中的任意一个），方案数为 $k\begin{Bmatrix}n-1\ k\end{Bmatrix}$。</li>
-</ul>
-<h4 id="通项公式"><a href="#通项公式" class="headerlink" title="通项公式"></a>通项公式</h4><h3 id="第一类斯特林数"><a href="#第一类斯特林数" class="headerlink" title="第一类斯特林数"></a>第一类斯特林数</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://oi-wiki.org/math/combinatorics/combination/">https://oi-wiki.org/math/combinatorics/combination/</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/GXZlegend/p/11407185.html">https://www.cnblogs.com/GXZlegend/p/11407185.html</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/combinatorics/" data-id="clyfihzgw000104izh3rv8tjv" class="article-share-link">
-        分享
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-testpath" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/testpath/">测试自定义路径</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/testpath/" class="article-date">
-  <time datetime="2024-05-04T05:05:40.000Z" itemprop="datePublished">2024-05-04</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-      
-        <p>测试自定义路径。路径名：<code>testpath</code>。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/testpath/" data-id="clyfihzhf000b04iz8ked2lkq" class="article-share-link">
-        分享
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-测试" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/%E6%B5%8B%E8%AF%95/">测试</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/%E6%B5%8B%E8%AF%95/" class="article-date">
-  <time datetime="2024-05-04T02:14:24.000Z" itemprop="datePublished">2024-05-04</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-      
-        <p>测试中文 Chinese。</p>
-        
-          <p>
-            <a class="article-more-link" href="/%E6%B5%8B%E8%AF%95/">
-              Read More...
-            </a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/%E6%B5%8B%E8%AF%95/" data-id="clyfihziq000i04izam6yexlp" class="article-share-link">
-        分享
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-hello-world" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/hello-world/">Hello World</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/hello-world/" class="article-date">
-  <time datetime="2024-05-03T10:35:00.225Z" itemprop="datePublished">2024-05-03</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-        
-          <p>
-            <a class="article-more-link" href="/hello-world/">
-              Read More...
-            </a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/hello-world/" data-id="clyfihzh1000304iz5m9q8h80" class="article-share-link">
-        分享
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-tarjan-bcc" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/tarjan-bcc/">Tarjan 求双连通分量（点双连通分量、边双连通分量）</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/tarjan-bcc/" class="article-date">
-  <time datetime="2024-04-09T12:41:00.000Z" itemprop="datePublished">2024-04-09</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-      
-        <p><strong>注意：本文只针对无向图。</strong></p>
-<p>对于无向图，显然不能只考虑简单的连通关系，应该研究一些更强的连通关系：双连通。</p>
-        
-          <p>
-            <a class="article-more-link" href="/tarjan-bcc/">
-              Read More...
-            </a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-bcc/" data-id="clyfihzhb000604izgso5ex9p" class="article-share-link">
-        分享
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-max_flow-min_cut" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/max_flow-min_cut/">最大流与最小割</a>
-  </h2>
+  <h1 class="article-title" itemprop="name">
+    最大流与最小割
+  </h1>
   
   
 
@@ -833,11 +60,13 @@ H_n=\dbinom{2n}{n}-\dbinom{2n}{n-1}\tag{35}</script><p>进一步地，</p>
     
 
     
+    
+<div class="tocbot"></div>
+
+    
 
     <div class="article-entry" itemprop="articleBody">
       
-      
-        
       
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>笔者为网络流初学者，可能文章有诸多不足，请指出。</p>
@@ -1032,148 +261,35 @@ c_f(u,v)={\color{red}\Big(c(u,v)-f(u,v)\Big)}+{\color{blue}f(v,u)}+{\color{green
   </div>
 
   
+  
+<nav class="article-nav">
+  
+  <a href="/tarjan-bcc/" class="article-nav-link">
+    <strong class="article-nav-caption">前一篇</strong>
+    <div class="article-nav-title">
+      
+      Tarjan 求双连通分量（点双连通分量、边双连通分量）
+      
+    </div>
+  </a>
+  
+  
+  <a href="/tarjan-cut/" class="article-nav-link">
+    <strong class="article-nav-caption">后一篇</strong>
+    <div class="article-nav-title">Tarjan 求割点和桥</div>
+  </a>
+  
+</nav>
 
+  
+
+  
+  
+  
   
 
 </article>
-    
-    <article id="post-tarjan-cut" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/tarjan-cut/">Tarjan 求割点和桥</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/tarjan-cut/" class="article-date">
-  <time datetime="2023-08-29T03:54:00.000Z" itemprop="datePublished">2023-08-29</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-      
-        <p><strong>欢迎批评指正！</strong></p>
-<p><strong>注意：本文只针对无向图。</strong></p>
-<h2 id="前置芝士"><a href="#前置芝士" class="headerlink" title="前置芝士"></a>前置芝士</h2><ul>
-<li>割点：对于一个点 $u$，若删除 $u$ 会使当前无向图中连通分量增多，我们就称 $u$ 为该图的割点。</li>
-<li>桥（割边）：同理，对于一条边 $(u,v)$，若删除 $(u,v)$ 会使当前无向图中连通分量增多，我们就称 $(u,v)$ 为该图的桥。</li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chargedcreeper/p/tarjan-scc.html">Tarjan 求强连通分量和缩点</a></li>
-</ul>
-        
-          <p>
-            <a class="article-more-link" href="/tarjan-cut/">
-              Read More...
-            </a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-cut/" data-id="clyfihzhc000704izh146a8jd" class="article-share-link">
-        分享
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-tarjan-scc" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/tarjan-scc/">Tarjan 求强连通分量和缩点</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/tarjan-scc/" class="article-date">
-  <time datetime="2023-08-28T05:39:00.000Z" itemprop="datePublished">2023-08-28</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-      
-        <p>$\texttt{Upd 23.8.29}$ 修正错别字、证明，添加代码和注释</p>
-<hr>
-<p><strong>欢迎批评指正！</strong></p>
-<p><strong>注意：本文只针对有向图。</strong></p>
-        
-          <p>
-            <a class="article-more-link" href="/tarjan-scc/">
-              Read More...
-            </a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-scc/" data-id="clyfihzhe000a04izdgoearsu" class="article-share-link">
-        分享
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-  </article>
-  
-
-  
 </section>
-</div>
     <footer class="footer">
   <div class="outer">
     <ul class="list-inline">
@@ -1190,9 +306,9 @@ c_f(u,v)={\color{red}\Big(c(u,v)-f(u,v)\Big)}+{\color{blue}f(v,u)}+{\color{green
     </ul>
     <p><ul class="list-inline">
   
-  <li><i class="fe fe-bar-chart tooltip" data-tooltip="PV"></i> <span id="busuanzi_value_site_pv"></span></li>
-  
   <li><i class="fe fe-smile-alt tooltip" data-tooltip="UV"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark tooltip" data-tooltip="PV"></i> <span id="busuanzi_value_page_pv"></span></li>
   
 </ul></p>
   </div>
@@ -1277,6 +393,24 @@ c_f(u,v)={\color{red}\Big(c(u,v)-f(u,v)\Big)}+{\color{blue}f(v,u)}+{\color{green
 
 
 
+
+
+<script src="/js/tocbot.min.js"></script>
+
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
 
 
 
