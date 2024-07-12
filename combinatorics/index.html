@@ -71,6 +71,7 @@
       
         <p>设 $0!=0^0=1$。</p>
 <p>施工中。有部分空缺。</p>
+<span id="more"></span>
 <h2 id="加法-amp-乘法原理"><a href="#加法-amp-乘法原理" class="headerlink" title="加法 &amp; 乘法原理"></a>加法 &amp; 乘法原理</h2><h3 id="加法原理"><a href="#加法原理" class="headerlink" title="加法原理"></a>加法原理</h3><p>完成一个任务有 $n$ 类办法，第 $i$ 类办法有 $a_i$ 个方法，则完成该任务共有 $\sum_{i=1}^{n}a_i$ 种不同的方法。</p>
 <h3 id="乘法原理"><a href="#乘法原理" class="headerlink" title="乘法原理"></a>乘法原理</h3><p>完成一个任务有 $n$ 个步骤，第 $i$ 个步骤有 $a_i$ 个方法，则完成该任务共有 $\prod_{i=1}^{n}a_i$ 种不同的方法。</p>
 <h2 id="排列-amp-组合数"><a href="#排列-amp-组合数" class="headerlink" title="排列 &amp; 组合数"></a>排列 &amp; 组合数</h2><h3 id="排列数"><a href="#排列数" class="headerlink" title="排列数"></a>排列数</h3><p>从 $n$ 个互不相同的元素中取出 $m$（$m\le n$，$m,n\in\Bbb{N}$）个并按照一定的顺序排列，所得到的排列称为 <strong>$n$ 中取 $m$ 的一个排列</strong>。设完成这个任务的方案数（也是所得排列的个数）为 $\mathrm{A}_n^m$，有计算 $\mathrm{A}_n^m$ 的公式</p>
@@ -87,20 +88,19 @@ m!\dbinom{n}{m}=\mathrm{A}_n^m</script><p>于是有计算 $\dbinom{n}{m}$ 的公
 <script type="math/tex; mode=display">
 \text{The table of }\dbinom{n}{m}\\
 \begin{array}{|r|c|c|c|c|c|c|c|c|c|c|}\hline
-    n\backslash m&\bold{0}&\bold{1}&\bold{2}&\bold{3}&\bold{4}&\bold{5}&\bold{6}&\bold{7}&\bold{8}&\bold{9}\\\hline
-    \bold{0}&1\\\hline
-    \bold{1}&1&1\\\hline
-    \bold{2}&1&2&1\\\hline
-    \bold{3}&1&3&3&1\\\hline
-    \bold{4}&1&4&6&4&1\\\hline
-    \bold{5}&1&5&10&10&5&1\\\hline
-    \bold{6}&1&6&15&20&15&6&1\\\hline
-    \bold{7}&1&7&21&35&35&21&7&1\\\hline
-    \bold{8}&1&8&28&56&70&56&28&8&1\\\hline
-    \bold{9}&1&9&36&84&126&126&84&36&9&1\\\hline
+    n\backslash m&\boldsymbol{0}&\boldsymbol{1}&\boldsymbol{2}&\boldsymbol{3}&\boldsymbol{4}&\boldsymbol{5}&\boldsymbol{6}&\boldsymbol{7}&\boldsymbol{8}&\boldsymbol{9}\\\hline
+    \boldsymbol{0}&1\\\hline
+    \boldsymbol{1}&1&1\\\hline
+    \boldsymbol{2}&1&2&1\\\hline
+    \boldsymbol{3}&1&3&3&1\\\hline
+    \boldsymbol{4}&1&4&6&4&1\\\hline
+    \boldsymbol{5}&1&5&10&10&5&1\\\hline
+    \boldsymbol{6}&1&6&15&20&15&6&1\\\hline
+    \boldsymbol{7}&1&7&21&35&35&21&7&1\\\hline
+    \boldsymbol{8}&1&8&28&56&70&56&28&8&1\\\hline
+    \boldsymbol{9}&1&9&36&84&126&126&84&36&9&1\\\hline
 \end{array}</script><p>将组合数操作转化到为杨辉三角上研究是一个常用方法。下面的性质也可以结合杨辉三角理解（下面的部分可能偏形式化）。</p>
-<h2 id="组合数常见性质（公式）"><a href="#组合数常见性质（公式）" class="headerlink" title="组合数常见性质（公式）"></a>组合数常见性质（公式）</h2><p><del>方便起见，以下 $\sout{k\in\Bbb{N},k\le n}$。</del></p>
-<h3 id="对称公式"><a href="#对称公式" class="headerlink" title="对称公式"></a>对称公式</h3><script type="math/tex; mode=display">
+<h2 id="组合数常见性质（公式）"><a href="#组合数常见性质（公式）" class="headerlink" title="组合数常见性质（公式）"></a>组合数常见性质（公式）</h2><h3 id="对称公式"><a href="#对称公式" class="headerlink" title="对称公式"></a>对称公式</h3><script type="math/tex; mode=display">
 \dbinom{n}{k}=\dbinom{n}{n-k}\tag{3}</script><p>即对换取与不取（$C\leftrightarrows \complement_{\{1,\cdots,n\}} C$）。</p>
 <h3 id="加法公式（递推式）"><a href="#加法公式（递推式）" class="headerlink" title="加法公式（递推式）"></a>加法公式（递推式）</h3><script type="math/tex; mode=display">
 \dbinom{n}{k}=\dbinom{n-1}{k}+\dbinom{n-1}{k-1}\tag{4}</script><p>可视为最后一个元素取与不取之和。不取则从 $n-1$ 中选 $k$，取则从 $n-1$ 中选 $k-1$。</p>
@@ -289,9 +289,9 @@ g(n)=\sum_{j=n}^{m}(-1)^{j-n}\dbinom{j}{n}f(j)\tag{25}</script><p>证明与第 $
 <p>考虑枚举定义中的 $i$。于是 $\forall 1\le j&lt;i\le n,Q_j=P_j$。那么 $Q_i$ 可以是哪些数呢？</p>
 <ul>
 <li>$Q_i&lt;P_i\implies Q_i\ne P_i\implies i\ne k$。</li>
-<li>$Q_i\ne Q_j\iff \exist k,i\le k,Q_i=P_k$。</li>
+<li>$Q_i\ne Q_j\iff \exists k,i\le k,Q_i=P_k$。</li>
 </ul>
-<p>$\implies\exist k,i&lt;k,Q_i=P_k&lt;P_i$，故 $Q_i$ 的取值数量（记为 $f(i)$）即为</p>
+<p>$\implies\exists k,i&lt;k,Q_i=P_k&lt;P_i$，故 $Q_i$ 的取值数量（记为 $f(i)$）即为</p>
 <script type="math/tex; mode=display">
 f(i)=\sum_{k=i+1}^{n}[P_k<P_i]</script><p>其中 $[X]$ 表示条件 $X$ 是真（$1$）/假（$0$）。</p>
 <p>这是典型的二维偏序问题。可以用树状数组实现。</p>
@@ -533,7 +533,7 @@ H_n=\dbinom{2n}{n}-\dbinom{2n}{n-1}\tag{35}</script><p>进一步地，</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/combinatorics/" data-id="clyfimaep0001igizdgek6zfd" class="article-share-link">
+      <a data-url="https://po7ed.github.io/combinatorics/" data-id="clyif00s1000164iz65lzc5pu" class="article-share-link">
         分享
       </a>
       

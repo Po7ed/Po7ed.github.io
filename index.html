@@ -95,469 +95,17 @@
       
         <p>设 $0!=0^0=1$。</p>
 <p>施工中。有部分空缺。</p>
-<h2 id="加法-amp-乘法原理"><a href="#加法-amp-乘法原理" class="headerlink" title="加法 &amp; 乘法原理"></a>加法 &amp; 乘法原理</h2><h3 id="加法原理"><a href="#加法原理" class="headerlink" title="加法原理"></a>加法原理</h3><p>完成一个任务有 $n$ 类办法，第 $i$ 类办法有 $a_i$ 个方法，则完成该任务共有 $\sum_{i=1}^{n}a_i$ 种不同的方法。</p>
-<h3 id="乘法原理"><a href="#乘法原理" class="headerlink" title="乘法原理"></a>乘法原理</h3><p>完成一个任务有 $n$ 个步骤，第 $i$ 个步骤有 $a_i$ 个方法，则完成该任务共有 $\prod_{i=1}^{n}a_i$ 种不同的方法。</p>
-<h2 id="排列-amp-组合数"><a href="#排列-amp-组合数" class="headerlink" title="排列 &amp; 组合数"></a>排列 &amp; 组合数</h2><h3 id="排列数"><a href="#排列数" class="headerlink" title="排列数"></a>排列数</h3><p>从 $n$ 个互不相同的元素中取出 $m$（$m\le n$，$m,n\in\Bbb{N}$）个并按照一定的顺序排列，所得到的排列称为 <strong>$n$ 中取 $m$ 的一个排列</strong>。设完成这个任务的方案数（也是所得排列的个数）为 $\mathrm{A}_n^m$，有计算 $\mathrm{A}_n^m$ 的公式</p>
-<script type="math/tex; mode=display">
-\mathrm{A}_n^m=n\times (n-1)\times\cdots\times (n-(m-1))=\prod_{i=1}^{m}(n-(i-1))=\cfrac{n!}{(n-m)!}\tag{1}</script><p>$(1)$ 可以用乘法原理解释。上述任务共分 $m$ 步，其中第 $i$ 步执行“从剩余 $(n-(i-1))$ 个元素中取出 $1$ 个”，显然第 $i$ 步有 $(n-i+1)$ 个方案，于是累乘。</p>
-<h3 id="组合数"><a href="#组合数" class="headerlink" title="组合数"></a>组合数</h3><p>从 $n$ 个互不相同的元素中取出 $m$（$m\le n$，$m,n\in\Bbb{N}$）个组成集合，所得到的集合称为 <strong>$n$ 中取 $m$ 的一个组合</strong>，设所得的组合个数（重复的不计）为 $\mathrm{C}_n^m=\dbinom{n}{m}$。</p>
-<p>显然的，对于每个组合 $C$，都可以得出 $m!$ 个以 $C$ 内元素组成的排列。（只需将 $C$ 内 $m$ 个元素全排列即可。）于是，</p>
-<script type="math/tex; mode=display">
-m!\dbinom{n}{m}=\mathrm{A}_n^m</script><p>于是有计算 $\dbinom{n}{m}$ 的公式</p>
-<script type="math/tex; mode=display">
-\dbinom{n}{m}=\cfrac{\mathrm{A}_n^m}{m!}=\cfrac{n!}{(n-m)!m!}\tag{2}</script><p>在 OI 中，由于 $m&gt;n$ 的情况对于定义无意义，故设此时 $\mathrm{A}_n^m=\dbinom{n}{m}=0$，代表无方案。（一般地，无意义的情况组合、排列数均默认为 $0$。）</p>
-<h3 id="圆排列"><a href="#圆排列" class="headerlink" title="圆排列"></a>圆排列</h3><h3 id="多重组合数"><a href="#多重组合数" class="headerlink" title="多重组合数"></a>多重组合数</h3><h3 id="杨辉三角"><a href="#杨辉三角" class="headerlink" title="杨辉三角"></a>杨辉三角</h3><p>容易通过下面将要介绍的 $(3)$ 式得到杨辉三角 $\iff$ 组合数。</p>
-<p>这里给出一个表格</p>
-<script type="math/tex; mode=display">
-\text{The table of }\dbinom{n}{m}\\
-\begin{array}{|r|c|c|c|c|c|c|c|c|c|c|}\hline
-    n\backslash m&\bold{0}&\bold{1}&\bold{2}&\bold{3}&\bold{4}&\bold{5}&\bold{6}&\bold{7}&\bold{8}&\bold{9}\\\hline
-    \bold{0}&1\\\hline
-    \bold{1}&1&1\\\hline
-    \bold{2}&1&2&1\\\hline
-    \bold{3}&1&3&3&1\\\hline
-    \bold{4}&1&4&6&4&1\\\hline
-    \bold{5}&1&5&10&10&5&1\\\hline
-    \bold{6}&1&6&15&20&15&6&1\\\hline
-    \bold{7}&1&7&21&35&35&21&7&1\\\hline
-    \bold{8}&1&8&28&56&70&56&28&8&1\\\hline
-    \bold{9}&1&9&36&84&126&126&84&36&9&1\\\hline
-\end{array}</script><p>将组合数操作转化到为杨辉三角上研究是一个常用方法。下面的性质也可以结合杨辉三角理解（下面的部分可能偏形式化）。</p>
-<h2 id="组合数常见性质（公式）"><a href="#组合数常见性质（公式）" class="headerlink" title="组合数常见性质（公式）"></a>组合数常见性质（公式）</h2><p><del>方便起见，以下 $\sout{k\in\Bbb{N},k\le n}$。</del></p>
-<h3 id="对称公式"><a href="#对称公式" class="headerlink" title="对称公式"></a>对称公式</h3><script type="math/tex; mode=display">
-\dbinom{n}{k}=\dbinom{n}{n-k}\tag{3}</script><p>即对换取与不取（$C\leftrightarrows \complement_{\{1,\cdots,n\}} C$）。</p>
-<h3 id="加法公式（递推式）"><a href="#加法公式（递推式）" class="headerlink" title="加法公式（递推式）"></a>加法公式（递推式）</h3><script type="math/tex; mode=display">
-\dbinom{n}{k}=\dbinom{n-1}{k}+\dbinom{n-1}{k-1}\tag{4}</script><p>可视为最后一个元素取与不取之和。不取则从 $n-1$ 中选 $k$，取则从 $n-1$ 中选 $k-1$。</p>
-<h3 id="吸收公式"><a href="#吸收公式" class="headerlink" title="吸收公式"></a>吸收公式</h3><script type="math/tex; mode=display">
-\dbinom{n}{k}=\cfrac{n}{k}\dbinom{n-1}{k-1}\tag{5}</script><p>由通项公式 $(2)$ 可得：</p>
-<script type="math/tex; mode=display">
-\dbinom{n}{k}=\cfrac{n!}{(n-k)!k!}=\cfrac{n\times(n-1)!}{k\times(n-k)!(k-1)!}=\cfrac{n}{k}\dbinom{n-1}{k-1}</script><h3 id="二次选择"><a href="#二次选择" class="headerlink" title="二次选择"></a>二次选择</h3><script type="math/tex; mode=display">
-\dbinom{n}{m}\dbinom{m}{k}=\dbinom{n}{k}\dbinom{n-k}{m-k}\tag{6}</script><p>设 $|A|=n,|B|=m,|C|=k,C\subseteq B\subseteq A$，则</p>
-<p>从 $A$ 中选出 $B$，再从 $B$ 中选出 $C$ 的方案数 等于 先从 $A$ 中选出 $C$，然后从 $\complement_A C$ 中选出 $B’$，则 $B=B’\cup C$ 的方案数。</p>
-<p>换个角度，使用定义，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \dbinom{n}{m}\dbinom{m}{k}&=\cfrac{n!}{(n-m)!m!}\times\cfrac{m!}{(m-k)!k!}\\
-    &=\cfrac{n!}{(n-m)!}\times\cfrac{1}{(m-k)!k!}\\
-    &=\cfrac{n!}{k!}\times\cfrac{1}{(m-k)!(n-m)!}\\
-    &=\cfrac{n!}{(n-k)!k!}\times\cfrac{(n-k)!}{(m-k)!(n-m)!}\\
-    &=\dbinom{n}{k}\dbinom{n-k}{m-k}
-\end{aligned}</script><h3 id="行求和"><a href="#行求和" class="headerlink" title="行求和"></a>行求和</h3><script type="math/tex; mode=display">
-\sum_{i=0}^{n}\dbinom{n}{i}=2^n\tag{7}</script><p>即所有选择的方案数等于所有长度为 $i$ 的方案数之和（$0\le i\le n$）。</p>
-<p>换个角度，由 $(4)$ 得</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{n}\dbinom{n}{i}=\sum_{i=0}^{n}\left[\dbinom{n-1}{i-1}+\dbinom{n-1}{i}\right]=\sum_{i=-1}^{n-1}\dbinom{n-1}{i}+\sum_{i=0}^{n}\dbinom{n-1}{i}=2\sum_{i=0}^{n-1}\dbinom{n-1}{i}</script><p>即行求和等于上一行求和的两倍。$n=0$ 时，</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{n}\dbinom{n}{i}=\dbinom{0}{0}=1=2^0=2^n</script><p>故运用数学归纳法可得式 $(7)$。</p>
-<p>其实 $(7)$ 式可由二项式定理代入 $a=1,b=1$ 得到。下文会介绍。</p>
-<h3 id="带符号行求和"><a href="#带符号行求和" class="headerlink" title="带符号行求和"></a>带符号行求和</h3><script type="math/tex; mode=display">
-\sum_{i=0}^{n}(-1)^i\dbinom{n}{i}=[n=0]\tag{8}</script><p>同样由 $(4)$ 得（$n\ne 0$ 时）</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{n}(-1)^i\dbinom{n}{i}=\sum_{i=0}^{n}(-1)^i\left[\dbinom{n-1}{i-1}+\dbinom{n-1}{i}\right]=\dbinom{n-1}{-1}+\dbinom{n-1}{n}=0</script><p>上面的推导运用了类似裂项的技巧，前后两项可以消去，只剩头尾。当 $n=0$ 时，</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{n}(-1)^i\dbinom{n}{i}=(-1)^0\times\dbinom{0}{0}=1</script><p>综上可得 $(8)$。同样，其可由二项式定理代入 $a=1,b=-1$ 得到。</p>
-<h3 id="带权行求和"><a href="#带权行求和" class="headerlink" title="带权行求和"></a>带权行求和</h3><script type="math/tex; mode=display">
-\sum_{i=0}^{n}i\dbinom{n}{i}=n2^{n-1}\tag{9}</script><script type="math/tex; mode=display">
-\sum_{i=0}^{n}i^2\dbinom{n}{i}=n(n+1)2^{n-1}\tag{10}</script><h3 id="列求和"><a href="#列求和" class="headerlink" title="列求和"></a>列求和</h3><script type="math/tex; mode=display">
-\sum_{i=k}^{n}\dbinom{i}{k}=\dbinom{n+1}{k+1}\tag{11}</script><p>考虑 $\dbinom{k}{k}=\dbinom{k+1}{k+1}=1$，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \sum_{i=k}^{n}\dbinom{i}{k}&=\dbinom{k}{k}+\sum_{i=k+1}^{n}\dbinom{i}{k}\\
-    &=\dbinom{k+1}{k+1}+\sum_{i=k+1}^{n}\dbinom{i}{k}\\
-    &=\dbinom{k+1}{k+1}+\dbinom{k+1}{k}+\sum_{i=k+2}^{n}\dbinom{i}{k}\\
-    &=\dbinom{k+2}{k+1}+\sum_{i=k+2}^{n}\dbinom{i}{k}\\
-    &\quad\vdots\\
-    &=\dbinom{k+j-1}{k+1}+\sum_{i=k+j-1}^{n}\dbinom{i}{k}\\
-    &=\dbinom{k+j-1}{k+1}+\dbinom{k+j-1}{k}+\sum_{i=k+j}^{n}\dbinom{i}{k}\\
-    &=\dbinom{k+j}{k+1}+\sum_{i=k+j}^{n}\dbinom{i}{k}\\
-    &\quad\vdots\\
-    &=\dbinom{k+(n-k+1)}{k+1}+\sum_{\mathclap{i=k+(n-k+1)}}^{n}\dbinom{i}{k}\\
-    &=\dbinom{n+1}{k+1}
-\end{aligned}</script><p>很吓人？其实就是一行行地向下迭代。</p>
-<h3 id="主对角线（方向）求和"><a href="#主对角线（方向）求和" class="headerlink" title="主对角线（方向）求和"></a>主对角线（方向）求和</h3><script type="math/tex; mode=display">
-\sum_{i=0}^{k}\dbinom{n+i}{i}=\dbinom{n+k+1}{k}\tag{12}</script><p>考虑 $\dbinom{n}{0}=\dbinom{n+1}{0}=1$，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \sum_{i=0}^{k}\dbinom{n+i}{i}&=\dbinom{n}{0}+\sum_{i=1}^{k}\dbinom{n+i}{i}\\
-    &=\dbinom{n+1}{0}+\sum_{i=1}^{k}\dbinom{n+i}{i}\\
-    &=\dbinom{n+1}{0}+\dbinom{n+1}{1}+\sum_{i=2}^{k}\dbinom{n+i}{i}\\
-    &=\dbinom{n+2}{1}+\sum_{i=2}^{k}\dbinom{n+i}{i}\\
-    &\quad\vdots\\
-    &=\dbinom{n+j}{j-1}+\sum_{i=j}^{k}\dbinom{n+i}{i}\\
-    &\quad\vdots\\
-    &=\dbinom{n+(k+1)}{(k+1)-1}+\sum_{i=k+1}^{k}\dbinom{n+i}{i}\\
-    &=\dbinom{n+k+1}{k}
-\end{aligned}</script><h3 id="辅对角线（方向）求和"><a href="#辅对角线（方向）求和" class="headerlink" title="辅对角线（方向）求和"></a>辅对角线（方向）求和</h3><script type="math/tex; mode=display">
-\sum_{i=0}^{\left\lfloor\frac{n}{2}\right\rfloor}\dbinom{n-i}{i}=F_{n+1}\tag{13}</script><p>其实累加上界并不重要，即上界是比较松的，因为 $i&gt;\left\lfloor\dfrac{n}{2}\right\rfloor$ 时 $n-i&lt;i$，无意义。这里可以放大，视为 $n$，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \sum_{i=0}^{n}\dbinom{n-i}{i}&=\sum_{i=0}^{n}\left[\dbinom{n-i-1}{i}+\dbinom{n-i-1}{i-1}\right]\\
-    &=\sum_{i=0}^{n}\dbinom{n-i-1}{i}+\sum_{i=0}^{n}\dbinom{n-i-1}{i-1}\\
-    &=\sum_{i=0}^{n}\dbinom{(n-1)-i}{i}+\sum_{i=0}^{n}\dbinom{(n-2)-(i-1)}{i-1}\\
-    &=\sum_{i=0}^{n-1}\dbinom{(n-1)-i}{i}+\sum_{i=0}^{n-2}\dbinom{(n-2)-i}{i}\\
-\end{aligned}</script><p>注意到上式满足斐波那契数列的递推式，同时 $n=0$ 时式 $(11)$ 等于 $1$，$n=1$ 时式 $(13)$ 也等于 $1$，故式 $(13)$ 得证（数学归纳法）。</p>
-<h3 id="范德蒙德卷积"><a href="#范德蒙德卷积" class="headerlink" title="范德蒙德卷积"></a>范德蒙德卷积</h3><script type="math/tex; mode=display">
-\sum_{i=0}^k\binom{n}{i}\binom{m}{k-i}=\binom{n+m}{k}\tag{14}</script><p>证明使用二项式定理（设 $l=i+j$）</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \sum_{k=0}^{n+m}\binom{n+m}{k}x^k&=(x+1)^{n+m}\\
-    &=(x+1)^n(x+1)^m\\
-    &=\left[\sum_{i=0}^n\binom{n}{i}x^i\right]\left[\sum_{j=0}^m\binom{m}{j}x^j\right]\\
-    &=\sum_{i=0}^n\sum_{j=0}^m\binom{n}{i}\binom{m}{j}x^l\\
-    &=\sum_{l=0}^{n+m}\sum_{i=0}^l\binom{n}{i}\binom{m}{k-i}x^l\\
-    \sum_{k=0}^{n+m}{\color{blue}\binom{n+m}{k}}x^k&=\sum_{l=0}^{n+m}{\color{red}\sum_{i=0}^l\binom{n}{i}\binom{m}{k-i}}x^l\\
-    \binom{n+m}{k}&=\sum_{i=0}^l\binom{n}{i}\binom{m}{k-i}\\
-\end{aligned}</script><p>换个角度，考虑其组合意义。设 $|S|=n,|T|=m$，$S,T$ 中的元素每个都相同。在大小 $n+m$ 的集合 $S\cup T$ 中取出 $k$ 个元素，等价于从 $S$ 中取 $i$ 个，$T$ 中取 $k-i$ 个，合并。取法二中，枚举 $i$ 累加所有方案数，即与取法一方案数相等。</p>
-<p>而上述意义是更利于记忆的。</p>
-<h4 id="推论-1"><a href="#推论-1" class="headerlink" title="推论 $1$"></a>推论 $1$</h4><script type="math/tex; mode=display">
-\sum_{i=-a}^{b}\dbinom{n}{a+i}\dbinom{m}{b-i}=\dbinom{n+m}{a+b}\tag{15}</script><p>证明类似。同样可以用形式化证明或组合意义。</p>
-<h4 id="推论-2"><a href="#推论-2" class="headerlink" title="推论 $2$"></a>推论 $2$</h4><script type="math/tex; mode=display">
-\sum_{i=1}^{n}\dbinom{n}{i}\dbinom{n}{i-1}=\dbinom{2n}{n-1}\tag{16}</script><p>考虑转化为 $(14)$，</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}\dbinom{n}{i}\dbinom{n}{i-1}=\sum_{i=1}^{n}\dbinom{n}{n-i}\dbinom{n}{i-1}=\sum_{i=0}^{n-1}\dbinom{n}{n-1-i}\dbinom{n}{i}=\dbinom{2n}{n-1}</script><h4 id="推论-3"><a href="#推论-3" class="headerlink" title="推论 $3$"></a>推论 $3$</h4><script type="math/tex; mode=display">
-\sum_{i=0}^{n}\dbinom{n}{i}^2=\dbinom{2n}{n}\tag{17}</script><p>依然转化，</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{n}\dbinom{n}{i}^2=\sum_{i=0}^{n}\dbinom{n}{i}\dbinom{n}{n-i}=\dbinom{2n}{n}</script><h4 id="推论-4"><a href="#推论-4" class="headerlink" title="推论 $4$"></a>推论 $4$</h4><script type="math/tex; mode=display">
-\sum_{i=0}^{m}\dbinom{n}{i}\dbinom{m}{i}=\dbinom{n+m}{m}\tag{18}</script><p>还是转化</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^{m}\dbinom{n}{i}\dbinom{m}{i}=\sum_{i=0}^{m}\dbinom{n}{i}\dbinom{m}{m-i}=\dbinom{n+m}{m}</script><p>其中 $\dbinom{n+m}{m}$ 是网格图计数。设 $(x,y)$ 表示 $x$ 行 $y$ 列，则从 $(0,0)$ 走到 $(n,m)$，共需向下 $n$ 步、向右 $m$ 步，总步数为 $n+m$，从中选出 $m$ 步向右即为方案数 $\dbinom{n+m}{m}$。</p>
-<p>若先走 $n$ 步，其中 $i$ 步向右，则剩下 $m$ 步需 $m-i$ 步向左，为 $\dbinom{n}{i}\dbinom{m}{m-i}$，枚举 $i$ 累加也是答案。故左右相等。</p>
-<h2 id="插板法"><a href="#插板法" class="headerlink" title="插板法"></a>插板法</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>有 $n$ 个完全相同的元素，将其分成 $k$ 份，设第 $i$ 份有 $x_i$ 个（$\sum_{i=1}^{k}x_i=n$），求方案数。</p>
-<h3 id="正整数"><a href="#正整数" class="headerlink" title="正整数"></a>正整数</h3><p>限制条件：$\forall 1\le i\le k,x_i&gt;0$。</p>
-<p>考虑将 $k-1$ 个板子插到 $n-1$ 个空中，表示将 $n$ 个元素分成 $k$ 份，由于 $n$ 个元素又是完全相同的，于是答案即为 $\dbinom{n-1}{k-1}=\dbinom{n-1}{n-k}$。</p>
-<h3 id="非负整数"><a href="#非负整数" class="headerlink" title="非负整数"></a>非负整数</h3><p>限制条件：$\forall 1\le i\le k,x_i\ge 0$。</p>
-<p>考虑加入 $k$ 个同样的元素，均分给 $k$ 份（每份都有 $1$ 个）。设现在第 $i$ 份有 $x’_i$ 个，于是有 $x’_i=x_i+1\ge 1&gt;0$，转化成了正整数情况。于是我们算出 $x’$ 的取值个数后，$x_i=x’_i-1$，即可得到 $x$ 相对应的非负整数情况。显然对于每个 $x,x’$，二者是一一对应的。</p>
-<p>于是，有答案 $\dbinom{n+k-1}{k-1}=\dbinom{n+k-1}{n}$。</p>
-<h3 id="更一般的限制情况"><a href="#更一般的限制情况" class="headerlink" title="更一般的限制情况"></a>更一般的限制情况</h3><p>限制条件：$\forall 1\le i\le k,x_i\ge a_i\ge 0$，其中设 $\sum a=\sum_{i=1}^{k}a_i\le n$。</p>
-<p>考虑转化成非负整数限制，我们从第 $i$ 份中偷走 $a_i$ 个。设现在第 $i$ 份有 $x’_i$ 个，有 $x’_i=x_i-a_i$。</p>
-<p>设</p>
-<script type="math/tex; mode=display">
-n'=\sum_{i=1}^{k}x'_i=\sum_{i=1}^{k}x_i-\sum_{i=1}^{k}a_i=n-\sum a</script><p>故 $x’$ 取值个数为</p>
-<script type="math/tex; mode=display">
-\dbinom{n'+k-1}{n'}=\dbinom{n-\sum a+k-1}{n-\sum a}</script><p>求出 $x’$ 取值个数后，将偷走的元素还回去，即可一一对应得到相同取值个数的 $x$，故答案即为上式。</p>
-<h3 id="不相邻组合个数"><a href="#不相邻组合个数" class="headerlink" title="不相邻组合个数"></a>不相邻组合个数</h3><p>从 $n$ 中选 $k$ 的组合 $C$，要求 $\forall i,j\in C,i\ne j+1$，求满足这样条件的 $C$ 的个数。</p>
-<p>考虑将选的 $k$ 个数视为板，将未选的 $n-k$ 个数视为相同的元素，将 $k$ 个板插进 $n-k+1$ 个空中（空包括两侧），满足了板两两不相邻，即问题的要求，于是答案即为 $\dbinom{n-k+1}{k}$。</p>
-<h2 id="容斥原理"><a href="#容斥原理" class="headerlink" title="容斥原理"></a>容斥原理</h2><p>对于集合 $U$ 中的元素，有 $n$ 个互不相同的属性。拥有第 $i$ 种属性的元素构成集合 $S_i$。注意一个元素可能有多个属性。</p>
-<p>我们有</p>
-<script type="math/tex; mode=display">
-\left|\bigcup_{i=1}^{n}S_i\right|=\sum_{j=1}^{n}(-1)^{j-1}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}\qquad\left|\bigcap_{i=1}^{j}S_{a(i)}\right|\tag{19}</script><p>可以通过统计每个元素贡献得证。</p>
-<p>同时若求全集 $U$ 下的集合并，可得</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \left|\bigcap_{i=1}^{n}S_i\right|&=\left|\overline{\bigcup_{i=1}^{n}\overline{S_i}}\right|\\
-    &=|U|-\left|\bigcup_{i=1}^{n}\overline{S_i}\right|\\
-    &=|U|-\sum_{j=1}^{n}(-1)^{j-1}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}\qquad\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|\\
-    &=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}\qquad\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|\tag{20}
-\end{aligned}</script><p>用容斥，<del>不过用完容斥不是又要求并了吗？</del></p>
-<h2 id="二项式定理"><a href="#二项式定理" class="headerlink" title="二项式定理"></a>二项式定理</h2><p>二项式定理阐明了一个二项多项式展开后的系数与组合数的关系</p>
-<script type="math/tex; mode=display">
-(a+b)^n=\sum_{i=0}^{n}\dbinom{n}{i}a^ib^{n-i}\tag{21}</script><p>可以用组合意义证明，比较显然。</p>
-<h2 id="二项式反演"><a href="#二项式反演" class="headerlink" title="二项式反演"></a>二项式反演</h2><blockquote>
-<p>二项式反演为一种反演形式，常用于通过 “指定某若干个” 求 “恰好若干个” 的问题。——<a target="_blank" rel="noopener" href="http://www.cnblogs.com/GXZlegend">GXZlegend</a></p>
-</blockquote>
-<h3 id="第-0-形式"><a href="#第-0-形式" class="headerlink" title="第 $0$ 形式"></a>第 $0$ 形式</h3><script type="math/tex; mode=display">
-\left|\bigcap_{i=1}^{n}\overline{S_i}\right|=|U|-\left|\bigcup_{i=1}^{n}S_i\right|=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}\qquad\left|\bigcap_{i=1}^{j}S_{a(i)}\right|\\
-\left|\bigcap_{i=1}^{n}S_i\right|=|U|-\left|\bigcup_{i=1}^{n}\overline{S_i}\right|=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}\qquad\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|</script><p>当集合的交集大小只与所交的集合的数量有关时，若设 $f(j)$ 表示任意 $j$ 个集合的补集的交集大小，$g(j)$ 表示任意 $j$ 个集合的交集大小，即</p>
-<script type="math/tex; mode=display">
-f(j)\equiv\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|\qquad(\forall 1\le a_k<a_{k+1}\le n)\\
-g(j)\equiv\left|\bigcap_{i=1}^{j}S_{a(i)}\right|\qquad(\forall 1\le a_k<a_{k+1}\le n)</script><p>代入，</p>
-<script type="math/tex; mode=display">
-f(n)=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}g(j)=\sum_{j=0}^{n}(-1)^{j}\dbinom{n}{j}g(j)\\
-g(n)=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{\mathclap{1\le a(k)<a(k+1)\le n}}f(j)=\sum_{j=0}^{n}(-1)^{j}\dbinom{n}{j}f(j)</script><p>这里之所以 $|U|$ 能被吸收进 sigma 中是因为 $\cap$ 的单位元是全集 $U$。当 $j=0$ 时，$(-1)^{j}\dbinom{n}{j}g(j)=1\times 1\times g(0)=|U|$。</p>
-<p>于是我们得到了二项式反演的第 $0$ 形式：</p>
-<script type="math/tex; mode=display">
-f(n)=\sum_{j=0}^{n}(-1)^{j}\dbinom{n}{j}g(j)
-\iff
-g(n)=\sum_{j=0}^{n}(-1)^{j}\dbinom{n}{j}f(j)\tag{22}</script><h3 id="第-1-形式"><a href="#第-1-形式" class="headerlink" title="第 $1$ 形式"></a>第 $1$ 形式</h3><p>考虑设 $h(j)=(-1)^jg(j)$，代入，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    f(n)=\sum_{j=0}^{n}\dbinom{n}{j}h(j)
-    &\iff\cfrac{h(n)}{(-1)^{n}}=\sum_{j=0}^{n}(-1)^{j}\dbinom{n}{j}f(j)\\
-    &\iff h(n)=\sum_{j=0}^{n}(-1)^{n+j}\dbinom{n}{j}f(j)\\
-    &\iff h(n)=\sum_{j=0}^{n}(-1)^{n-j}\dbinom{n}{j}f(j)\\
-\end{aligned}</script><p>于是我们得到了二项式反演的第 $1$ 形式：</p>
-<script type="math/tex; mode=display">
-f(n)=\sum_{j=0}^{n}\dbinom{n}{j}h(j)
-\iff
-h(n)=\sum_{j=0}^{n}(-1)^{n-j}\dbinom{n}{j}f(j)\tag{23}</script><h3 id="第-1-5-形式"><a href="#第-1-5-形式" class="headerlink" title="第 $1.5$ 形式"></a>第 $1.5$ 形式</h3><p>第 $1$ 形式更加一般的情况，</p>
-<script type="math/tex; mode=display">
-f(n)=\sum_{j=m}^{n}\dbinom{n}{j}h(j)
-\iff
-h(n)=\sum_{j=m}^{n}(-1)^{n-j}\dbinom{n}{j}f(j)\tag{24}</script><p>考虑证明：</p>
-<p>代入（记 $k=j-i$）</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    f(n)&=\sum_{j=m}^{n}\dbinom{n}{j}\sum_{i=m}^{j}(-1)^{j-i}\dbinom{j}{i}f(i)\\
-    &=\sum_{j=m}^{n}\sum_{i=m}^{j}(-1)^{j-i}\dbinom{n}{j}\dbinom{j}{i}f(i)\\
-    &=\sum_{j=m}^{n}\sum_{i=m}^{j}(-1)^{j-i}\dbinom{n}{i}\dbinom{n-i}{j-i}f(i)\\
-    &=\sum_{i=m}^{n}\sum_{j=i}^{n}(-1)^{j-i}\dbinom{n}{i}\dbinom{n-i}{j-i}f(i)\\
-    &=\sum_{i=m}^{n}\dbinom{n}{i}f(i)\sum_{j=i}^{n}(-1)^{j-i}\dbinom{n-i}{j-i}\\
-    &=\sum_{i=m}^{n}\dbinom{n}{i}f(i)\sum_{k=0}^{n-i}(-1)^{k}\dbinom{n-i}{k}\\
-    &=\sum_{i=m}^{n}\dbinom{n}{i}f(i)[n-i=0]\\
-    &=\dbinom{n}{n}f(n)\\
-    &=f(n)&\square\\
-\end{aligned}</script><h3 id="第-2-形式"><a href="#第-2-形式" class="headerlink" title="第 $2$ 形式"></a>第 $2$ 形式</h3><script type="math/tex; mode=display">
-f(n)=\sum_{j=n}^{m}\dbinom{j}{n}g(j)
-\iff
-g(n)=\sum_{j=n}^{m}(-1)^{j-n}\dbinom{j}{n}f(j)\tag{25}</script><p>证明与第 $1.5$ 形式类似，略。<del>简称懒得写了（</del>。</p>
-<h2 id="康托展开"><a href="#康托展开" class="headerlink" title="康托展开"></a>康托展开</h2><h3 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h3><p>有一个长度为 $n$ 的排列 $P$。</p>
-<p>定义排列通过字典序比大小，即若长度为 $n$ 的排列 $A,B$ 有</p>
-<ul>
-<li>任意 $1\le j&lt;i\le n,A_j=B_j$；</li>
-<li>$A_i&lt;B_i$，</li>
-</ul>
-<p>则有排列 $A&lt;B$。这里不考虑长度不一样的情况。</p>
-<p>定义一个排列 $P$ 的排名 $rnk(P)$ 为比它小的排列数量 $+1$。</p>
-<h3 id="康托展开-1"><a href="#康托展开-1" class="headerlink" title="康托展开"></a>康托展开</h3><p>给定 $P$，求 $rnk(P)$。</p>
-<p>等价于：求长度为 $n$ 的排列 $Q$，满足 $Q&lt;P$ 的数量（$+1$）。</p>
-<p>考虑枚举定义中的 $i$。于是 $\forall 1\le j&lt;i\le n,Q_j=P_j$。那么 $Q_i$ 可以是哪些数呢？</p>
-<ul>
-<li>$Q_i&lt;P_i\implies Q_i\ne P_i\implies i\ne k$。</li>
-<li>$Q_i\ne Q_j\iff \exist k,i\le k,Q_i=P_k$。</li>
-</ul>
-<p>$\implies\exist k,i&lt;k,Q_i=P_k&lt;P_i$，故 $Q_i$ 的取值数量（记为 $f(i)$）即为</p>
-<script type="math/tex; mode=display">
-f(i)=\sum_{k=i+1}^{n}[P_k<P_i]</script><p>其中 $[X]$ 表示条件 $X$ 是真（$1$）/假（$0$）。</p>
-<p>这是典型的二维偏序问题。可以用树状数组实现。</p>
-<p>求出了 $Q_i$ 取值数量，考虑求 $Q_{i+1}\sim Q_n$ 的排列数量。</p>
-<p>由于已经满足 $Q_i&lt;P_i$，故后面 $(n-i)$ 个数可以随便排列，排列数量为 $(n-i)!$。故在 $i$ 处小于 $P$ 的排列数量为</p>
-<script type="math/tex; mode=display">
-(n-i)!\times f(i)</script><p>将所有 $i$ 的贡献相加，即可得到</p>
-<script type="math/tex; mode=display">
-rnk(P)=1+\sum_{i=1}^{n}(n-i)!\times f(i)</script><p>倒序枚举 $i$，$f(i)$ 可以使用树状数组在 $O(\log n)$ 时间计算，故该算法可以在 $O(n\log n)$ 时间内计算某个排列的排名，被称为<strong>康托展开</strong>。</p>
-<h3 id="逆康托展开"><a href="#逆康托展开" class="headerlink" title="逆康托展开"></a>逆康托展开</h3><p>排名可以逆推得到排列。</p>
-<p>但可以发现有 $n=20$ 时，全排列数量 $n!=2432902008176640000&gt;10^{18}$。</p>
-<p>所以，若题目给的排名 $rnk(P)\le 10^{18}$（不需要高精），有 $n=|P|\le 20$。</p>
-<p>于是，我们可以完成如下 $n$ 次操作：</p>
-<ul>
-<li>设 $r_0=rnk(P)-1$，集合 $S=\{1,2,\cdots,n\}$。</li>
-<li>对于第 $j$ 次操作，$r_j\gets r_{j-1}\bmod (n-j)!$，$k_j\gets\cfrac{r_{j-1}-r_j}{(n-j)!}$。</li>
-<li>从 $S$ 中取出第 $(k_j+1)$ 大的元素 $x$，有 $P_j=x$。从 $S$ 中删除 $x$。</li>
-<li>重复进行上面两步 $n$ 次。</li>
-</ul>
-<p>解释一下：</p>
-<p>每次操作从 $r_{j-1}$ 中分离出 $f(j)$，以 $j=1$ 为例</p>
-<script type="math/tex; mode=display">
-r_0=\sum_{i=1}^{n}(n-i)!\times f(i)\\
-\begin{aligned}
-    r_1&\gets r_0\bmod (n-1)!\\
-    &=\left(\sum_{i=1}^{n}(n-i)!\times f(i)\right)\bmod (n-1)!\\
-    &=\sum_{i=1}^{n}\Big((n-i)!\times f(i)\bmod (n-1)!\Big)\\
-    &=\Big((n-1)!\times f(1)\bmod (n-1)!\Big)+\sum_{i=2}^{n}\Big((n-i)!\times f(i)\bmod (n-1)!\Big)\\
-    &=\sum_{i=2}^{n}\Big((n-i)!\times f(i)\bmod (n-1)!\Big)
-\end{aligned}\\
-\begin{aligned}
-    \because & f(i)=\sum_{k=i+1}^{n}[P_k<P_i]\le n-i<n-i+1\\
-    \therefore & (n-i)!\times f(i)<(n-i)!\times (n-i+1)=(n-i+1)!\le (n-1)!\\
-    \therefore & (n-i)!\times f(i)<(n-1)!\\
-    \therefore & (n-i)!\times f(i)\bmod (n-1)!=(n-i)!\times f(i)\\
-    \therefore & r_1\gets \sum_{i=2}^{n}\Big((n-i)!\times f(i)\bmod (n-1)!\Big)=\sum_{i=2}^{n}(n-i)!\times f(i)
-\end{aligned}\\</script><p>有没有发现 $r_1$ 与 $r_0$ 几乎一致（除了 sigma 下界从 $1$ 变成 $2$）？</p>
-<p>对于 $k_1$，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    k_1&\gets\cfrac{r_0-r_1}{(n-1)!}\\
-    &=\cfrac{\sum_{i=1}^{n}(n-i)!\times f(i)-\sum_{i=2}^{n}(n-i)!\times f(i)}{(n-1)!}\\
-    &=\cfrac{(n-1)!\times f(1)}{(n-1)!}\\
-    &=f(1)
-\end{aligned}</script><p>如此这般，我们进行了完美的迭代，每次将 $f(j)$ 分离，从 $S$ 中找出合适的 $x$。然后将 $r_{j-1}$ 中 $i=j$ 那项消去（simga 上界加 $1$）。</p>
-<p>形式化地说，我们的处理方式使得有 $r_j,k_j$ 的通项公式</p>
-<script type="math/tex; mode=display">
-r_j=\sum_{i=j+1}^{n}(n-i)!\times f(i)\\
-k_j=f(j)</script><hr>
-<p>$S$ 可以用 <code>vector</code> 维护，复杂度 $O(n^2)$。因为 $n\le 20$，复杂度足够。</p>
-<p>若毒瘤出题人让 $rnk(P)&gt;10^{18}$，也不要紧。上线段树二分维护 $S$ 即可。</p>
-<h2 id="抽屉原理"><a href="#抽屉原理" class="headerlink" title="抽屉原理"></a>抽屉原理</h2><h3 id="简单情况"><a href="#简单情况" class="headerlink" title="简单情况"></a>简单情况</h3><p>对于 $n+1$ 个物品分为 $n$ 组，必存在某组分到的物品数大于 $1$ 个。</p>
-<p>显然的，可以用反证法证明。</p>
-<h3 id="一般情况"><a href="#一般情况" class="headerlink" title="一般情况"></a>一般情况</h3><p>对于 $n$ 个物品分到 $k$ 组，必存在某组分到的物品数大于等于 $\left\lceil\dfrac{n}{k}\right\rceil$ 个。</p>
-<p>反证法：若每一组均小于 $\left\lceil\dfrac{n}{k}\right\rceil$ 个，则由 $\left\lceil\dfrac{n}{k}\right\rceil&lt;\dfrac{n}{k}+1$ 可得</p>
-<script type="math/tex; mode=display">
-n\le\left(\left\lceil\dfrac{n}{k}\right\rceil-1\right)\times k<\left(\dfrac{n}{k}+1-1\right)\times k=n</script><p>矛盾。</p>
-<h2 id="错位排列"><a href="#错位排列" class="headerlink" title="错位排列"></a>错位排列</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>对于长度为 $n$ 的排列 $P$，若 $\forall 1\le i\le n,P_i\ne n$，则称它是一个错位排列。</p>
-<p>设 $D_n$ 为长度为 $n$ 的错位排列数，求 $D_n$。</p>
-<h3 id="基于容斥原理"><a href="#基于容斥原理" class="headerlink" title="基于容斥原理"></a>基于容斥原理</h3><p>考虑容斥解决。我们有全集 $U$ 为 $n$ 的全排列（$|U|=n!$），$n$ 个属性，第 $i$ 个为 $P_i\ne i$。</p>
-<p>我们有（这里去掉了 $1\le a(k)&lt;a(k+1)\le n$ 方便展示）</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    D_n&=\left|\bigcap_{i=1}^{n}S_i\right|\\
-    &=|U|-\left|\bigcup_{i=1}^{n}\overline{S_i}\right|\\
-    &=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{a(k)}\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|\\
-\end{aligned}\tag{26}</script><p>考虑上式的意义。可以发现 $\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|$ 即为满足 $P_{a(i)}=a_i$ 的排列数量，固定的共有 $j$ 位，剩下 $n-j$ 为可以随意选择，于是有 $(n-j)!$ 个排列。</p>
-<p>同时，选择出 $j$ 个 $a_i$ 方案数为 $\dbinom{n}{j}$，故</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    D_n&=|U|+\sum_{j=1}^{n}(-1)^{j}\sum_{a(k)}\left|\bigcap_{i=1}^{j}\overline{S_{a(i)}}\right|\\
-    &=|U|+\sum_{j=1}^{n}(-1)^{j}\dbinom{n}{j}(n-j)!\\
-    &=(-1)^0\dbinom{n}{0}n!+\sum_{j=1}^{n}(-1)^{j}\cfrac{n!}{j!(n-j)!}\times (n-j)!\\
-    &=\sum_{j=0}^{n}(-1)^j\cfrac{n!}{j!}\\
-    &=n!\sum_{j=0}^{n}\cfrac{(-1)^j}{j!}\\
-\end{aligned}\tag{26}</script><p>另外，观察到式 $(26)$ 的形式与 $\mathrm{e}^x$ 类似</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    \mathrm{e}^x&=\sum_{i=0}^{\infty}\cfrac{x^i}{i!}\\
-    \mathrm{e}^{-1}&=\sum_{i=0}^{\infty}\cfrac{(-1)^i}{i!}\\
-    \cfrac{n!}{\mathrm{e}}&\approx n!\sum_{i=0}^{n}\cfrac{(-1)^i}{i!}=D_n
-\end{aligned}</script><p>我们有 $D_n\approx\cfrac{n!}{\mathrm{e}}$。除了美观，没什么用。</p>
-<h3 id="基于递推"><a href="#基于递推" class="headerlink" title="基于递推"></a>基于递推</h3><p>对于 $n$ 的错排，暂且假设 $P_n=n$，有以下两种方式可以一步将 $P$ 改成错排</p>
-<ul>
-<li>若 $P_1\sim P_{n-1}$ 是错排，那么任意 $1\le i&lt;n$，交换 $P_i,P_n$ 即可。$i$ 有 $n-1$ 个可能的取值，$P_1\sim P_{n-1}$ 错排方案数为 $D_{n-1}$。</li>
-<li>若 $P_1\sim P_{n-1}$ 不是错排，有且只有一个位置 $i$，满足 $P_i=i$，那么依然交换 $P_i,P_n$。同样的，$i$ 有 $n-1$ 个可能的取值，而除 $i$ 外的其他部分为错排，方案数为 $D_{n-2}$。</li>
-</ul>
-<p>于是得到</p>
-<script type="math/tex; mode=display">
-D_n=(n-1)D_{n-1}+(n-1)D_{n-2}=(n-1)(D_{n-1}+D_{n-2})\tag{27}</script><p>另有</p>
-<script type="math/tex; mode=display">
-D_n=nD_{n-1}+(-1)^{n}</script><h2 id="常见数（列）"><a href="#常见数（列）" class="headerlink" title="常见数（列）"></a>常见数（列）</h2><h3 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>斐波那契数列的定义如下：</p>
-<script type="math/tex; mode=display">
-F_i=\begin{cases}
-    0 & i=0\\
-    1 & i=1\\
-    F_{i-1}+F_{i-2} & \text{otherwise}
-\end{cases}\tag{28}</script><p>同时我们有卢卡斯数列：</p>
-<script type="math/tex; mode=display">
-L_i=\begin{cases}
-    2 & i=0\\
-    1 & i=1\\
-    L_{i-1}+L_{i-2} & \text{otherwise}
-\end{cases}\tag{29}</script><h4 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h4><p>斐波那契数列可以 $O(n)$ 递推计算，但还有更快的计算方法。</p>
-<p>我们有斐波那契数列的通项公式：</p>
-<script type="math/tex; mode=display">
-F_n=\cfrac{\left(\frac{1+\sqrt{5}}{2}\right)^n-\left(\frac{1-\sqrt{5}}{2}\right)^n}{\sqrt{5}}\tag{30}</script><p>在模意义下有意义。平常用不到。</p>
-<p>对于卢卡斯数列：</p>
-<script type="math/tex; mode=display">
-F_n=\left(\frac{1+\sqrt{5}}{2}\right)^n+\left(\frac{1-\sqrt{5}}{2}\right)^n\tag{31}</script><p>当然，可以使用矩阵加速递推</p>
-<script type="math/tex; mode=display">
-\begin{bmatrix}
-    F_n & F_{n+1}
-\end{bmatrix}
-=
-\begin{bmatrix}
-    F_{n-1} & F_{n}
-\end{bmatrix}
-\begin{bmatrix}
-    0 & 1\\
-    1 & 1
-\end{bmatrix}
-=
-\begin{bmatrix}
-    F_0 & F_1
-\end{bmatrix}
-\begin{bmatrix}
-    0 & 1\\
-    1 & 1
-\end{bmatrix}^n
-\tag{32}</script><p>于是运用矩阵快速幂，我们可以 $O(\log n)$ 时间内计算斐波那契数列。</p>
-<p>也可以使用倍增的技巧。考虑斐波那契数列的递推式，对它进行拓展</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    F_{i+1}&=F_{i}+F_{i-1}\\
-    F_{i+2}=F_{i+1}+F_{i}&=2F_{i}+F_{i-1}\\
-    F_{i+3}=F_{i+2}+F_{i+1}&=3F_{i}+2F_{i-1}\\
-    F_{i+4}=F_{i+3}+F_{i+2}&=5F_{i}+3F_{i-1}\\
-    F_{i+5}=F_{i+4}+F_{i+3}&=8F_{i}+5F_{i-1}\\
-\end{aligned}</script><p>可得：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    F_{i+j}&=F_{j+1}F_{i}+F_{j}F_{i-1}\\
-    F_{2k}&=F_{k+1}F_{k}+F_{k}F_{k-1}=F_{k}F_{k+1}+F_{k}(F_{k+1}-F_{k})=F_{k}(2F_{k+1}-F_{k})\\
-    F_{2k+1}&=F_{k+1}F_{k+1}+F_{k}F_{k-1+1}=F_{k+1}^2+F_{k}^2
-\end{aligned}\tag{33}</script><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; <span class="title">fib</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!n)<span class="keyword">return</span> &#123;<span class="number">0</span>,<span class="number">1</span>&#125;;</span><br><span class="line">	<span class="keyword">auto</span> r=<span class="built_in">fib</span>(n&gt;&gt;<span class="number">1</span>);</span><br><span class="line">	<span class="type">int</span> c=p.first*(<span class="number">2</span>*p.second-p.first),</span><br><span class="line">		d=p.first*p.first+p.second*p.second;</span><br><span class="line">	<span class="keyword">return</span> (n&amp;<span class="number">1</span>)?&#123;d,c+d&#125;:&#123;c+d&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
-<li>$F_{n-1}F_{n+1}-F_n^2=(-1)^n$；</li>
-<li>$(33)$ 式；</li>
-<li>$\forall k\in\Bbb{N},F_n|F_{nk}$；</li>
-<li>$\forall F_a|F_b,a|b$；</li>
-<li>$\gcd(F_a,F_b)=F_{\gcd(a,b)}$；</li>
-<li>以斐波那契数列相邻两项作为输入会使欧几里德算法达到最坏复杂度。</li>
-</ul>
-<h3 id="卡特兰数"><a href="#卡特兰数" class="headerlink" title="卡特兰数"></a>卡特兰数</h3><h4 id="相关问题（应用）"><a href="#相关问题（应用）" class="headerlink" title="相关问题（应用）"></a>相关问题（应用）</h4><p>卡特兰数列 $H_n$ 一般应用于以下基本问题：</p>
-<ol>
-<li>将大小为 $n$ 的问题分解为规模之和为 $n-1$ 的两个子问题。比如二叉树的构造方案数、不相交弦本质不同方案数、凸包三角形划分方案数等。</li>
-</ol>
-<p>对于另一种看似也很基本的问题，其实可以转化为上述基本问题：</p>
-<ol>
-<li>可以抽象为平面直角坐标系上行走的问题。具体的，从 $(0,0)$ 走到 $(2n,0)$，每次从 $(x,y)$ 向右上 $(x+1,y+1)$ 或右下 $(x+1,y-1)$ 走，且不走到 $x$ 轴下方，的路径方案数。如出栈序列数、买票找零等。以出栈序列数为例，可以证明出栈序列与操作序列是一一对应的，而操作序列中入栈操作可以视为向右上走，出栈可以视为向右下走，横坐标对应时间，纵坐标对应栈的大小，触碰 $x$ 轴对应栈空。</li>
-</ol>
-<p>如何将这种问题（2）转化为基本问题（1）呢？</p>
-<!-- ![](https://img2024.cnblogs.com/blog/3266926/202407/3266926-20240706142522054-67626412.png) -->
-<p><img src="https://img2024.cnblogs.com/blog/3266926/202407/3266926-20240706160632991-895952306.png" alt=""><br><!-- 
-\documentclass[tikz,border=3mm]{standalone}
-\usepackage{tikz}
-\usepackage{graphicx, graphics}
-\begin{document}
-    \begin{tikzpicture}
-        \draw[->] (0,0)--(8,0)node[right]{$x$};
-        \draw[->] (0,0)--(0,3)node[right]{$y$};
-        \draw (0,0)node[left]{$(0,0)$}--(1,1)node[above]{$(1,1)$};
-        \draw[dashed] (1,1)--(3,1)node[above]{$(2i-1,1)$};
-        \draw (3,1)--(4,0)node[below]{$(2i,0)$};
-        \draw[dashed] (6,0)node[below]{$(2n,0)$} arc (0:180:1);
-    \end{tikzpicture}
-\end{document}
- --></p>
-<p>对于这种问题，我们假设路径在 $(2i,0)$ 处第一次触碰 $x$ 轴（除起点外，可以是终点）。为了保证第一次，从 $(0,0)$ 到 $(2i,0)$ 的路径不能触碰 $x$ 轴。怎样保证呢？考虑先从 $(0,0)$ 走到 $(1,1)$，然后保证路径不在 $y=1$ 下方，即不会触碰 $x$ 轴，走到 $(2i-1,1)$。然后在从 $(2i-1,1)$ 走到 $(2i,0)$，完成第一次触碰。接下来可以只需不走到 $x$ 轴下方，从 $(2i,0)$ 走到 $(2n,0)$ 即可。</p>
-<p>于是我们得到第一部分路径方案数为 $H_{i-1}$，第二部分则为 $H_{n-i}$。根据乘法原理和加法原理，我们枚举每个 $i$ 即可得到</p>
-<script type="math/tex; mode=display">
-H_n=\begin{cases}
-    1&n=0,1\\
-    \sum\limits_{i=1}^{n}H_{i-1}H_{n-i}&\text{otherwise}
-\end{cases}\tag{34}</script><p>而基本问题（1）的方案数显然也是上式。于是我们就得到了二问题等价。$(34)$ 式为卡特兰数的一个递推式。</p>
-<p>注：对于问题（2），其他资料中常有等价描述：设非降路径是指只能向上或向右走的路径，求不走到对角线 $y=x$ 上方（但可以触碰）的情况下从 $(0,0)$ 到达 $(n,n)$ 的可能路径数。可以通过旋转、轴对称发现二描述等价。本文为了方便思考、与出栈序列问题相对应，采用了不同的描述方式。</p>
-<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p>我们考虑问题（2）的组合意义。若不考虑“不走到 $x$ 轴下方”这一限制条件，我们有答案 $\dbinom{2n}{n}$，即在 $2n$ 步中，选出 $n$ 步向右上，另外 $n$ 步向右下。</p>
-<p>考虑如何处理走到 $x$ 轴下方的情况。对于所有不合法路径（即走到 $x$ 轴下方的路径），我们将第一次走到 $x$ 轴下方<strong>之后的路径</strong>，即第一次触碰 $y=-1$ <strong>之后的路径</strong>，以 $y=-1$ 为对称轴翻转。<strong>之前的路径不变</strong>。可以证明，翻转后的路径均可以和原路径一一对应。</p>
-<!-- ![](https://img2024.cnblogs.com/blog/3266926/202407/3266926-20240706162600674-1209538865.png) -->
-<p><img src="https://img2024.cnblogs.com/blog/3266926/202407/3266926-20240707102716670-697915472.png" alt=""><br>&lt;!—<br>\documentclass[tikz,border=3mm]{standalone}<br>\usepackage{tikz}<br>\usepackage{graphicx, graphics}<br>\begin{document}<br>    \begin{tikzpicture}<br>        \draw[-&gt;,thick] (-1,0)—(9,0)node[right]{$x$};<br>        \draw[-&gt;,thick] (0,-1.5)—(0,1)node[right]{$y$};<br>        \draw (-0.5,-1)—(8,-1)node[right]{$y=-1$};<br>        \draw[dash dot] (0,0)—(1,1);<br>        \draw[dash dot] (1,1)—(3,-1);</p>
-<pre><code>    \draw[dashed] (3,-1)--(4,-2);
-    \draw[dashed] (4,-2)--(7,1);
-    \draw[dashed] (7,1)--(8,0);
-
-    \draw[dotted] (3,-1)--(4,0);
-    \draw[dotted] (4,0)--(7,-3);
-    \draw[dotted] (7,-3)--(8,-2);
-\end&#123;tikzpicture&#125;
-</code></pre><p>\end{document}<br> —&gt;</p>
-<p>如图，虚线为翻转前的不合法路径，点线为翻转后的路径，点划线则为二者公共部分。</p>
-<p>经过观察，发现翻转后的路径从 $(0,0)$ 走到 $(2n,-2)$。即在 $2n$ 步中选出 $n-1$ 步向右上，其他向右下的路径。方案数为 $\dbinom{2n}{n-1}$。将全部方案减去不合法方案，即得到全部合法方案数为：</p>
-<script type="math/tex; mode=display">
-H_n=\dbinom{2n}{n}-\dbinom{2n}{n-1}\tag{35}</script><p>进一步地，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    H_n&=\dbinom{2n}{n}-\dbinom{2n}{n-1}\\
-    &=\cfrac{(2n)!}{n!n!}-\cfrac{(2n!)}{(n-1)!(n+1)!}\\
-    &\text{Let $t=(n-1)!$}\\
-    &=(2n)!\left[\cfrac{1}{n^2t^2}-\cfrac{1}{n(n+1)t^2}\right]\\
-    &=\cfrac{(2n)!}{t^2n}\left(\cfrac{1}{n}-\cfrac{1}{n+1}\right)\\
-    &=\cfrac{(2n)!}{t^2n}\times\cfrac{n+1-n}{n(n+1)}\\
-    &=\cfrac{(2n)!}{t^2n^2(n+1)}\\
-    &=\cfrac{(2n)!}{n!n!(n+1)}\\
-    H_n&=\cfrac{\dbinom{2n}{n}}{n+1}
-\end{aligned}\tag{36}</script><p>更进一步，</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    H_n&=\cfrac{(2n)!}{t^2n^2(n+1)}\\
-    &=\cfrac{(2n-2)!(2n)(2n-1)}{(n-1)!(n-1)!n^2(n+1)}\\
-    &=\cfrac{\dbinom{2n-2}{n-1}}{n}\times\cfrac{2n(2n-1)}{n(n+1)}\\
-    H_n&=\cfrac{H_{n-1}(4n-2)}{n+1}
-\end{aligned}\tag{37}</script><p>这便是最简单的递推式。至此，所有卡特兰数的公式证毕。</p>
-<h3 id="第二类斯特林数"><a href="#第二类斯特林数" class="headerlink" title="第二类斯特林数"></a>第二类斯特林数</h3><p>第二类斯特林数，也称斯特林子集数，记做 $\begin{Bmatrix}n\ k\end{Bmatrix}$，表示将 $n$ 个互不相同的元素，划分为 $k$ 个相同的非空子集的方案数。</p>
-<h4 id="递推式"><a href="#递推式" class="headerlink" title="递推式"></a>递推式</h4><script type="math/tex; mode=display">
-\begin{cases}
-    [n=0]&k=0\\
-    \begin{Bmatrix}n\\ k\end{Bmatrix}=\begin{Bmatrix}n-1\\ k-1\end{Bmatrix}+k\begin{Bmatrix}n-1\\ k\end{Bmatrix}&\text{otherwise}
-\end{cases}\tag{38}</script><p>可以使用组合意义证明。对于第 $n$ 个物品，</p>
-<ul>
-<li>若新开一个集合，则方案数为 $\begin{Bmatrix}n-1\ k-1\end{Bmatrix}$；</li>
-<li>若将其放入现有的 $k$ 个集合（中的任意一个），方案数为 $k\begin{Bmatrix}n-1\ k\end{Bmatrix}$。</li>
-</ul>
-<h4 id="通项公式"><a href="#通项公式" class="headerlink" title="通项公式"></a>通项公式</h4><h3 id="第一类斯特林数"><a href="#第一类斯特林数" class="headerlink" title="第一类斯特林数"></a>第一类斯特林数</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://oi-wiki.org/math/combinatorics/combination/">https://oi-wiki.org/math/combinatorics/combination/</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/GXZlegend/p/11407185.html">https://www.cnblogs.com/GXZlegend/p/11407185.html</a></li>
-</ul>
-
+        
+          <p>
+            <a class="article-more-link" href="/combinatorics/">
+              Read More...
+            </a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/combinatorics/" data-id="clyfimaep0001igizdgek6zfd" class="article-share-link">
+      <a data-url="https://po7ed.github.io/combinatorics/" data-id="clyif00s1000164iz65lzc5pu" class="article-share-link">
         分享
       </a>
       
@@ -612,7 +160,7 @@ H_n=\dbinom{2n}{n}-\dbinom{2n}{n-1}\tag{35}</script><p>进一步地，</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/testpath/" data-id="clyfimaf9000eigiz13oubhoy" class="article-share-link">
+      <a data-url="https://po7ed.github.io/testpath/" data-id="clyif00y2000i64iz6uk1hhk9" class="article-share-link">
         分享
       </a>
       
@@ -671,7 +219,7 @@ H_n=\dbinom{2n}{n}-\dbinom{2n}{n-1}\tag{35}</script><p>进一步地，</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/%E6%B5%8B%E8%AF%95/" data-id="clyfimafa000gigiz3fwqhq38" class="article-share-link">
+      <a data-url="https://po7ed.github.io/%E6%B5%8B%E8%AF%95/" data-id="clyif00y1000h64iz0rdeccwe" class="article-share-link">
         分享
       </a>
       
@@ -730,7 +278,7 @@ H_n=\dbinom{2n}{n}-\dbinom{2n}{n-1}\tag{35}</script><p>进一步地，</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/hello-world/" data-id="clyfimaev0003igiz6qrofzzr" class="article-share-link">
+      <a data-url="https://po7ed.github.io/hello-world/" data-id="clyif00s7000364iz2ymh87di" class="article-share-link">
         分享
       </a>
       
@@ -790,7 +338,7 @@ H_n=\dbinom{2n}{n}-\dbinom{2n}{n-1}\tag{35}</script><p>进一步地，</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-bcc/" data-id="clyfimaf20007igiz8ahtfzn7" class="article-share-link">
+      <a data-url="https://po7ed.github.io/tarjan-bcc/" data-id="clyif00sg000764iz5rsq80pc" class="article-share-link">
         分享
       </a>
       
@@ -846,197 +394,17 @@ H_n=\dbinom{2n}{n}-\dbinom{2n}{n-1}\tag{35}</script><p>进一步地，</p>
 <p>今天的题单：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/training/428639">点我</a>。</p>
 <p><del>今天是我第一次上台，PPT 可能不是那么美观，</del> 如果有错误请大胆指出。</p>
 <p>例题不会很难，请放心食用。</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h4 id="莫队简介"><a href="#莫队简介" class="headerlink" title="莫队简介"></a>莫队简介</h4><p>什么是莫队？</p>
-<p>莫队是由莫涛大神提出的一种<del>暴力</del>区间操作算法，它框架简单、板子好写、复杂度优秀。</p>
-<p>然而由于莫队算法应用的毒瘤，很多莫队题难度评级都很高（蓝紫黑），令很多初学者望而却步。但如果你真正理解了莫队的算法原理，它用起来还是挺简单的。</p>
-<p>前置知识：</p>
-<ul>
-<li>分块思想。</li>
-<li><code>sort</code> 的用法（包括重载运算符或 <code>cmp</code> 函数，多关键字排序）。</li>
-</ul>
-<h4 id="使用莫队的情境"><a href="#使用莫队的情境" class="headerlink" title="使用莫队的情境"></a>使用莫队的情境</h4><p>若 $m=O(n)$（即 $m$、$n$ 同阶），且 <strong>$[l,r]$ 的答案能 $O(1)$ 地转换到 $[l-1,r],[l,r+1],[l+1,r],[l,r-1]$ 区间（即相邻区间）的答案</strong>，那么莫队可以在 $O(n\sqrt{n})$ 的时间复杂度内<strong>离线</strong>求出所有询问的答案。</p>
-<p><strong>注意</strong>：莫队是离线算法。如果题目强制在线，则不以可用莫队。</p>
-<p>什么是离线、在线？</p>
-<ul>
-<li>如果算法需要知道所有询问才能开始算法，则称此算法为离线算法。</li>
-<li>读入一个询问，回答一个询问的算法叫在线算法。</li>
-<li>强制在线就是要求你读入一个询问就立马回答。</li>
-</ul>
-<h4 id="莫队的基本思想"><a href="#莫队的基本思想" class="headerlink" title="莫队的基本思想"></a>莫队的基本思想</h4><p>离线存下所有询问，借助分块按照一定的顺序处理这些询问，使得询问之间可以互相利用（一般情况下为了方便，只会是本次询问利用上次询问的答案），以减小时间复杂度。</p>
-<h2 id="普通莫队"><a href="#普通莫队" class="headerlink" title="普通莫队"></a>普通莫队</h2><h3 id="算法基础"><a href="#算法基础" class="headerlink" title="算法基础"></a>算法基础</h3><h4 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h4><ol>
-<li><p>离线存下所有询问。</p>
-</li>
-<li><p>以二元组 $(bel[l_i],r_i)$ 为关键字升序对所有询问排序。<br>其中 $i$ 表示当前询问编号，$bel[l_i]$（belong，属于）表示 $l_i$ 所在的块的编号。</p>
-</li>
-<li><p>遍历每个询问，维护两个指针 $[l,r]$ 表示当前区间，$now$ 表示当前答案。<br>初始时 $l=1,r=0$（如果 $l=0$，那么我们还需要删除 $a_0$，导致一些奇怪的错误）。<br><strong>$l,r$ 需区别于 $l_i,r_i$，它们一对是我们维护的指针（下标），一对是数据给出的询问。</strong></p>
-</li>
-<li><p>移动区间 $[l,r]\to [l_i,r_i]$。途中维护区间 $[l,r]$ 的答案 $now$。</p>
-</li>
-<li><p>移动结束后，记录区间 $[l_i,r_i]$ 的答案 $ans_i$。（$ans_i\gets now$）。</p>
-</li>
-</ol>
-<h4 id="算法代码：洛谷-P3901-数列找不同（模板题）"><a href="#算法代码：洛谷-P3901-数列找不同（模板题）" class="headerlink" title="算法代码：洛谷 P3901 数列找不同（模板题）"></a>算法代码：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3901">洛谷 P3901 数列找不同</a>（模板题）</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> N=<span class="number">114514</span>;</span><br><span class="line"><span class="type">int</span> n,m,a[N],S;<span class="comment">// S：块长</span></span><br><span class="line"><span class="comment">// [1,S] 区间的块编号为 1，[S+1,2S] 区间的块编号为 2，以此类推。</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">bel</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;<span class="keyword">return</span> (x<span class="number">-1</span>)/S+<span class="number">1</span>;&#125;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">query</span><span class="comment">// 询问结构体</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> l,r,id;<span class="comment">// 分别为每个询问区间的左端点、右端点、询问的编号。</span></span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">inline</span> <span class="type">bool</span> <span class="keyword">operator</span> &lt; (query x,query y)</span><br><span class="line">	&#123;<span class="keyword">return</span> (<span class="built_in">bel</span>(x.l)==<span class="built_in">bel</span>(y.l)?x.r&lt;y.r:<span class="built_in">bel</span>(x.l)&lt;<span class="built_in">bel</span>(y.l));&#125;</span><br><span class="line">&#125;;</span><br><span class="line">query q[N];<span class="comment">// 查询数组</span></span><br><span class="line">bitset&lt;N&gt; ans;<span class="comment">// 答案数组</span></span><br><span class="line"><span class="comment">// cnt[i]：i 这个数在当前区间 [l,r] 出现次数，cf：重复出现的数的数量。</span></span><br><span class="line"><span class="comment">// 如果 cf=0，[l,r] 中没有重复出现的数。</span></span><br><span class="line"><span class="type">int</span> cnt[N],cf=<span class="number">0</span>;</span><br><span class="line"><span class="comment">// 移动区间</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> pos)</span><span class="comment">// 添加 a[pos]</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cnt[a[pos]]++;<span class="comment">// 将 a[pos] 的出现次数 +1。</span></span><br><span class="line">	<span class="keyword">if</span>(cnt[a[pos]]==<span class="number">2</span>)cf++;<span class="comment">// 如果已经出现两次，则重复了，cf++。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">del</span><span class="params">(<span class="type">int</span> pos)</span><span class="comment">// 删除 a[pos]</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cnt[a[pos]]--;<span class="comment">// 将 a[pos] 的出现次数 -1。</span></span><br><span class="line">	<span class="keyword">if</span>(cnt[a[pos]]==<span class="number">1</span>)cf--;<span class="comment">// 如果当前只出现一次，则之前一定重复（出现两次），</span></span><br><span class="line">	<span class="comment">// 而现在不重复了，cf--。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mt</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	S=<span class="built_in">int</span>(<span class="built_in">ceil</span>(<span class="built_in">pow</span>(n,<span class="number">0.5</span>)));<span class="comment">// S=sqrt(n)，根号分块</span></span><br><span class="line">	<span class="built_in">sort</span>(q+<span class="number">1</span>,q+m+<span class="number">1</span>);<span class="comment">// 结构体排序</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,l=<span class="number">1</span>,r=<span class="number">0</span>;i&lt;=m;i++)<span class="comment">// 遍历每个询问</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="meta">#<span class="keyword">define</span> q q[i]<span class="comment">// 偷懒</span></span></span><br><span class="line">		<span class="keyword">while</span>(q.l&lt;l)<span class="built_in">add</span>(--l);<span class="comment">// 向左扩展 l-1</span></span><br><span class="line">		<span class="keyword">while</span>(r&lt;q.r)<span class="built_in">add</span>(++r);<span class="comment">// 向右扩展 r+1</span></span><br><span class="line">		<span class="keyword">while</span>(l&lt;q.l)<span class="built_in">del</span>(l++);<span class="comment">// 向右删除 l</span></span><br><span class="line">		<span class="keyword">while</span>(q.r&lt;r)<span class="built_in">del</span>(r--);<span class="comment">// 向左删除 r</span></span><br><span class="line">		<span class="comment">// 注意上面四句的顺序，需要先扩展在删除。</span></span><br><span class="line">		<span class="comment">// 同时注意自减自加运算符是前置还是后置。</span></span><br><span class="line">		ans[q.id]=!cf;<span class="comment">// 记录当前答案</span></span><br><span class="line">		<span class="meta">#<span class="keyword">undef</span> q</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// input</span></span><br><span class="line">	<span class="built_in">mt</span>();<span class="comment">// 莫队</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)<span class="built_in">puts</span>(ans[i]?<span class="string">&quot;Yes&quot;</span>:<span class="string">&quot;No&quot;</span>);<span class="comment">// 输出</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="算法复杂度"><a href="#算法复杂度" class="headerlink" title="算法复杂度"></a>算法复杂度</h4><p>下面的讨论中 $m=O(n)$。</p>
-<p>单次移动 $l,r$ 中的一个复杂度显然 $O(1)$。</p>
-<p>考虑 $l,r$ 分别移动的次数。</p>
-<ul>
-<li>考虑 $l$：设块 $i$ 内的询问的左端点个数为 $x_i$，则块 $i$ 中移动 $l$ 的次数顶多 $x_i\times\sqrt{n}$。一共 $\sqrt{n}$ 个块，移动 $l$ 的总时间复杂度为：<script type="math/tex; mode=display">\begin{aligned}
-  &\sum_{i=1}^{\sqrt{n}} \left(x_i\times\sqrt{n}\right)\\
-  =&\left(\sqrt{n}\right)\times\sum_{i=1}^{\sqrt{n}} \left(x_i\right)\\
-  =&\sqrt{n}\times m\\
-  =&O(n\sqrt{n})
-\end{aligned}</script></li>
-<li>考虑 $r$：每块内的 $x_i$ 个 $l_j(1\le j\le x_i)$ 肯定一一对应着 $x_i$ 个 $r_j$。<br>显然这 $x_i$ 个 $r_j$ 最多会使 $r$ 移动 $n$ 的长度（$l_j$ 同一块时，按 $r_j$ 升序，故不降）。<br>一共 $\sqrt{n}$ 个块，移动 $r$ 的总时间复杂度为：$\sqrt{n}\times n=O(n\sqrt{n})$。</li>
-<li>则总时间复杂度为 $O(1)\times [O(n\sqrt{n})+O(n\sqrt{n})]=O(n\sqrt{n})$。</li>
-</ul>
-<h3 id="算法优化"><a href="#算法优化" class="headerlink" title="算法优化"></a>算法优化</h3><h4 id="奇偶性排序"><a href="#奇偶性排序" class="headerlink" title="奇偶性排序"></a>奇偶性排序</h4><p>刚才的复杂度分析中提出了一些极端情况：$x_i$ 个 $r_j$ 最多使 $r$ 移动 $n$ 的长度。</p>
-<p>而 $\sqrt{n}$ 个块都可能使 $r$ 移动 $n$ 的长度，例如下列询问（$n=100,S=10$）：<br><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 1</span><br><span class="line">10 100</span><br><span class="line">11 1</span><br><span class="line">20 100</span><br></pre></td></tr></table></figure></p>
-<p>按原先的排序策略，$r$ 需要反复横跳，十分浪费时间。</p>
-<p>如果将处理顺序改为以下顺序将大大加速：<br><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 1</span><br><span class="line">10 100</span><br><span class="line">20 100</span><br><span class="line">11 1</span><br></pre></td></tr></table></figure><br>怎么修改排序策略？</p>
-<p><strong>依然以 $bel[l_i]$ 为第一关键字升序排序，若 $bel[l_i]$ 为奇数，以 $r_i$ 为第二关键字升序排序，反之若 $bel[l_i]$ 为偶数，以 $r_i$ 为第二关键字降序排序。</strong></p>
-<blockquote>
-<p>这样我们的 $r$ 指针在处理完这个奇数块的问题后，将在返回的途中处理偶数块的问题，再向 $n$ 移动处理下一个奇数块的问题，优化了 $r$ 指针的移动次数，一般情况下，这种优化能让程序快 $30\%$ 左右。</p>
-<p>——OI-Wiki。</p>
-</blockquote>
-<p>实测：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/137463623">$810$ ms</a> $\to$ <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/137467226">$622$ ms</a>，快约 $23.2\%$。</p>
-<h4 id="奇偶性排序：代码"><a href="#奇偶性排序：代码" class="headerlink" title="奇偶性排序：代码"></a>奇偶性排序：代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">query</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> l,r,id;</span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">inline</span> <span class="type">bool</span> <span class="keyword">operator</span> &lt; (query x,query y)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">bel</span>(x.l)!=<span class="built_in">bel</span>(y.l))<span class="keyword">return</span> <span class="built_in">bel</span>(x.l)&lt;<span class="built_in">bel</span>(y.l);</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">bel</span>(x.l)&amp;<span class="number">1</span>)<span class="keyword">return</span> x.r&lt;y.r;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">return</span> x.r&gt;y.r;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>坑点：注意重载运算符不能出现 $a<b,a>b$ 同时为真的情况，否则会 RE。如以下实现方式就是错误的：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">query</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> l,r,id;</span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">inline</span> <span class="type">bool</span> <span class="keyword">operator</span> &lt; (query x,query y)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">bel</span>(x.l)!=<span class="built_in">bel</span>(y.l))<span class="keyword">return</span> <span class="built_in">bel</span>(x.l)&lt;<span class="built_in">bel</span>(y.l);</span><br><span class="line">		<span class="keyword">return</span> (<span class="built_in">bel</span>(x.l)&amp;<span class="number">1</span>)==(x.r&lt;y.r);<span class="comment">// 这里会出错</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="常数级展开"><a href="#常数级展开" class="headerlink" title="常数级展开"></a>常数级展开</h4><p>发现 <code>add()</code>，<code>del()</code> 两个函数可以压行并展开到 <code>mt()</code> 中。</p>
-<p>这看似鸡肋的优化实测 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/137468354">$572$ ms</a>——又优化了 $50$ ms。</p>
-<p>代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">mt</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	S=<span class="built_in">int</span>(<span class="built_in">ceil</span>(<span class="built_in">pow</span>(n,<span class="number">0.5</span>)));</span><br><span class="line">	<span class="built_in">sort</span>(q+<span class="number">1</span>,q+m+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,l=<span class="number">1</span>,r=<span class="number">0</span>;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="meta">#<span class="keyword">define</span> q q[i]</span></span><br><span class="line">		<span class="comment">// 压行并展开：</span></span><br><span class="line">		<span class="keyword">while</span>(q.l&lt;l)cf+=(++cnt[a[--l]]==<span class="number">2</span>);<span class="comment">// 与 add(--l) 等价</span></span><br><span class="line">		<span class="keyword">while</span>(r&lt;q.r)cf+=(++cnt[a[++r]]==<span class="number">2</span>);<span class="comment">// 与 add(++r) 等价</span></span><br><span class="line">		<span class="keyword">while</span>(l&lt;q.l)cf-=(--cnt[a[l++]]==<span class="number">1</span>);<span class="comment">// 与 del(l++) 等价</span></span><br><span class="line">		<span class="keyword">while</span>(q.r&lt;r)cf-=(--cnt[a[r--]]==<span class="number">1</span>);<span class="comment">// 与 del(r--) 等价</span></span><br><span class="line">		ans[q.id]=!cf;</span><br><span class="line">		<span class="meta">#<span class="keyword">undef</span> q</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="玄学剪枝"><a href="#玄学剪枝" class="headerlink" title="玄学剪枝"></a>玄学剪枝</h4><p>我考虑到有时候可能转移大半天还不如暴力重新算，所以想出了一个玄学剪枝：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果转移代价大于重新算的代价</span></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">abs</span>(q.l-l)+<span class="built_in">abs</span>(q.r-r)&gt;(r-l+<span class="number">1</span>)+(q.r-q.l+<span class="number">1</span>))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">while</span>(l&lt;=r)cf-=(--cnt[a[r--]]==<span class="number">1</span>);<span class="comment">// 清除</span></span><br><span class="line">	r=(l=q.l)<span class="number">-1</span>;<span class="comment">// 直接跳转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>（这段语句加在 <code>#define q q[i]</code> 后面。）</p>
-<p>没想到只优化了 $1$ ms（悲。也许是每次都判断的代价太大，抵消了直接跳转的优化。</p>
-<h4 id="预处理-bel"><a href="#预处理-bel" class="headerlink" title="预处理 $bel$"></a>预处理 $bel$</h4><p>我写好几题才发现其他大佬都预处理了 $bel$，于是赶紧改过来。快了 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/138365971">$58$ ms</a>。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> S;<span class="type">int</span> bel[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">initbel</span><span class="params">()</span><span class="comment">// 1~S: 1</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	S=<span class="built_in">int</span>(<span class="built_in">ceil</span>(<span class="built_in">pow</span>(n,<span class="number">0.5</span>)));<span class="comment">// S=sqrt(n)</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)bel[i]=(i<span class="number">-1</span>)/S+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mt</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">initbel</span>();</span><br><span class="line">	<span class="built_in">sort</span>(q+<span class="number">1</span>,q+m+<span class="number">1</span>);</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><h4 id="例题：DQUERY-D-query"><a href="#例题：DQUERY-D-query" class="headerlink" title="例题：DQUERY - D-query"></a>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP3267">DQUERY - D-query</a></h4><p>简要题意：给出一个长度为 $n$ 的数列 $a$，$m$ 个询问，每次询问给出数对 $l,r$ 表示查询区间 $[l,r]$ 中有多少不同的数。</p>
-<p>数据范围：$n\le 3\times10^5,m\le2\times10^5,a_i\le10^6$。</p>
-<p><strong>板子题，难度在于如何 $O(1)$ 转移答案。</strong></p>
-<p>考虑用数组 $cnt_i$ 表示 $[l,r]$ 中 $i$ 出现了几次，变量 $now$ 表示 $[l,r]$ 中有多少不同的数。</p>
-<p>要添加 $a_{pos}$，那么 $cnt[a_{pos}]\gets cnt[a_{pos}]+1$。</p>
-<p>此时若 $cnt[a_{pos}]=1$，即多了一个不同的数，那么 $now\gets now+1$。</p>
-<p>同理删除 $a_{pos}$ 时 $cnt[a_{pos}]\gets cnt[a_{pos}]-1$，若 $cnt[a_{pos}]=0$（少了一个数），$now\gets now-1$。</p>
-<p>其他的正常地跑莫队即可。<em>但此题似乎卡常。</em></p>
-<h4 id="例题：P2709-小B的询问"><a href="#例题：P2709-小B的询问" class="headerlink" title="例题：P2709 小B的询问"></a>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2709">P2709 小B的询问</a></h4><p>简要题意：给出一个长度为 $n$ 的数列 $a$（值域 $[1,k]$），$m$ 个询问，每次询问给出数对 $l,r$ 表示查询：  </p>
-<script type="math/tex; mode=display">\sum\limits_{i=1}^k c_i^2</script><p>其中 $c_i$ 表示数字 $i$ 在 $[l,r]$ 中的出现次数。  </p>
-<p>数据范围：$1\le n,m,k \le 5\times 10^4$。</p>
-<p><strong>难度依然在于如何 $O(1)$ 转移答案。</strong></p>
-<p>$c$ 数组很好维护，但答案（设它为 $s$）就不那么好维护了。</p>
-<p>由于每次添加或删除数时只会改变 $c_{a[pos]}$，而且只会 $\pm1$。所以：</p>
-<p>由</p>
-<script type="math/tex; mode=display">
-s=\sum\limits_{i=1}^k c_i^2=c_1^2+\cdots+c_{a[pos]}^2+\cdots+c_k^2</script><p>可得</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    s'&=c_1^2+\cdots+(c_{a[pos]}\pm 1)^2+\cdots+c_k^2\\
-    &=c_1^2+\cdots+c_{a[pos]}^2\pm2\times c_{a[pos]}+1+\cdots+c_k^2\\
-    &=s\pm2\times c_{a[pos]}+1
-\end{aligned}</script><p>转移时修改即可。</p>
-<h4 id="例题：P5268-SNOI2017-一个简单的询问"><a href="#例题：P5268-SNOI2017-一个简单的询问" class="headerlink" title="例题：P5268 [SNOI2017] 一个简单的询问"></a>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5268">P5268 [SNOI2017] 一个简单的询问</a></h4><p>简要题意：给出一个长度为 $n$ 的数列 $a$（值域 $[1,n]$），$m$ 个询问，每次询问给出数对 $l_1,r_1,l_2,r_2$ 表示查询：</p>
-<script type="math/tex; mode=display">
-\sum\limits_{x=0}^\infty \text{get}(l_1,r_1,x)\times \text{get}(l_2,r_2,x)</script><p>$\text{get}(l,r,x)$ 表示区间 $[l,r]$ 中 $x$ 的出现次数。</p>
-<p>数据范围：$n,m\le 5\times 10^4,1\le a_i\le n$。</p>
-<p>首先因为每次询问给出的是一个四元组，所以莫队不能直接做。</p>
-<p>考虑对询问进行拆分。</p>
-<p>可以发现，$\text{get}(l,r,x)=\text{get}(1,r,x)-\text{get}(1,l-1,x)$。展开：<br>（为方便，记 $\text{g}(p)=\text{get}(1,p,x)$）</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-    &\sum\limits_{x=0}^\infty
-    \text{get}(l_1,r_1,x)\times\text{get}(l_2,r_2,x)\\
-    =&\sum\limits_{x=0}^\infty
-    \big(\text{g}(r_1)-\text{g}(l_1-1)\big)\times
-    \big(\text{g}(r_2)-\text{g}(l_2-1)\big)\\
-    =&\sum\limits_{x=0}^\infty
-    \text{g}(r_1)\times\text{g}(r_2)-\text{g}(l_1-1)\times\text{g}(r_2)\\
-    &-\text{g}(l_2-1)\times\text{g}(r_1)+\text{g}(l_1-1)\times\text{g}(l_2-1)
-\end{aligned}</script><p>若记 $\text{ask}(l,r)=\text{g}(l)\times\text{g}(r)$，</p>
-<script type="math/tex; mode=display">
-\text{原式}=\text{ask}(r_1,r_2)-\text{ask}(l_1-1,r_2)-\text{ask}(l_2-1,r_1)+\text{ask}(l_1,l_2)</script><p>肉眼可见，我们将原来的四元询问转换为四个二元询问。虽然 $l,r$ 并不表示区间，但我们可以用相同的思想处理询问。</p>
-<p>如何 $O(1)$ 转移 $\text{ask}(l,r)$？<br>考虑若其中一个（$\text{g}(l),\text{g}(r)$）增加 1，则它们的积会增加另一个数。具体见代码。</p>
-<p>核心代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cl[i]: [1,l] 中 i 的个数；cr[i]: [1,r] 中 i 的个数；now: sum(cl[i]*cr[i])</span></span><br><span class="line"><span class="type">int</span> cl[N],cr[N],now,ans[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mt</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">init</span>();</span><br><span class="line">	<span class="built_in">sort</span>(q+<span class="number">1</span>,q+(m&lt;&lt;<span class="number">2</span>)+<span class="number">1</span>);<span class="comment">// 原来的一个询问拆成四个，所以 &lt;&lt;2</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,l=<span class="number">0</span>,r=<span class="number">0</span>;i&lt;=(m&lt;&lt;<span class="number">2</span>);i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="meta">#<span class="keyword">define</span> q q[i]</span></span><br><span class="line">		<span class="keyword">while</span>(l&lt;q.l)++cl[a[++l]],now+=cr[a[l]];<span class="comment">// 相应的转移</span></span><br><span class="line">		<span class="keyword">while</span>(r&lt;q.r)++cr[a[++r]],now+=cl[a[r]];</span><br><span class="line">		<span class="keyword">while</span>(q.l&lt;l)--cl[a[l]],now-=cr[a[l--]];</span><br><span class="line">		<span class="keyword">while</span>(q.r&lt;r)--cr[a[r]],now-=cl[a[r--]];</span><br><span class="line">		ans[q.id]+=(q.t*now);</span><br><span class="line">		<span class="meta">#<span class="keyword">undef</span> q</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,l1,r1,l2,r2,p=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d %d&quot;</span>,&amp;l1,&amp;r1,&amp;l2,&amp;r2);</span><br><span class="line">		q[p++]=&#123;<span class="built_in">min</span>(l1<span class="number">-1</span>,l2<span class="number">-1</span>),<span class="built_in">max</span>(l1<span class="number">-1</span>,l2<span class="number">-1</span>),i,<span class="number">1</span> &#125;;<span class="comment">// 拆开</span></span><br><span class="line">		q[p++]=&#123;<span class="built_in">min</span>(l1<span class="number">-1</span>,r2),  <span class="built_in">max</span>(l1<span class="number">-1</span>,r2),  i,<span class="number">-1</span>&#125;;</span><br><span class="line">		q[p++]=&#123;<span class="built_in">min</span>(l2<span class="number">-1</span>,r1),  <span class="built_in">max</span>(l2<span class="number">-1</span>,r1),  i,<span class="number">-1</span>&#125;;</span><br><span class="line">		q[p++]=&#123;<span class="built_in">min</span>(r1,r2),	<span class="built_in">max</span>(r1,r2),	i,<span class="number">1</span> &#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="卡常：P1972-SDOI2009-HH的项链"><a href="#卡常：P1972-SDOI2009-HH的项链" class="headerlink" title="卡常：P1972 [SDOI2009] HH的项链"></a>卡常：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1972">P1972 [SDOI2009] HH的项链</a></h4><p>题意：同 DQUERY - D-query。但数据范围不同，还卡莫队。</p>
-<p>我们就这么屈服了吗？没有！</p>
-<p>其实本题莫队理论上 $n=10^6,O(n\sqrt{n})\approx 10^9$ 是可以过的，因为莫队经常跑不满。但经不住毒瘤出题人卡莫队。</p>
-<p>考虑常数优化。注意到大部分时间花在转移 $l,r$ 指针上。</p>
-<p>由于 $a_i$ 的波动程度可能非常大，又由于我们的转移方式是</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(q.l&lt;l)now+=(!(cnt[a[--l]]++));</span><br></pre></td></tr></table></figure>
-<p>访问 cnt 时下标波动程度大，导致访问慢。</p>
-<p>如何加速？关键在于用等价但是<strong>数组访问只与下标有关</strong>的转移方式。因为下标经过排序后相对连续。</p>
-<p>考虑记录两个数组 $pre_i,nxt_i$ 分别表示上一个和下一个出现 $a_i$ 的位置的下标。如添加 $l=i$ 时，$r&lt;nxt_i$，即右边那个最近的 $a_i$ 已经不在 $[l,r]$ 中（显然左边那个更不会），那么 $[l,r]$ 中多了一个不同的数，$now\gets now+1$。其他同理。</p>
-<p>代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)pre[i]=lst[a[i]],lst[a[i]]=i;</span><br><span class="line"><span class="built_in">fill</span>(lst,lst+A,<span class="number">0x3f3f3f3f</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=n;i;i--)nxt[i]=lst[a[i]],lst[a[i]]=i;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,l=<span class="number">1</span>,r=<span class="number">0</span>;i&lt;=m;i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> q q[i]</span></span><br><span class="line">	<span class="keyword">while</span>(q.l&lt;l)now+=(nxt[--l]&gt;r);</span><br><span class="line">	<span class="keyword">while</span>(r&lt;q.r)now+=(pre[++r]&lt;l);</span><br><span class="line">	<span class="keyword">while</span>(l&lt;q.l)now-=(nxt[l++]&gt;r);</span><br><span class="line">	<span class="keyword">while</span>(q.r&lt;r)now-=(pre[r--]&lt;l);</span><br><span class="line">	ans[q.id]=now;</span><br><span class="line">	<span class="meta">#<span class="keyword">undef</span> q</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="带修莫队"><a href="#带修莫队" class="headerlink" title="*带修莫队"></a>*带修莫队</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><h4 id="如何实现带修莫队？"><a href="#如何实现带修莫队？" class="headerlink" title="如何实现带修莫队？"></a>如何实现带修莫队？</h4><p>发现普通莫队不支持修改，那么如何使它支持修改操作呢？</p>
-<p>考虑存询问时加一个变量 $t_i$ 表示<strong>进行此询问时前面修改了几次</strong>。同时存下每一个修改操作（无需排序）。</p>
-<p>再新增一个指针 $t$ 表示当前区间所在的时间位置。那么移动方向就从 $4$ 个变为 $6$ 个：$[l-1,r,t],[l,r+1,t],[l+1,r,t],[l,r-1,t],[l,r,t-1],[l,r,t+1]$。新增的两个为时间轴上的移动。</p>
-<h3 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h3><h4 id="例题：P1903-国家集训队-数颜色-维护队列"><a href="#例题：P1903-国家集训队-数颜色-维护队列" class="headerlink" title="例题：P1903 [国家集训队] 数颜色 / 维护队列"></a>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1903">P1903 [国家集训队] 数颜色 / 维护队列</a></h4><p>简要题意：给出一个长度为 $n$ 的数列，$m$ 个操作，要求支持两种操作：查询区间有多少不同的数、单点修改。</p>
-<p>数据范围：$n,m\le 1.33333\times 10^5,a_i\le 10^6$。</p>
-<p>板子题，直接上代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> N=<span class="number">214514</span>,A=<span class="number">1145141</span>;<span class="comment">// A：a 的值域</span></span><br><span class="line"><span class="type">int</span> n,m,S,qm,a[N];<span class="comment">// qm：询问的个数</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">bel</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;<span class="keyword">return</span> (x<span class="number">-1</span>)/S+<span class="number">1</span>;&#125;<span class="comment">// 分块</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">query</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> l,r,t,id;<span class="comment">// 额外记录时间</span></span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">inline</span> <span class="type">bool</span> <span class="keyword">operator</span> &lt; (query x,query y)</span><br><span class="line">	&#123;<span class="comment">//		若 l 所在块不同	按 l 的块的编号 否则 若 r 所在块不同 按 r 的块的编号 否则按时间排</span></span><br><span class="line">		<span class="keyword">return</span> (<span class="built_in">bel</span>(x.l)^<span class="built_in">bel</span>(y.l)?<span class="built_in">bel</span>(x.l)&lt;<span class="built_in">bel</span>(y.l):(<span class="built_in">bel</span>(x.r)^<span class="built_in">bel</span>(y.r)?<span class="built_in">bel</span>(x.r)&lt;<span class="built_in">bel</span>(y.r):x.t&lt;y.t));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;query q[N];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">modify</span><span class="comment">// 新增：修改操作</span></span><br><span class="line">&#123;<span class="type">int</span> p,v;&#125;;modify mo[N];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> cnt[A],now,ans[N];<span class="comment">// 类似于普通莫队</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mt</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	S=<span class="built_in">int</span>(<span class="built_in">ceil</span>(<span class="built_in">pow</span>(n,<span class="number">0.66</span>)));<span class="comment">// 这里块长需要调整，具体可以可以看</span></span><br><span class="line">	<span class="comment">// https://oi-wiki.org/misc/modifiable-mo-algo/ 中的证明</span></span><br><span class="line">	<span class="built_in">sort</span>(q+<span class="number">1</span>,q+qm+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,l=<span class="number">1</span>,r=<span class="number">0</span>,t=<span class="number">0</span>;i&lt;=qm;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="meta">#<span class="keyword">define</span> q q[i]</span></span><br><span class="line">		<span class="meta">#<span class="keyword">define</span> p mo[t].p</span></span><br><span class="line">		<span class="meta">#<span class="keyword">define</span> v mo[t].v</span></span><br><span class="line">		<span class="keyword">while</span>(q.l&lt;l)now+=(!(cnt[a[--l]]++));<span class="comment">// 类似</span></span><br><span class="line">		<span class="keyword">while</span>(r&lt;q.r)now+=(!(cnt[a[++r]]++));</span><br><span class="line">		<span class="keyword">while</span>(l&lt;q.l)now-=(!(--cnt[a[l++]]));</span><br><span class="line">		<span class="keyword">while</span>(q.r&lt;r)now-=(!(--cnt[a[r--]]));</span><br><span class="line">		<span class="comment">// 压行：先加时间 如果在当前区间内	   相应的转移	   *直接交换 v 和 a[p]</span></span><br><span class="line">		<span class="keyword">while</span>(t&lt;q.t)&#123;t++;<span class="keyword">if</span>(l&lt;=p&amp;&amp;p&lt;=r)now-=(!(--cnt[a[p]])-!(cnt[v]++));<span class="built_in">swap</span>(a[p],v);&#125;</span><br><span class="line">		<span class="keyword">while</span>(q.t&lt;t)&#123;<span class="keyword">if</span>(l&lt;=p&amp;&amp;p&lt;=r)now-=(!(--cnt[a[p]])-!(cnt[v]++));<span class="built_in">swap</span>(a[p],v);t--;&#125;</span><br><span class="line">		ans[q.id]=now;</span><br><span class="line">		<span class="meta">#<span class="keyword">undef</span> q</span></span><br><span class="line">		<span class="meta">#<span class="keyword">undef</span> p</span></span><br><span class="line">		<span class="meta">#<span class="keyword">undef</span> v</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="回滚莫队"><a href="#回滚莫队" class="headerlink" title="*回滚莫队"></a>*回滚莫队</h2><h3 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h3><h4 id="何时使用回滚莫队？"><a href="#何时使用回滚莫队？" class="headerlink" title="何时使用回滚莫队？"></a>何时使用回滚莫队？</h4><p>对于某些问题，普通莫队可能难以解决。原因在于删除和添加只有一个可实现。这时就需要回滚莫队了。</p>
-<p>先看题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_joisc2014_c">AT_joisc2014_c 歴史の研究</a>。</p>
-<p>简要题意：区间询问，给出一个长度为 $n$ 的数列 $a$，$m$ 个询问，<br>每次询问要求回答</p>
-<script type="math/tex; mode=display">
-\max_{\forall x}\{x\times\operatorname{cnt}(x)\}</script><p>其中 $\operatorname{cnt}(x)$，表示 $x$ 在 $[l,r]$ 区间中的出现次数。</p>
-<p>此题添加数很方便，但删除数却很麻烦。因为当最大值改变（如变小）时，我们无法确定新的最大值。</p>
-<p>又如求区间 $\operatorname{mex}$ 时（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4137">P4137 Rmq Problem / mex</a>），删除数方便，添加数麻烦。</p>
-<p>这时就要用到回滚莫队了。它只用删除和添加中的一个操作，剩下的就回滚解决。</p>
-<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><h4 id="算法流程-1"><a href="#算法流程-1" class="headerlink" title="算法流程"></a>算法流程</h4><ol>
-<li>对原序列进行分块，对询问按以 $bel[l_i]$ 升序为第一关键字，$r_i$ 升序为第二关键字排序。</li>
-<li>如果 $bel[l_i]\ne bel[l_{i-1}]$，那么将 $l$ 初始化为 $bel[l_i]$ 的右端点的后一个位置，将 $r$ 初始化为 $bel[l_i]$ 的右端点。<br>此时：<ol>
-<li>若 $bel[l_i]=bel[r_i]$，直接暴力回答。</li>
-<li>反之，<ol>
-<li>移动 $r\to r_i$。</li>
-<li>暂存当前答案 $tmp$。</li>
-<li>移动 $l\to l_i$。</li>
-<li>记录答案 $ans_i\gets now$。</li>
-<li><strong>回滚，使 $l$ 回滚回 $bel[l_i]$ 的右端点的后一个位置，同时更新答案 $now\gets tmp$。</strong></li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;<span class="comment">//!</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> N=<span class="number">114514</span>,INF=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="type">int</span> n,m;</span><br><span class="line"><span class="type">int</span> a[N];</span><br><span class="line"><span class="type">int</span> bel[N],S;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">query</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> l,r,id;</span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">inline</span> <span class="type">bool</span> <span class="keyword">operator</span> &lt; (query x,query y)</span><br><span class="line">	&#123;<span class="keyword">return</span> (bel[x.l]^bel[y.l]?bel[x.l]&lt;bel[y.l]:x.r&lt;y.r);&#125;</span><br><span class="line">&#125;;</span><br><span class="line">query q[N];</span><br><span class="line">ll ans[N],now,tmp;</span><br><span class="line">unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; cnt,tcnt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">rbmt</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	S=<span class="built_in">int</span>(<span class="built_in">ceil</span>(<span class="built_in">pow</span>(n,<span class="number">.5</span>)));</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)bel[i]=(i<span class="number">-1</span>)/S+<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">sort</span>(q+<span class="number">1</span>,q+m+<span class="number">1</span>);bel[q[<span class="number">0</span>].l=<span class="number">0</span>]=INF;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,l,r;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(bel[q[i].l]^bel[q[i<span class="number">-1</span>].l])cnt.<span class="built_in">clear</span>(),now=-INF,r=bel[q[i].l]*S,l=r+<span class="number">1</span>;</span><br><span class="line">		<span class="meta">#<span class="keyword">define</span> q q[i]</span></span><br><span class="line">		<span class="keyword">if</span>(bel[q.l]==bel[q.r])</span><br><span class="line">		&#123;</span><br><span class="line">			tmp=-INF,tcnt.<span class="built_in">clear</span>();</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j=q.l;j&lt;=q.r;j++)tmp=<span class="built_in">max</span>(tmp,<span class="number">1ll</span>*(++tcnt[a[j]])*a[j]);</span><br><span class="line">			ans[q.id]=tmp;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">while</span>(r&lt;q.r)now=<span class="built_in">max</span>(now,<span class="number">1ll</span>*(++cnt[a[++r]])*a[r]);</span><br><span class="line">			tmp=now;</span><br><span class="line">			<span class="keyword">while</span>(q.l&lt;l)now=<span class="built_in">max</span>(now,<span class="number">1ll</span>*(++cnt[a[--l]])*a[l]);</span><br><span class="line">			ans[q.id]=now;</span><br><span class="line">			now=tmp;<span class="comment">// rollback</span></span><br><span class="line">			<span class="keyword">while</span>(l&lt;=bel[q.l]*S)--cnt[a[l++]];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="meta">#<span class="keyword">undef</span> q</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,a+i);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;q[i].l,&amp;q[i].r),q[i].id=i;</span><br><span class="line">	<span class="built_in">rbmt</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)<span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>,ans[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="莫队延迟更新答案"><a href="#莫队延迟更新答案" class="headerlink" title="莫队延迟更新答案"></a>莫队延迟更新答案</h2><h3 id="出处"><a href="#出处" class="headerlink" title="出处"></a>出处</h3><p>该方法整理自：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/wyz123321/solution-p4137">「一叶知秋。」大佬的洛谷题解</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/qwaszx/solution-p5906">「qwaszx」大佬的洛谷题解</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/fusu2333/solution-p3834">「一扶苏一」大佬的洛谷题解</a></li>
-</ul>
-<p>也许还有。我看到的就这些。</p>
-<p>其实就是<strong>普通</strong>莫队的升级版。</p>
-<h3 id="算法思想-amp-实现"><a href="#算法思想-amp-实现" class="headerlink" title="算法思想 &amp; 实现"></a>算法思想 &amp; 实现</h3><p>对莫队算法进行观察，不难发现移动 $l,r$ 指针过程中的答案我们并不需要，于是就不一定要 $O(1)$ 移动指针并更新答案。只需要能 $O(1)$ 移动指针，并记录修改，移动 $l,r$ 结束后再 $\le O(\sqrt{n})$ 地更新答案即可。</p>
-<p>这个寄巧很早就出现了，但无人详细记载，故记之。</p>
-<p>更具体的，考虑 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4137">P4137 Rmq Problem / mex</a> 这题。</p>
-<p>此题 $n,m,a_i\le 2\times 10^5$，我们可以进行值域分块，开个桶，$cnt_i$ 表示 $i$ 在 $[l,r]$ 中出现次数（而非是否出现，方便维护）。每个块 $S$ 维护块内的数在 $[l,r]$ 中出现的个数，即</p>
-<script type="math/tex; mode=display">
-exi_S=\sum_{i\in S}[cnt_i>0]</script><p>当移动指针，添加/删除数时，直接修改 $cnt$，同时修改 $exi$。不急着更新答案，但移动指针结束后，扫过值域分块，$O(\sqrt{n})$ 更新答案 $now$。具体的，$O(\sqrt{n})$ 遍历每个块 $S$，若 $exi_S=|S|$，跳到下一个块，反之 $\operatorname{mex}$ 必定在块内，再次 $O(\sqrt{n})$ 遍历每个块内元素 $i\in S$，必定 $\exist i,cnt_i=0,\forall j<i,cnt_i>0$，此时 $i$ 即为所求。</p>
-<p>本质上，该方法就是利用莫队对答案修改 | 询问次数 $O(n\sqrt{n})|O(n)$ 的特性，调整对答案的维护复杂度，将原来维护的答案修改 | 询问复杂度 $O(1)|O(1)$ 的高要求降为 $O(1)|O(\sqrt{n})$，以适应更多题目。</p>
-<p>但有时第一时间想到的是 $O(\sqrt{n})|O(1)$ 做法，此时就需要修改策略。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> N=<span class="number">214514</span>,B=<span class="number">514</span>;</span><br><span class="line"><span class="type">int</span> n,m,a[N];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">qry</span>&#123;<span class="type">int</span> l,r,id;&#125;;</span><br><span class="line">qry q[N];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> S,bel[N];</span><br><span class="line"><span class="type">int</span> cnt[N],exi[B];</span><br><span class="line"><span class="type">int</span> ans[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mt</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	S=<span class="built_in">int</span>(<span class="built_in">ceil</span>(n*<span class="built_in">pow</span>(m,<span class="number">-.5</span>)));</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=n;i++)bel[i]=i/S+<span class="number">1</span>;</span><br><span class="line">	std::<span class="built_in">sort</span>(q+<span class="number">1</span>,q+m+<span class="number">1</span>,[](qry x,qry y)-&gt;<span class="type">bool</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> bel[x.l]!=bel[y.l]?</span><br><span class="line">		(bel[x.l]&lt;bel[y.l]):</span><br><span class="line">		(bel[x.l]&amp;<span class="number">1</span>)==(x.r&lt;y.r);</span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,l=<span class="number">1</span>,r=<span class="number">0</span>,j,k;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="meta">#<span class="keyword">define</span> q q[i]</span></span><br><span class="line">		<span class="keyword">while</span>(q.l&lt;l)l--,exi[bel[a[l]]]+=!(cnt[a[l]]++);</span><br><span class="line">		<span class="keyword">while</span>(r&lt;q.r)r++,exi[bel[a[r]]]+=!(cnt[a[r]]++);</span><br><span class="line">		<span class="keyword">while</span>(l&lt;q.l)exi[bel[a[l]]]-=!(--cnt[a[l]]),l++;</span><br><span class="line">		<span class="keyword">while</span>(q.r&lt;r)exi[bel[a[r]]]-=!(--cnt[a[r]]),r--;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">1</span>;exi[j]==S;j++);</span><br><span class="line">		<span class="keyword">for</span>(k=(j<span class="number">-1</span>)*S;cnt[k];k++);</span><br><span class="line">		ans[q.id]=k;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,a+i);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;q.l,&amp;q.r),q.id=i;</span><br><span class="line">	<span class="built_in">mt</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="例题：P5906-【模板】回滚莫队-amp-不删除莫队"><a href="#例题：P5906-【模板】回滚莫队-amp-不删除莫队" class="headerlink" title="例题：P5906 【模板】回滚莫队&amp;不删除莫队"></a>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5906">P5906 【模板】回滚莫队&amp;不删除莫队</a></h3><p><del>对不住了，回滚莫队。</del></p>
-<p>题意：给定一个序列，多次询问一段区间 $[l,r]$，求区间中相同的数的最远间隔距离。序列中两个元素的间隔距离指的是两个元素下标差的绝对值。</p>
-<p>数据范围：$1\leq n,m\leq 2\cdot 10^5$，$1\leq a_i\leq 2\cdot 10^9$。</p>
-<p>考虑普通莫队。硬伤：当删除值时，若最大值改动，难以维护。</p>
-<p>考虑离散化后对原题值域进行分块。维护每个值在 $[l,r]$ 中的最远距离，同时维护块内距离最大值和全局最大值。此时复杂度（修改 | 询问）$O(\sqrt{n})-O(1)$。</p>
-<p>考虑转换成 $O(\sqrt{n})-O(1)$。</p>
-<p>「qwaszx」大佬的神之一手——再次值域分块！</p>
-<p>刚才的对数进行值域分块就不要了，只要保存每个数在区间中最边缘的两个位置，同时分块改为对距离值域分块！具体的，$cnt_i$ 表示有多少个数满足 $[l,r]$ 内最远间隔距离为 $i$，$sum_S$ 表示块 $S$ 内 $cnt$ 之和，即 $sum_S=\sum_{j\in S}cnt_j$。</p>
-<p>若修改最远间隔距离，直接 $O(1)$ 修改 $cnt$ 和 $sum$，而查询时则从大往小扫过值域分块，具体的，块 $T$ 为最大的一个块使得满足 $sum_T&gt;0$，则一定 $\exist k\in S,\forall l,l&gt;k,cnt_l=0,cnt_k&gt;0$。<strong>即 $k$ 本身为最远间隔距离的最大值</strong>。</p>
-<p>实现与 P4137 Rmq Problem / mex 类似。</p>
-<h3 id="例题：P3834-【模板】可持久化线段树-2"><a href="#例题：P3834-【模板】可持久化线段树-2" class="headerlink" title="例题：P3834 【模板】可持久化线段树 2"></a>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3834">P3834 【模板】可持久化线段树 2</a></h3><p><del>嘿嘿没想到吧，主席树！</del></p>
-<p>又双㕛叒叕考虑值域分块。像上一题一样维护 $cnt,sum$，$O(1)$ 修改。$cnt_i$ 表示 $[l,r]$ 内 $i$ 的数量。</p>
-<p>从小到大扫过每个块，记录 $sum$ 的前缀和，若前缀和 $pre_{S-1}+sum_S\ge k$，则第 $k$ 大在该区间内。从小到大扫过 $S$ 内表示的每个数，累加 $cnt$ 直到找到第 $k$ 大。</p>
-<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><script type="math/tex; mode=display">\Huge
-\text{Thanks!}</script><hr>
-<h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><p>此 PPT 是本人一边学习莫队一边写的，肯定有诸多不足，还请包容。</p>
-<p>当然还有树上莫队、二维莫队，由于难度过高，<del>我自己也不会，</del>就不多做介绍了。可以通过 OI-Wiki 自学。</p>
-
+        
+          <p>
+            <a class="article-more-link" href="/mt/">
+              Read More...
+            </a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/mt/" data-id="clyfimaf10006igizazx8c194" class="article-share-link">
+      <a data-url="https://po7ed.github.io/mt/" data-id="clyif00se000664iz7vdzf0eb" class="article-share-link">
         分享
       </a>
       
@@ -1087,185 +455,17 @@ exi_S=\sum_{i\in S}[cnt_i>0]</script><p>当移动指针，添加/删除数时，
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>笔者为网络流初学者，可能文章有诸多不足，请指出。</p>
 <p>亮点在于 <code>vector</code> 存图、反边作用的解释、代码的注释。</p>
 <p>初学者可暂时跳过下面这段“关于 <code>vector</code> 存图”，学完算法在回来看。</p>
-<h2 id="关于-vector-存图"><a href="#关于-vector-存图" class="headerlink" title="关于 vector 存图"></a>关于 <code>vector</code> 存图</h2><p>很多网上的资料（视频、题解）的最大流算法为了方便找反边，都使用了链式前向星。</p>
-<p><strong>但是！</strong></p>
-<p><code>vector</code> 党表示不服！</p>
-<p>于是在进行学习后，笔者归纳出了两种 <code>vector</code> 存图并快速找反边的方法。</p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/hgywdcmg"><strong>代码</strong></a>。</p>
-<h3 id="存储反边编号"><a href="#存储反边编号" class="headerlink" title="存储反边编号"></a>存储反边编号</h3><p>一般 <code>vector</code> 实现邻接表是形如这样的：（在最大流相关算法中）</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> v,w;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;edge&gt; e[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">addedge</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> v,<span class="type">int</span> w)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	e[u].<span class="built_in">push_back</span>(&#123;v,w&#125;);</span><br><span class="line">	e[v].<span class="built_in">push_back</span>(&#123;u,<span class="number">0</span>&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但是这种存储方法无法快速找到反边。<br>考虑在结构体 <code>edge</code> 中添加一个信息 <code>x</code>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> v,w,x;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>表示反边为 <code>e[v][x]</code>。那么加边时也相应的需要修改：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">addedge</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> v,<span class="type">int</span> w)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	e[u].<span class="built_in">push_back</span>(&#123;v,w,<span class="built_in">int</span>(e[v].<span class="built_in">size</span>())&#125;);</span><br><span class="line">	e[v].<span class="built_in">push_back</span>(&#123;u,<span class="number">0</span>,<span class="built_in">int</span>(e[u].<span class="built_in">size</span>()<span class="number">-1</span>)&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样就可以快速实现<em>找反边操作</em>了。（关于为什么是 <code>int(e[v].size())</code>、<code>int(e[u].size()-1)</code> 请自行思考。）</p>
-<p>注意，EK 算法中 <code>int pre[N]</code> 数组则需要改成 <code>pair&lt;int,int&gt; pre[N]</code>，分别表示来自 <code>first</code> 号点和它的 <code>second</code> 号边。</p>
-<h3 id="将边存入池子并保存编号"><a href="#将边存入池子并保存编号" class="headerlink" title="将边存入池子并保存编号"></a>将边存入池子并保存编号</h3><p>我们可以使用两个 <code>vector</code> 实现更方便的存边方式：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;edge&gt; es;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[N];</span><br></pre></td></tr></table></figure>
-<p>其中 <code>es</code> <strong>存了所有边</strong>，<code>e[u]</code> 中存 <code>u</code> 的所有出边<strong>在 <code>es</code> 中的编号</strong>。</p>
-<p>于是，如果我们需要知道边 <code>e[u][i]</code> 的信息，只需要访问 <code>es[e[u][i]]</code>。</p>
-<p>而 <code>e[u][i]</code> 的反边即为 <code>e[u][i]^1</code>，与传统链式前向星的访问反边方式类似。</p>
-<p>存边时：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">e[u].<span class="built_in">push_back</span>(es.<span class="built_in">size</span>());</span><br><span class="line">es.<span class="built_in">push_back</span>(&#123;v,<span class="built_in">ll</span>(w)&#125;);</span><br><span class="line">e[v].<span class="built_in">push_back</span>(es.<span class="built_in">size</span>());</span><br><span class="line">es.<span class="built_in">push_back</span>(&#123;u,<span class="number">0ll</span>&#125;);</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em>正文开始。</em></p>
-<h2 id="网络流基础知识"><a href="#网络流基础知识" class="headerlink" title="网络流基础知识"></a>网络流基础知识</h2><p>以下记 $|V|=n,|E|=m$。</p>
-<p><strong>网络（network，$G$）</strong>，即一种特殊的带权有向图 $G=(V,E)$，特别的是，其有特殊的源（source）$s$、汇（target）$t$ 二点。一般认为 $s,t$ 是固定的两点。</p>
-<p><strong>流（flow，$f$）</strong>，为 $E\to\Bbb{R}$ 的函数，其满足 $\forall u\ne s\land u\ne t,\sum_{w}f(w,u)=\sum_{v}f(u,v)$，即除 $s,t$ 外的点满足进入 $u$ 的流等于出 $u$ 的流。如果 $(u,v)\notin E$ 即边 $(u,v)$ 不存在，我们默认 $f(u,v)=0$。（如果一定要较真的话你也可以定义其为 $V\times V\to\Bbb{R}$ 的函数，然后分类讨论。）</p>
-<p><strong>净流量（$f$）</strong>，这里使用了与流同样的记号，为 $V\to\Bbb{R}$ 的函数，定义为 $f(u)=\sum_{v}f(u,v)-\sum_{w}f(w,u)$。容易发现，由于流的性质，除 $s,t$ 外的点的净流量均为 $0$。由于 $s$ 流出的量最终必须流向 $t$，故有 $f(s)=-f(t)$</p>
-<p>一个流的<strong>流量（value，$|f|$）</strong>，定义为 $s$ 的净流量，即 $|f|=f(s)=-f(t)$。</p>
-<p><strong>容量（capacity，$c$）</strong>，即普通带权有向图的边权，为 $E\to\Bbb{R}_{\ge 0}$ 的函数，一般由题目给出。我们说一个流是<strong>合法的</strong>当前仅当 $\forall e\in E,0\le f(e)\le c(e)$。若 $e\in E$ 满足 $f(e)=c(e)$，我们说它是<strong>满流的</strong>。同样的，若 $e\in E$ 满足 $f(e)=0$，我们说它是<strong>空流的</strong>。如果 $(u,v)\notin E$ 即边 $(u,v)$ 不存在，我们定义 $c(u,v)=0$。</p>
-<p><strong>最大流问题（maximum flow problem）</strong>，即对于任意合法的流 $f$，求出 $\max|f|$，此时 $f$ 称为 $G$ 的<strong>最大流</strong>。</p>
-<p><strong>割（cut，$(S,T)$）</strong>，是一种点集 $V$ 的划分，即 $S\cup T=V,S\cap T=\varnothing$ 且满足 $s\in S,t\in T$。</p>
-<p>一个割的<strong>容量（capacity，$||S,T||$）</strong>，定义为</p>
-<script type="math/tex; mode=display">
-||S,T||=\sum_{\mathclap{u\in S,v\in T}}c(u,v)</script><p>即从 $S\to T$ 的连边的容量的和。注意<strong>没有 $T\to S$ 的连边</strong>！这里我们再次用了“容量（capacity）”这个词，故需区分其与边的容量。</p>
-<p><strong>最小割问题（minimum cut problem）</strong>，即对于任意割 $(S,T)$，求出 $\min||S,T||$，此时 $(S,T)$ 称为 $G$ 的<strong>最小割</strong>。</p>
-<hr>
-<p>以上是冷冰冰的定义，可以直接生硬地理解，也可以用现实中的例子如水流来理解。看上去很长，但这里需要强调<strong>定义的重要性</strong>。笔者发现，网上资料的许多定义是不正确的。结合证明时，读者往往会不知所措。</p>
-<p>如有资料称 $f$ 为 $E\to\Bbb{R}$ 的函数，却又说“对于每条边 $(u,v)$，我们都新建一条反向边 $(v,u)$。我们约定 $f(u,v)=-f(v,u)$”。明明 $(v,u)\notin E$，却将 $(v,u)$ 代入了 $f$。那么 $(v,u)$ 到底在不在 $E$ 中？甚至说 “$f(v,u)$ 的绝对值是无关紧要的”，简直胡扯！这样搪塞其词，只会使读者感到困惑。</p>
-<p>很多资料并没有考虑 $(u,v)$、$(v,u)$ 均存在于 $G$ 中的情况（即 $(u,v)\in E\land (v,u)\in E$）。这种情况下，再按照上面的“约定”，$f(v,u)$ 的值到底应该是多少？本文中，我们假定没有这种情况，如果有，这种情况也很好处理——建立中继点即可。事实上，代码实现中我们甚至不需要管这种情况，因为对于每条 $G$ 上的边，我们都有其专属的反向边。换句话说，实现时可能有两条 $(v,u)$，就不存在形式化表达中“到底是那条 $(v,u)$”的问题。</p>
-<h2 id="Ford–Fulkerson-增广"><a href="#Ford–Fulkerson-增广" class="headerlink" title="Ford–Fulkerson 增广"></a>Ford–Fulkerson 增广</h2><p>Ford–Fulkerson 增广是一种计算最大流的策略。该方法运用了带反悔的贪心，通过寻找增广路来更新并求解最大流。对于此策略的正确性，将在下一节“最大流最小割定理”中讲解。</p>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><strong>剩余容量（residual capacity，$c_f(u,v)$）</strong>，为一个 $V\times V\to\Bbb{R}$ 的函数，定义为</p>
-<script type="math/tex; mode=display">
-c_f(u,v)=
-\begin{cases}
-    c(u,v)-f(u,v)&\text{if $(u,v)\in E$}\\
-    f(v,u)&\text{if $(v,u)\in E$}\\
-    0&\text{otherwise}
-\end{cases}</script><p><strong>残量网络（residual graph，$G_f$）</strong>，定义为 $G_f=(V,E_f),E_f=\{(u,v)|c_f(u,v)&gt;0\}$。即原网络中的点和剩余容量 $&gt;0$ 的边构成的图。由于反向边的存在，故不满足 $E_f\subseteq E$。</p>
-<p><strong>增广路（augmenting path，$P$）</strong>，为 $G_f$ 上一条 $s\to t$ 的路径，由于该路径上所有边 $(u,v)$ 的剩余容量 $c_f(u,v)&gt;0$，所以这些边都可以增加流量（或退去反向边的流量），即可以进行增广：设 $\Delta=\min_{(u,v)\in P}c_f(u,v)$，增广后的流为 $f’$，有</p>
-<script type="math/tex; mode=display">
-f'(u,v)=
-\begin{cases}
-    f(u,v)+\Delta&\text{if $(u,v)\in P$}\\
-    f(u,v)-\Delta&\text{if $(v,u)\in P$}\\
-    0&\text{otherwise}
-\end{cases}</script><p>可以证明增广后 $f’$ 也是合法的。同时 $|f’|=|f|+F&gt;|f|$，故 $f’$ 更优。可以得到，如果在 $G_f$ 上存在 $s\to t$ 的路径，那么 $f$ <strong>不是</strong>最大流。</p>
-<h3 id="为什么要使-E-f-中存在反向边？"><a href="#为什么要使-E-f-中存在反向边？" class="headerlink" title="为什么要使 $E_f$ 中存在反向边？"></a>为什么要使 $E_f$ 中存在反向边？</h3><p>注意到 Ford–Fulkerson 增广属于贪心，但反向边支持反悔（如果增广 $(v,u)$，即减少了 $f(u,v)$，于是可以做到反悔）。</p>
-<p>可以通过以下例子理解：</p>
-<p><img src="https://img2023.cnblogs.com/blog/3266926/202312/3266926-20231231151919570-1120952815.png" alt=""></p>
-<p>其中 $s=1,t=6$，所有边的容量均为 $1$。</p>
-<p>假如第一次 bfs 选择了增广路 $1\to 2\to 4\to 6$，那么如果没有反边，残量网络中 $s,t$ 就不连通了，算法结束，求出的最大流量为 $1$。</p>
-<p>但显然如果增广 $1\to 2\to 5\to 6,1\to 3\to 4\to 6$ 这两条路，那么最大流量为 $2$，优于 $1$。</p>
-<p>如果将反边进行操作，增广完 $1\to 2\to 4\to 6$，$c_f(2,4)=1-1=0,c_f(4,2)=1$，也就是说，边 $(2,4)$ 虽然不再在残量网络中，但 $(4,2)$ 被添加进了残量网络。下一次 bfs 时，就可以通过 $1\to 3\to 4\to 2\to 5\to 6$ 进行增广了。这样，$(2,4),(4,2)$ 的加流相互抵消，等价于增广 $1\to 2\to 5\to 6,1\to 3\to 4\to 6$。</p>
-<p>这时可能你心里会想：增广（A）$1\to 2\to 4\to 6,1\to 3\to 4\to 2\to 5\to 6$ 为什么一定等价于增广（B）$1\to 2\to 5\to 6,1\to 3\to 4\to 6$？如果边权不一样怎么办？比如如果其他所有边的容量都是 $114514$，而 $c_f(2,4)=1$，A 的最大流只有 $1+1=2$，而 B 有 $114514+114514=229028$ 呢！实际上对于这个情况，A 增广后并没有结束，因为 $s,t$ 还连通着。算法会接着增广 B，以达到最大流。</p>
-<p>这样就实现了反悔。于是，我们可以一直增广，直到 $G_f$ 中 $s,t$ 不再连通，即没有增广路可以增加流量了，此时 $f$ 即为该网络的最大流，它是由众多增广出的流叠加而成。</p>
-<p>比较抽象，接下来看看算法实现。</p>
-<h3 id="EK-算法"><a href="#EK-算法" class="headerlink" title="EK 算法"></a>EK 算法</h3><p>EK 算法的本质就是通过在残量网络 $G_f$ 上 <strong>bfs 找增广路</strong>，进行增广。</p>
-<h4 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h4><ul>
-<li><p>初始化。</p>
-<p>注意，反向边也要存，存图时虽存的是原网络，但边权表示的是 $c_f$ 而非 $c$ 或 $f$。</p>
-</li>
-<li>bfs 在 $G_f$ 上找增广路。如果 $G_f$ 上存在 $s\to t$ 的路径，则找到了新的增广路。</li>
-<li>增广。</li>
-<li>重复 bfs、增广，直到 $G_f$ 中 $s,t$ 不再连通，即不存在增广路，此时 EK 算法结束。</li>
-</ul>
-<p><strong>可以发现，由于使用的是 bfs，每次增广的增广路都是最短的。</strong></p>
-<p>为什么说存的是原网络而非残量网络？</p>
-<p>如果要存残量网络，每次增广后需要将 $c_f(u,v)=0$ 的边 $(u,v)$ 删掉，太过麻烦。而直接存原网络，bfs 时直接判断 $c_f(u,v)$ 是否 $&gt;0$，就知道该边是否在 $G_f$ 中，所以边权维护 $c_f$。</p>
-<p><strong>还是不懂可以看代码理解。</strong></p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>题目：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3376">P3376 【模板】网络最大流</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; pii;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> N=<span class="number">214</span>;</span><br><span class="line"><span class="keyword">constexpr</span> ll INF=<span class="number">0x3f3f3f3f3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> v;<span class="comment">// 边 (u,v)</span></span><br><span class="line">	ll c;<span class="comment">// 准确来说，c_f</span></span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;edge&gt; es;<span class="comment">// 边集</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[N];<span class="comment">// 存出边</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n,m,s,t;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> EK</span><br><span class="line">&#123;</span><br><span class="line">	bitset&lt;N&gt; vis;</span><br><span class="line">	<span class="type">int</span> pre[N];<span class="comment">// 存增广路上的前驱</span></span><br><span class="line">	ll flow[N];<span class="comment">// flow[u]：能流到 u 的最大流量</span></span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">		vis.<span class="built_in">reset</span>();</span><br><span class="line">		vis[s]=<span class="literal">true</span>;</span><br><span class="line">		q.<span class="built_in">push</span>(s);</span><br><span class="line">		flow[s]=INF;<span class="comment">// 从源点流出的“水量”应是无穷大的，但由于水管不够大，被阻塞</span></span><br><span class="line">		<span class="type">int</span> u,l,v;</span><br><span class="line">		ll c;</span><br><span class="line">		<span class="keyword">while</span>(!q.<span class="built_in">empty</span>())<span class="comment">// bfs</span></span><br><span class="line">		&#123;</span><br><span class="line">			u=q.<span class="built_in">front</span>();</span><br><span class="line">			q.<span class="built_in">pop</span>();</span><br><span class="line">			l=e[u].<span class="built_in">size</span>();</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;l;i++)<span class="comment">// 遍历出边</span></span><br><span class="line">			&#123;</span><br><span class="line">				v=es[e[u][i]].v;</span><br><span class="line">				c=es[e[u][i]].c;</span><br><span class="line">				<span class="keyword">if</span>(!vis[v]&amp;&amp;c&gt;<span class="number">0</span>)<span class="comment">// 未遍历过且存在于残量网络中</span></span><br><span class="line">				&#123;</span><br><span class="line">					vis[v]=<span class="literal">true</span>;<span class="comment">// 标记</span></span><br><span class="line">					flow[v]=<span class="built_in">min</span>(flow[u],c);<span class="comment">// 取 min</span></span><br><span class="line">					pre[v]=e[u][i];<span class="comment">// 标记前驱</span></span><br><span class="line">					<span class="keyword">if</span>(v==t)<span class="keyword">return</span> <span class="literal">true</span>;<span class="comment">// 如果搜到 t，则找到增广路，返回</span></span><br><span class="line">					q.<span class="built_in">push</span>(v);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;<span class="comment">// 无增广路</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">ll <span class="title">EK</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		ll r=<span class="number">0ll</span>;<span class="comment">// 初始流量</span></span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">bfs</span>())<span class="comment">// 找增广路</span></span><br><span class="line">		&#123;<span class="comment">// 如果有增广路</span></span><br><span class="line">			r+=flow[t];<span class="comment">// 增加网络流量</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=t;i!=s;i=es[pre[i]^<span class="number">1</span>].v)<span class="comment">// 增广路上的每条边</span></span><br><span class="line">			&#123; <span class="comment">// 更新 c_f</span></span><br><span class="line">				es[pre[i]].c-=flow[t];<span class="comment">// 正边</span></span><br><span class="line">				es[pre[i]^<span class="number">1</span>].c+=flow[t];<span class="comment">// 反边</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> r;<span class="comment">// 无增广路，算法结束</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;<span class="comment">//^ namespace EK</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d %d&quot;</span>,&amp;n,&amp;m,&amp;s,&amp;t);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,u,v,w;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>,&amp;u,&amp;v,&amp;w);</span><br><span class="line">		e[u].<span class="built_in">push_back</span>(es.<span class="built_in">size</span>());<span class="comment">// 采用类似链式前向星的存边法</span></span><br><span class="line">		es.<span class="built_in">push_back</span>(&#123;v,<span class="built_in">ll</span>(w)&#125;);</span><br><span class="line">		e[v].<span class="built_in">push_back</span>(es.<span class="built_in">size</span>());</span><br><span class="line">		es.<span class="built_in">push_back</span>(&#123;u,<span class="number">0ll</span>&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,EK::<span class="built_in">EK</span>());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h4><p>单轮 bfs 增广的时间复杂度是 $O(m)$。</p>
-<p>增广总轮数的上界是 $O(nm)$。但笔者不会证，干脆不要乱证。<del>OIer 不需要证明。</del></p>
-<p>于是最终时间复杂度为 $O(nm^2)$。为 $O(n^5)$ 量级。实际上跑不满，但容易被卡。</p>
-<h3 id="Dinic-算法"><a href="#Dinic-算法" class="headerlink" title="Dinic 算法"></a>Dinic 算法</h3><p>由于 EK 经常被卡，引出 Dinic 算法。</p>
-<h4 id="如何优化-EK"><a href="#如何优化-EK" class="headerlink" title="如何优化 EK"></a>如何优化 EK</h4><p>考虑 EK 到底慢在哪。</p>
-<p>EK 本质上是一次一次的 bfs 增广，每次只能增广一条最短的增广路。Dinic 使用分层图后，不仅满足增广最短增广路，同时可一次性增广多条增广路。</p>
-<h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>设 $u$ 到 $s$ 的距离为 $d(u)$，它可以用 bfs 求得。注意这里距离的定义为从 $s$ 到 $u$ 所需要经过的最少边数。</p>
-<p><strong>层次图（Level Graph，$G_L$）</strong>，是在 $G_f=(V,E_f)$ 的基础上，设 $E_L=\{(u,v)|(u,v)\in E_f,d(u)+1=d(v)\}$，那么 $G_L=(V,E_L)$。也就是说，我们从 $E_f$ 中删除了一些边，使经过 $u$ 的流量只能流向下一层的结点 $v$。</p>
-<p><strong>阻塞流（Blocking Flow，$f_b$）</strong>，是在当前 $G_L$ 上找到的一个极大的流 $f_b$。</p>
-<h4 id="算法流程-1"><a href="#算法流程-1" class="headerlink" title="算法流程"></a>算法流程</h4><ul>
-<li>在 $G_f$ 上 bfs 出层次图 $G_L$。</li>
-<li>在 $G_L$ 上 dfs 出阻塞流 $f_b$。</li>
-<li>将 $f_b$ 并到原先的流 $f$ 中，即 $f\gets f+f_b$。</li>
-<li>重复以上过程直到不存在从 $s$ 到 $t$ 的路径。</li>
-</ul>
-<p>具体如何实现 dfs？</p>
-<p>我们可以每次 dfs，一找到一条阻塞流的增广流，就立马回溯，进行增广。同时多次 dfs。</p>
-<p>但不必如此。常数优化：只需一次 dfs，找到多个增广路一次性增广阻塞流——多路增广优化。</p>
-<p>给出 dfs 实现流程：</p>
-<ul>
-<li>从源点开始 dfs，保存当前点编号 $u$、当前流到 $u$ 的流大小 $flow$。</li>
-<li>如果 $u=t$，即这股阻塞流已经到达了汇点 $t$，返回 $flow$。</li>
-<li>对于每条出边指向的点 $v$，如果在层次图上存在边 $(u,v)$，dfs 出 $v$ 的阻塞流 $now$。</li>
-<li>如果 $now=0$，说明 $v$ 无法增广，将 $d(v)\gets 0$，弃置——无用点优化。</li>
-<li>现场增广，更新当前点 $u$ 的最大流 $res\gets res+now,flow\gets flow-now$，更新 $c_f(u,v)\gets c_f(u,v)-now,c_f(v,u)\gets c_f(v,u)+now$。</li>
-<li>返回 $res$。</li>
-</ul>
-<p>由于不是 DAG，dfs 可能多次遍历某个点 $u$，每次由入边流入流量时 $u$ 都需要遍历每个出边进行流量的传递，这一过程可能达到 $O(m^2)$。</p>
-<p>所以，如果某条出边已无法接受更多流量（$(u,v)$ 无剩余容量或 $v$ 的后侧已阻塞），那么我们下一次遍历 $u$ 时就可以跳过 $(u,v)$。</p>
-<p>于是对于每个点 $u$，维护其出边中第一条可尝试的出边。这条边叫当前弧，该做法叫当前弧优化。（其实和欧拉回路很像。）</p>
-<p>以上可能讲得不清楚，可参考代码。</p>
-<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; pii;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> N=<span class="number">214</span>;</span><br><span class="line"><span class="keyword">constexpr</span> ll INF=<span class="number">0x3f3f3f3f3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> v;</span><br><span class="line">	ll c;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">vector&lt;edge&gt; es;<span class="comment">// 存图方式同 EK</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[N];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n,m,s,t;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> Dinic</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> dis[N],fir[N];<span class="comment">// dis[u]：s-&gt;u 最短距离，fir[u]：u 的出边中第一个有意义的点，即当前弧</span></span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">fill</span>(fir,fir+N,<span class="number">0</span>);<span class="comment">// 清空</span></span><br><span class="line">		<span class="built_in">fill</span>(dis,dis+N,<span class="number">0</span>);</span><br><span class="line">		dis[s]=<span class="number">1</span>;</span><br><span class="line">		queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">		q.<span class="built_in">push</span>(s);</span><br><span class="line">		<span class="type">int</span> u,l,v;</span><br><span class="line">		<span class="keyword">while</span>(!q.<span class="built_in">empty</span>())<span class="comment">// bfs</span></span><br><span class="line">		&#123;</span><br><span class="line">			u=q.<span class="built_in">front</span>();</span><br><span class="line">			q.<span class="built_in">pop</span>();</span><br><span class="line">			l=e[u].<span class="built_in">size</span>();</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;l;i++)</span><br><span class="line">			&#123;</span><br><span class="line">				v=es[e[u][i]].v;</span><br><span class="line">				<span class="keyword">if</span>(!dis[v]&amp;&amp;es[e[u][i]].c&gt;<span class="number">0ll</span>)<span class="comment">// 若未遍历过且有剩余容量</span></span><br><span class="line">				&#123;</span><br><span class="line">					dis[v]=dis[u]+<span class="number">1</span>;<span class="comment">// 标记</span></span><br><span class="line">					q.<span class="built_in">push</span>(v);</span><br><span class="line">					<span class="keyword">if</span>(v==t)<span class="keyword">return</span> <span class="literal">true</span>;<span class="comment">// 若找到 t，返回</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;<span class="comment">// 若无阻塞流，返回</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">ll <span class="title">dfs</span><span class="params">(<span class="type">int</span> u=s,ll flow=INF)</span><span class="comment">// flow：可以流进当前点的流量</span></span></span><br><span class="line"><span class="function">	</span>&#123;<span class="comment">// 注意，这里的 dfs 不像其他 dfs，可能重复访问一个点</span></span><br><span class="line">		<span class="keyword">if</span>(u==t)<span class="keyword">return</span> flow;<span class="comment">// 找到 t，返回流到 t 的流量</span></span><br><span class="line">		<span class="type">int</span> l=e[u].<span class="built_in">size</span>(),v;</span><br><span class="line">		ll res=<span class="number">0ll</span>,now,c;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=fir[u];i&lt;l;i++)<span class="comment">// 从第一个有必要尝试的点开始</span></span><br><span class="line">		&#123;</span><br><span class="line">			fir[u]=i;<span class="comment">// 当前弧优化：维护当前弧指针，注意它只对本轮 dfs 有效，bfs 会清除 fir 数组</span></span><br><span class="line">			v=es[e[u][i]].v;</span><br><span class="line">			c=es[e[u][i]].c;</span><br><span class="line">			<span class="keyword">if</span>(dis[v]==dis[u]+<span class="number">1</span>&amp;&amp;c&gt;<span class="number">0ll</span>)<span class="comment">// 如果在 G_L 上且有剩余容量</span></span><br><span class="line">			&#123;</span><br><span class="line">				now=<span class="built_in">dfs</span>(v,<span class="built_in">min</span>(flow,c));<span class="comment">// dfs 出 v 能流到 t 的阻塞流</span></span><br><span class="line">				<span class="keyword">if</span>(now==<span class="number">0ll</span>)dis[v]=<span class="number">0</span>;<span class="comment">// 无用点优化：如果已经不能增广 v，则丢弃 v，这样下一次访问 u 并遍历出边时就会忽略 v</span></span><br><span class="line">				es[e[u][i]].c-=now;<span class="comment">// 现场增流</span></span><br><span class="line">				es[e[u][i]^<span class="number">1</span>].c+=now;</span><br><span class="line">				res+=now;<span class="comment">// 更新当前点能流出的最大阻塞流</span></span><br><span class="line">				flow-=now;<span class="comment">// 任务减轻</span></span><br><span class="line">				<span class="keyword">if</span>(flow==<span class="number">0ll</span>)<span class="keyword">return</span> res;<span class="comment">// 当前弧优化：如果任务完成，直接 return，非常重要！！！</span></span><br><span class="line">				<span class="comment">// 如果没有上面这一句，Dinic 的复杂度将无法保证，甚至在洛谷模板题上比 EK 跑得还慢！！！</span></span><br><span class="line">				<span class="comment">// 因为不 return 会继续遍历所有出边，但参数 flow=0，没有任何用处，浪费时间。</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> res;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">ll <span class="title">Dinic</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		ll r=<span class="number">0ll</span>;</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">bfs</span>())r+=<span class="built_in">dfs</span>();</span><br><span class="line">		<span class="keyword">return</span> r;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;<span class="comment">//^ namespace Dinic</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d %d&quot;</span>,&amp;n,&amp;m,&amp;s,&amp;t);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>,u,v,w;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>,&amp;u,&amp;v,&amp;w);</span><br><span class="line">		e[u].<span class="built_in">push_back</span>(es.<span class="built_in">size</span>());</span><br><span class="line">		es.<span class="built_in">push_back</span>(&#123;v,<span class="built_in">ll</span>(w)&#125;);</span><br><span class="line">		e[v].<span class="built_in">push_back</span>(es.<span class="built_in">size</span>());</span><br><span class="line">		es.<span class="built_in">push_back</span>(&#123;u,<span class="number">0ll</span>&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,Dinic::<span class="built_in">Dinic</span>());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h4><p>单轮 dfs 增广的时间复杂度是 $O(nm)$，增广总轮数的上界是 $O(n)$，于是最终时间复杂度为 $O(n^2m)$。</p>
-<p>为 $O(n^4)$ 量级。实际上也跑不满，但据说不卡 Dinic 是所有出题人的共识（惯例）。</p>
-<p>称边权为 $0,1$ 的图为单位容量的。</p>
-<ul>
-<li>在单位容量的网络中，Dinic 算法的单轮增广的时间复杂度为 $O(m)$。</li>
-<li>在单位容量的网络中，Dinic 算法的增广轮数是 $O(\sqrt{m})$ 的。</li>
-<li>在单位容量的网络中，Dinic 算法的增广轮数是 $O(n^{2/3})$ 的。</li>
-</ul>
-<p>于是单位容量的网中网络流的复杂度为：$O(m\min(\sqrt{m}, n^{2/3}))$，二分图匹配就可以做到这个复杂度。</p>
-<h2 id="最大流最小割定理"><a href="#最大流最小割定理" class="headerlink" title="最大流最小割定理"></a>最大流最小割定理</h2><p>对于网络 $G=(V,E)$，源点 $s$，汇点 $t$，有以下三个条件互相等价：</p>
-<ol>
-<li>$f$ 为最大流</li>
-<li>残量网络 $G_f$ 上不存在增广路</li>
-<li>存在割 $(S,T)$ 使得 $||S,T||=|f|$</li>
-</ol>
-<h3 id="引理"><a href="#引理" class="headerlink" title="引理"></a>引理</h3><p>先从一个引理开始：$|f|\le||S,T||$。</p>
-<p>也就是说任意一个流的流量都不会大于任意一个割的容量。进一步地，就是最大流流量不大于最小割容量。</p>
-<p>设 $u\in S,v\in T$。因为流从 $S$ 中的点流到 $T$ 中，必须跨过一条 $(u,v)$ 边。即使 $(u,v)$ 均满流，即 $f(u,v)=c(u,v)$，也只有 $|f|=||S,T||$。此时所有从 $S$ 到 $T$ 的边都已满流，无法再增加流量，所以有 $|f|\le||S,T||$。</p>
-<p>形式化的证明：</p>
-<script type="math/tex; mode=display">\footnotesize
-\begin{aligned}
-|f|&=f(s)&\text{基本性质}\\
-&=\sum_{u\in S}f(u)&\text{所有 $u\in S,u\ne s$ 均满足 $f(u)$=0}\\
-&=\sum_{u\in S}\left(\sum_{v\in V}f(u,v)-\sum_{v\in V}f(v,u)\right)&\text{净流量 $f(u)$ 的定义：出量$-$入量}\\
-&=\sum_{u\in S}\left(\sum_{v\in T}f(u,v)+\sum_{v\in S}f(u,v)-\sum_{v\in T}f(v,u)-\sum_{v\in S}f(v,u)\right)&\text{将 $v\in V$ 分类讨论：$v\in S,v\in T$}\\
-&=\sum_{u\in S}\left(\sum_{v\in T}f(u,v)-\sum_{v\in T}f(v,u)\right)+\sum_{u\in S}\sum_{v\in S}f(u,v)-\sum_{u\in S}\sum_{v\in S}f(v,u)&\text{分离}\\
-&=\sum_{u\in S}\left(\sum_{v\in T}f(u,v)-\sum_{v\in T}f(v,u)\right)&\text{抵消的两式是互相等价的}\\
-&\le\sum_{u\in S}\sum_{v\in T}f(u,v)&f(v,u)\ge 0\\
-&\le\sum_{u\in S}\sum_{v\in T}c(u,v)&f(u,v)\le c(u,v)\\
-&=||S,T||&\text{定义}\\
-\end{aligned}</script><p>对于第一个不等号，取等需要满足 $\forall u\in S,v\in T,f(v,u)=0$，即 $(v,u)$ 均空流。</p>
-<p>对于第二个不等号，取等需要满足 $\forall u\in S,v\in T,f(u,v)=c(u,v)$，即 $(u,v)$ 均满流。</p>
-<h3 id="定理证明"><a href="#定理证明" class="headerlink" title="定理证明"></a>定理证明</h3><h4 id="1-implies-2"><a href="#1-implies-2" class="headerlink" title="$1\implies 2$"></a>$1\implies 2$</h4><p>因为若残量网络 $G_f$ 上<strong>存在</strong>增广路，必然可以对其增广，使流量更大，与条件“$f$ 为最大流”矛盾。</p>
-<h4 id="2-implies-3"><a href="#2-implies-3" class="headerlink" title="$2\implies 3$"></a>$2\implies 3$</h4><p>设 $S$ 为所有从 $s$ 出发能到达的点，$T=V-S$，则</p>
-<ul>
-<li>对于 $u\in S,v\in T$，所有边 $(u,v)$ 均满流。分类讨论：<br>否则其剩余容量 $c_f(u,v)=c(u,v)-f(u,v)&gt;0$，有 $(u,v)$ 在 $G_f$ 上，可以从 $s\to u\to v$，与 $v\in T$ 矛盾。</li>
-<li><p>同样的，对于 $u\in S,v\in T$，所有边 $(v,u)$ 均空流。</p>
-<p>否则其反向边 $(u,v)$ 的剩余容量 $c_f(u,v)=f(v,u)&gt;0$，有 $(u,v)$ 在 $G_f$ 上，可以从 $s\to u\to v$，与 $v\in T$ 矛盾。</p>
-</li>
-</ul>
-<p>以上证明假定 $(u,v)\in E$ 和 $(v,u)\in E$。如果不满足此条件，则由定义默认 $f(u,v)=c(u,v)=0$、$f(v,u)=c(v,u)=0$，定理也是对的。而一种更 <del>不</del> 优美的方式是，</p>
-<script type="math/tex; mode=display">
-c_f(u,v)={\color{red}\Big(c(u,v)-f(u,v)\Big)}+{\color{blue}f(v,u)}+{\color{green}0}=0</script><p>我们将 $c_f(u,v)$ 定义中的三种可能相加。不管 $(u,v)\in E$、$(v,u)\in E$、$\text{otherwise}$，可以发现 除了满足的条件所对应的那一项，另外的两项均为 $0$。也就是说，上式符合定义。又由于 $c(u,v)-f(u,v)\ge 0,f(v,u)\ge 0$，故 $c(u,v)-f(u,v)=0,f(v,u)=0$。</p>
-<p>所以不管怎么说，我们证明了引理中的取等条件，有我们构造的割 $(S,T)$ 满足 $|f|=||S,T||$。</p>
-<h4 id="3-implies-1"><a href="#3-implies-1" class="headerlink" title="$3\implies 1$"></a>$3\implies 1$</h4><p>由于对于所有流 $f$、割 $(S,T)$ 都有 $|f|\le ||S,T||$，故取等时 $f$ 为最大流，$(S,T)$ 为最小割。</p>
-<p>换句话说，若存在流 $f’$ 满足比 $f$ 流量更大，则 $|f’|&gt;|f|=||S,T||$，与引理 $|f’|\le ||S,T||$ 矛盾。故不存在 $f’$，即 $f$ 为最大流。$(S,T)$ 为最小割同样可以用这种反证法证明。</p>
-<p>$\square$</p>
-<h3 id="定理应用"><a href="#定理应用" class="headerlink" title="定理应用"></a>定理应用</h3><p>那么这个定理有什么用？</p>
-<ol>
-<li>Ford-Fulkerson 算法结束时，所得 $f$ 为最大流，即证明了该算法正确性；</li>
-<li>同时，证明了最大流流量等于最小割容量，即 $\max |f|=\min ||S,T||$；</li>
-<li>可得，我们同样可以使用 Ford-Fulkerson 求出最小割。</li>
-</ol>
-<p>事实上，最大流最小割本质上是线性规划对偶。</p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="二分图最大匹配"><a href="#二分图最大匹配" class="headerlink" title="二分图最大匹配"></a>二分图最大匹配</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3386">P3386 【模板】二分图最大匹配</a></p>
-<p>考虑建立最大流模型。</p>
-<p>建立超级汇点 $s$ 连向所有左部点 $u\in V_0$，所有右部点 $v\in V_1$ 连向超级汇点 $t$。</p>
-<p>上述边和原二分图中的边（只从左部连向右部）的容量均为 $1$。直接跑 Dinic 即可。</p>
-<h2 id="后记——拓展阅读"><a href="#后记——拓展阅读" class="headerlink" title="后记——拓展阅读"></a>后记——拓展阅读</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://blog.rvalue.moe/10650849/">[教程]网络流详解: 从入门到放弃</a></li>
-<li><a target="_blank" rel="noopener" href="https://jeffe.cs.illinois.edu/teaching/algorithms/"><em>Algorithms</em> by Jeff Erickson</a></li>
-</ul>
-
+        
+          <p>
+            <a class="article-more-link" href="/max_flow-min_cut/">
+              Read More...
+            </a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/max_flow-min_cut/" data-id="clyfimaez0005igiz64v881sv" class="article-share-link">
+      <a data-url="https://po7ed.github.io/max_flow-min_cut/" data-id="clyif00sc000564iz6rmpcweu" class="article-share-link">
         分享
       </a>
       
@@ -1332,7 +532,7 @@ c_f(u,v)={\color{red}\Big(c(u,v)-f(u,v)\Big)}+{\color{blue}f(v,u)}+{\color{green
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-cut/" data-id="clyfimaf4000aigizgqxo7wog" class="article-share-link">
+      <a data-url="https://po7ed.github.io/tarjan-cut/" data-id="clyif00si000a64iz85bz40x6" class="article-share-link">
         分享
       </a>
       
@@ -1396,7 +596,7 @@ c_f(u,v)={\color{red}\Big(c(u,v)-f(u,v)\Big)}+{\color{blue}f(v,u)}+{\color{green
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-scc/" data-id="clyfimaf5000bigizfsr0f1en" class="article-share-link">
+      <a data-url="https://po7ed.github.io/tarjan-scc/" data-id="clyif00sk000b64izamez3b5i" class="article-share-link">
         分享
       </a>
       
