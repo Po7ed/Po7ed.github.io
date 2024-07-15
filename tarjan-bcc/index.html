@@ -76,38 +76,90 @@
         <p><strong>注意：本文只针对无向图。</strong></p>
 <p>对于无向图，显然不能只考虑简单的连通关系，应该研究一些更强的连通关系：双连通。</p>
 <span id="more"></span>
-<h2 id="前置芝士"><a href="#前置芝士" class="headerlink" title="前置芝士"></a>前置芝士</h2><ul>
-<li>点双连通分量：若一个连通分量任意两点间 都存在 至少两条不经过（除起点和终点外）相同点的路径，我们就称这个连通分量 为点双连通分量。</li>
-<li>边双连通分量：同理，若一个连通分量任意两点间 都存在 至少两条不经过 相同边的路径，我们就称这个连通分量 为边双连通分量。</li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chargedcreeper/p/tarjan-cut.html">Tarjan 求割点和桥</a></li>
+<h2 id="前置芝士">前置芝士</h2>
+<ul>
+<li>点双连通分量：若一个连通分量任意两点间 都存在
+至少两条不经过（除起点和终点外）相同点的路径，我们就称这个连通分量
+为点双连通分量。</li>
+<li>边双连通分量：同理，若一个连通分量任意两点间 都存在 至少两条不经过
+相同边的路径，我们就称这个连通分量 为边双连通分量。</li>
+<li><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/chargedcreeper/p/tarjan-cut.html">Tarjan
+求割点和桥</a></li>
 </ul>
 <p>首先要明确的是，若一点（或边）对于原图是割点（或桥），对于其任意包含该点（或边）的子图，该点（或边）仍是割点（或桥）。</p>
-<p>可以想到，在一张无向图的点双连通分量中，一个割点所连的点有且只有 $1$ 个（注意这个点必须是指定点双连通分量中的）。<strong>注意不是度数为</strong> $1$，因为可能有重边。原因是若某割点连接了一点双连通分量中的两个点，必然有删去它后该点双连通分量不连通。反之它就不是割点。</p>
+<p>可以想到，在一张无向图的点双连通分量中，一个割点所连的点有且只有
+<span class="math inline">1</span>
+个（注意这个点必须是指定点双连通分量中的）。<strong>注意不是度数为</strong>
+<span
+class="math inline">1</span>，因为可能有重边。原因是若某割点连接了一点双连通分量中的两个点，必然有删去它后该点双连通分量不连通。反之它就不是割点。</p>
 <p>同样的，在一张无向图的边双连通分量中，必然不包含桥。</p>
-<h2 id="Tarjan-求点双连通分量"><a href="#Tarjan-求点双连通分量" class="headerlink" title="Tarjan 求点双连通分量"></a>Tarjan 求点双连通分量</h2><h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>首先维护一个栈 $\mathit{stk}$，一访问点 $u$，就将 $u$ 压入 $\mathit{stk}$。</p>
-<p>书接上回，当判断一点是割点后，我们可以从 $\mathit{stk}$ 中退点，将这些点加入新的点双中，一直退到 $v$，注意不要退出 $u$，但要在当前点双中加入 $u$。</p>
-<p>因为上文说了，虽在一个点双中，割点连接的点只有 $1$ 个，即 $v$，但 $u$ 还可能在其他点双中，故不能退栈（或者你退完压回去也可以）。</p>
+<h2 id="tarjan-求点双连通分量">Tarjan 求点双连通分量</h2>
+<h3 id="算法流程">算法流程</h3>
+<p>首先维护一个栈 <span
+class="math inline">\mathit{stk}</span>，一访问点 <span
+class="math inline">u</span>，就将 <span class="math inline">u</span>
+压入 <span class="math inline">\mathit{stk}</span>。</p>
+<p>书接上回，当判断一点是割点后，我们可以从 <span
+class="math inline">\mathit{stk}</span>
+中退点，将这些点加入新的点双中，一直退到 <span
+class="math inline">v</span>，注意不要退出 <span
+class="math inline">u</span>，但要在当前点双中加入 <span
+class="math inline">u</span>。</p>
+<p>因为上文说了，虽在一个点双中，割点连接的点只有 <span
+class="math inline">1</span> 个，即 <span
+class="math inline">v</span>，但 <span class="math inline">u</span>
+还可能在其他点双中，故不能退栈（或者你退完压回去也可以）。</p>
 <p>所以注意，不同于强连通分量和接下来要说的边双，一个点可能在多个点双中。</p>
-<p>进一步的，我们甚至可以求出删去 $u$ 后连通分量的增加个数，记为 $cut_u$。每当满足 $\mathit{low}_v\ge \mathit{dfn}_u$，$cut_u\gets cut_u+1$。因为一旦删去 $u$，$v$ 将与 $u$ 的祖先脱离联系，导致连通分量数量增加 $1$。</p>
+<p>进一步的，我们甚至可以求出删去 <span class="math inline">u</span>
+后连通分量的增加个数，记为 <span
+class="math inline">cut_u</span>。每当满足 <span
+class="math inline">\mathit{low}_v\ge \mathit{dfn}_u</span>，<span
+class="math inline">cut_u\gets cut_u+1</span>。因为一旦删去 <span
+class="math inline">u</span>，<span class="math inline">v</span> 将与
+<span class="math inline">u</span> 的祖先脱离联系，导致连通分量数量增加
+<span class="math inline">1</span>。</p>
 <p>其他与求割点相同。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>暂无。</p>
+<h3 id="代码">代码</h3>
+<p>暂无。</p>
 <!-- ```cpp
 ``` -->
-<h2 id="Tarjan-求边双连通分量"><a href="#Tarjan-求边双连通分量" class="headerlink" title="Tarjan 求边双连通分量"></a>Tarjan 求边双连通分量</h2><h3 id="算法流程-1"><a href="#算法流程-1" class="headerlink" title="算法流程"></a>算法流程</h3><p>还是同样的维护 $\mathit{stk}$，当判定边 $(u,v)$ 为桥后，可将 $stk$ 退到 $v$，并将退的点加入一个新的边双中。有没有发现边双比点双简单多了？是的，由于桥不能存在于边双中，故退到 $v$ 即可，没有太多可叽叽歪歪的。</p>
+<h2 id="tarjan-求边双连通分量">Tarjan 求边双连通分量</h2>
+<h3 id="算法流程-1">算法流程</h3>
+<p>还是同样的维护 <span
+class="math inline">\mathit{stk}</span>，当判定边 <span
+class="math inline">(u,v)</span> 为桥后，可将 <span
+class="math inline">stk</span> 退到 <span
+class="math inline">v</span>，并将退的点加入一个新的边双中。有没有发现边双比点双简单多了？是的，由于桥不能存在于边双中，故退到
+<span class="math inline">v</span> 即可，没有太多可叽叽歪歪的。</p>
 <p>其他与求桥相同。</p>
-<p>$\texttt{Upd}$：实现中，为了避免根节点（可设为 $1$）所在的边双未被退栈，可以按以下实现：</p>
-<p>对 $u$ 的 dfs 即将结束时，判断 $dfn_u=low_u$（可得 $(u,\mathit{fa}_u)$ 为桥），若为真，则将 $stk$ 退到 $u$ 结束。这样的实现相当于在上文的 $v$ dfs 结束时直接退栈，而不是回溯到 $u$ 的 dfs 时判断、退栈。应为根节点没有父亲。</p>
-<p>当然你也可以依然按算法流程的实现，但要加一个超级源点 $0$ 只连接根节点，这样就能保证根节点所在边双被退栈。</p>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><p>暂无。</p>
+<p><span
+class="math inline">\texttt{Upd}</span>：实现中，为了避免根节点（可设为
+<span
+class="math inline">1</span>）所在的边双未被退栈，可以按以下实现：</p>
+<p>对 <span class="math inline">u</span> 的 dfs 即将结束时，判断 <span
+class="math inline">dfn_u=low_u</span>（可得 <span
+class="math inline">(u,\mathit{fa}_u)</span> 为桥），若为真，则将 <span
+class="math inline">stk</span> 退到 <span class="math inline">u</span>
+结束。这样的实现相当于在上文的 <span class="math inline">v</span> dfs
+结束时直接退栈，而不是回溯到 <span class="math inline">u</span> 的 dfs
+时判断、退栈。应为根节点没有父亲。</p>
+<p>当然你也可以依然按算法流程的实现，但要加一个超级源点 <span
+class="math inline">0</span>
+只连接根节点，这样就能保证根节点所在边双被退栈。</p>
+<h3 id="代码-1">代码</h3>
+<p>暂无。</p>
 <!-- ```cpp
 ``` -->
-<h2 id="完结撒花！"><a href="#完结撒花！" class="headerlink" title="完结撒花！"></a>完结撒花！</h2><p>Tarjan <strong>连通</strong>系列正式完结啦！<del>（除了代码）</del>。</p>
+<h2 id="完结撒花">完结撒花！</h2>
+<p>Tarjan
+<strong>连通</strong>系列正式完结啦！<del>（除了代码）</del>。</p>
 <p>以后可能还会更 LCA、LCT、splay 的文章（挖大坑）。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-bcc/" data-id="clymff432000668iz2kr602yx" class="article-share-link">
+      <a data-url="https://po7ed.github.io/tarjan-bcc/" data-id="clymfw37g0007y0iz84dv8b02" class="article-share-link">
         分享
       </a>
       

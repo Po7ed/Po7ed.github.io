@@ -73,62 +73,122 @@
       
       
       
-        <p>$\texttt{Upd 23.8.29}$ 修正错别字、证明，添加代码和注释</p>
-<hr>
+        <p><span class="math inline">\texttt{Upd 23.8.29}</span>
+修正错别字、证明，添加代码和注释</p>
+<hr />
 <p><strong>欢迎批评指正！</strong></p>
 <p><strong>注意：本文只针对有向图。</strong></p>
 <span id="more"></span>
-<h2 id="前置芝士"><a href="#前置芝士" class="headerlink" title="前置芝士"></a>前置芝士</h2><ul>
-<li>什么是<strong>强连通分量</strong>（SCC）？<br>强连通分量，一般指 <em>有向图的极大强连通子图</em>，在这些子图中，<strong>所有点双向可达</strong>。</li>
+<h2 id="前置芝士">前置芝士</h2>
+<ul>
+<li>什么是<strong>强连通分量</strong>（SCC）？ 强连通分量，一般指
+<em>有向图的极大强连通子图</em>，在这些子图中，<strong>所有点双向可达</strong>。</li>
 <li>dfs 序：即 dfs 过程中访问点的顺序。</li>
-<li>dfs 生成树：由 <em>dfs 过程中访问的边组成的边集</em> 和 <em>原图的点集</em> 组成的树。</li>
-<li>树边，非树边：属于 <em>dfs 过程中访问的边</em> 为树边，否则为非树边。</li>
+<li>dfs 生成树：由 <em>dfs 过程中访问的边组成的边集</em> 和
+<em>原图的点集</em> 组成的树。</li>
+<li>树边，非树边：属于 <em>dfs 过程中访问的边</em>
+为树边，否则为非树边。</li>
 </ul>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/jmxeajyk.png" alt="image"></p>
+<figure>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/jmxeajyk.png"
+alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
 <ul>
 <li>返祖边（反向边）：从孩子连接到祖先的边。</li>
 <li>前向边：从祖先连接到孩子的边。</li>
 <li>横插边：除返祖边和前向边之外的非树边。（连接没有祖孙关系的两点的边。）</li>
 </ul>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/h861nfw4.png" alt="image"></p>
+<figure>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/h861nfw4.png"
+alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
 <ul>
 <li>某个强连通分量的根：这个强连通分量重 dfs 序最小的节点。</li>
 </ul>
-<h2 id="Tarjan-算法"><a href="#Tarjan-算法" class="headerlink" title="Tarjan 算法"></a>Tarjan 算法</h2><p>设两个数组 $\mathit{dfn}$ 和 $\mathit{low}$，分别表示 dfs 序和<strong>至多通过 $1$ 条非树边所能到达的点的 $\mathit{dfn}$ 的最小值</strong>。</p>
+<h2 id="tarjan-算法">Tarjan 算法</h2>
+<p>设两个数组 <span class="math inline">\mathit{dfn}</span> 和 <span
+class="math inline">\mathit{low}</span>，分别表示 dfs
+序和<strong>至多通过 <span class="math inline">1</span>
+条非树边所能到达的点的 <span class="math inline">\mathit{dfn}</span>
+的最小值</strong>。</p>
 <p>看下面这张图：</p>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/mvsbjut7.png" alt="image"></p>
-<p>每个节点的编号就是它的 $\mathit{dfn}$，旁边标注的数字是 $\mathit{low}$，可以自行理解一下。</p>
-<p>另外，我们还需要一个栈 $\mathit{stk}$ 存节点。</p>
-<h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>Tarjan 是在 dfs 中实现的，每次访问到当前节点 $u$，就将它压入 $\mathit{stk}$ 中。随后访问所有相邻的点 $v$。</p>
+<figure>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/mvsbjut7.png"
+alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
+<p>每个节点的编号就是它的 <span
+class="math inline">\mathit{dfn}</span>，旁边标注的数字是 <span
+class="math inline">\mathit{low}</span>，可以自行理解一下。</p>
+<p>另外，我们还需要一个栈 <span class="math inline">\mathit{stk}</span>
+存节点。</p>
+<h3 id="算法流程">算法流程</h3>
+<p>Tarjan 是在 dfs 中实现的，每次访问到当前节点 <span
+class="math inline">u</span>，就将它压入 <span
+class="math inline">\mathit{stk}</span> 中。随后访问所有相邻的点 <span
+class="math inline">v</span>。 - 如果没访问过，说明 <span
+class="math inline">(u,v)</span> 是一条树边，继续 dfs。</p>
+<pre><code>dfs $v$ 的子树结束后，更新 $\mathit&#123;low&#125;_u\gets\min(\mathit&#123;low&#125;_u,\mathit&#123;low&#125;_v)$。因为根据 $\mathit&#123;low&#125;$ 的定义，走多少条树边都没关系，而 $(u,v)$ 是一条树边，我们可以从 $u$ 走到 $v$ 后再继续往上爬。也就是说，$v$ 能到的 $\mathit&#123;low&#125;_v$，$u$ 也能到。于是更新。</code></pre>
 <ul>
-<li><p>如果没访问过，说明 $(u,v)$ 是一条树边，继续 dfs。</p>
-<p>  dfs $v$ 的子树结束后，更新 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{low}_v)$。因为根据 $\mathit{low}$ 的定义，走多少条树边都没关系，而 $(u,v)$ 是一条树边，我们可以从 $u$ 走到 $v$ 后再继续往上爬。也就是说，$v$ 能到的 $\mathit{low}_v$，$u$ 也能到。于是更新。</p>
-</li>
-<li>如果 $v$ 已被访问过且已属于另一个 SCC，说明 $(u,v)$ 是一条横插边，两个 SCC 无关，直接跳过，不予处理。</li>
-<li><p>如果 $v$ 被访问过且在 $\mathit{stk}$ 内，说明 $(u,v)$ 是一条返祖边，更新 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{dfn}_v)$。</p>
-<p>  因为 $\mathit{low}$ 的定义为仅通过 $1$ 条非树边，故可以直接走返祖边 $(u,v)$，如果 $\mathit{dfn}_v$ 比 $\mathit{low}_u$ 小，则更新。</p>
-<p>  关于为什么不是 $\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{low}_v)$，因为 $\mathit{low}_v$ 可能已经经过了一条非树边，如果再走返祖边 $(u,v)$，就可能走了两条非树边，与 $\mathit{low}$ 的定义相悖。（其实这样些也可以得到正确答案，但是求割点时就会错。）</p>
-</li>
-<li><p>然后判断 $u$ 是否是根：若 $\mathit{dfn}_u=\mathit{low}_u$，则是当前 SCC 的根，然后退栈到 $u$，保存答案。</p>
-<p>  因为 $\mathit{dfn}_u=\mathit{low}_u$，所以 $u$ 的子树内的所有点都不能通过返祖边到达 $\mathit{dfn}$ 比 $u$ 小的点（否则可以通过树边到达这些子节点，然后走返祖边。使 $\mathit{low}_u&lt;\mathit{dfn}_u$。）</p>
-<p>  关于为什么跳出子树至多经过 $1$ 条非树边：如果有 $2$ 条甚至更多，必然有走的最后一条边跳出了子树。那么跳出子树前的点必然在子树内，可以走树边到达，故至多（其实是要且只要）走 $1$ 条非树边。</p>
-</li>
+<li><p>如果 <span class="math inline">v</span> 已被访问过且已属于另一个
+SCC，说明 <span class="math inline">(u,v)</span> 是一条横插边，两个 SCC
+无关，直接跳过，不予处理。</p></li>
+<li><p>如果 <span class="math inline">v</span> 被访问过且在 <span
+class="math inline">\mathit{stk}</span> 内，说明 <span
+class="math inline">(u,v)</span> 是一条返祖边，更新 <span
+class="math inline">\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{dfn}_v)</span>。</p>
+<p>因为 <span class="math inline">\mathit{low}</span> 的定义为仅通过
+<span class="math inline">1</span> 条非树边，故可以直接走返祖边 <span
+class="math inline">(u,v)</span>，如果 <span
+class="math inline">\mathit{dfn}_v</span> 比 <span
+class="math inline">\mathit{low}_u</span> 小，则更新。</p>
+<p>关于为什么不是 <span
+class="math inline">\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{low}_v)</span>，因为
+<span class="math inline">\mathit{low}_v</span>
+可能已经经过了一条非树边，如果再走返祖边 <span
+class="math inline">(u,v)</span>，就可能走了两条非树边，与 <span
+class="math inline">\mathit{low}</span>
+的定义相悖。（其实这样些也可以得到正确答案，但是求割点时就会错。）</p></li>
+<li><p>然后判断 <span class="math inline">u</span> 是否是根：若 <span
+class="math inline">\mathit{dfn}_u=\mathit{low}_u</span>，则是当前 SCC
+的根，然后退栈到 <span class="math inline">u</span>，保存答案。</p>
+<p>因为 <span
+class="math inline">\mathit{dfn}_u=\mathit{low}_u</span>，所以 <span
+class="math inline">u</span> 的子树内的所有点都不能通过返祖边到达 <span
+class="math inline">\mathit{dfn}</span> 比 <span
+class="math inline">u</span>
+小的点（否则可以通过树边到达这些子节点，然后走返祖边。使 <span
+class="math inline">\mathit{low}_u&lt;\mathit{dfn}_u</span>。）</p>
+<p>关于为什么跳出子树至多经过 <span class="math inline">1</span>
+条非树边：如果有 <span class="math inline">2</span>
+条甚至更多，必然有走的最后一条边跳出了子树。那么跳出子树前的点必然在子树内，可以走树边到达，故至多（其实是要且只要）走
+<span class="math inline">1</span> 条非树边。</p></li>
 </ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[<span class="number">11451</span>],stk;<span class="comment">// e：边表</span></span><br><span class="line"><span class="type">int</span> bel[<span class="number">11451</span>];<span class="comment">// bel[i] 表示 i 属于哪个 SCC（编号）</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; scc=&#123;&#123;&#125;&#125;;<span class="comment">// 存每个强连通分量的点的编号</span></span><br><span class="line"><span class="type">int</span> cnt=<span class="number">1</span>,dfn[<span class="number">11451</span>],low[<span class="number">11451</span>];<span class="comment">// cnt：SCC数量（+1）</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dfncnt=<span class="number">1</span>;<span class="comment">// 时间戳</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[u]=low[u]=dfncnt++;</span><br><span class="line">	stk.<span class="built_in">push_back</span>(u);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> v:e[u])<span class="comment">// 范围 for，遍历邻居</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])<span class="comment">// 未访问</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v);</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],low[v]);<span class="comment">// 访问并更新</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(!bel[v])<span class="comment">// in stk</span></span><br><span class="line">		&#123;</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],dfn[v]);<span class="comment">// 单纯更新</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(low[u]==dfn[u])<span class="comment">// 是当前 SCC 的根</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> t;</span><br><span class="line">		scc.<span class="built_in">push_back</span>(&#123;&#125;);</span><br><span class="line">		<span class="keyword">while</span>(stk.<span class="built_in">back</span>()!=u)<span class="comment">// 退栈到 u</span></span><br><span class="line">		&#123;</span><br><span class="line">			t=stk.<span class="built_in">back</span>();</span><br><span class="line">			stk.<span class="built_in">pop_back</span>();</span><br><span class="line">			scc[cnt].<span class="built_in">push_back</span>(t);<span class="comment">// 保存</span></span><br><span class="line">			bel[t]=cnt;</span><br><span class="line">		&#125;</span><br><span class="line">		scc[cnt].<span class="built_in">push_back</span>(u);</span><br><span class="line">		<span class="built_in">sort</span>(scc[cnt].<span class="built_in">begin</span>(),scc[cnt].<span class="built_in">end</span>());</span><br><span class="line">		bel[u]=cnt++;</span><br><span class="line">		stk.<span class="built_in">pop_back</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码">代码</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[<span class="number">11451</span>],stk;<span class="comment">// e：边表</span></span><br><span class="line"><span class="type">int</span> bel[<span class="number">11451</span>];<span class="comment">// bel[i] 表示 i 属于哪个 SCC（编号）</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; scc=&#123;&#123;&#125;&#125;;<span class="comment">// 存每个强连通分量的点的编号</span></span><br><span class="line"><span class="type">int</span> cnt=<span class="number">1</span>,dfn[<span class="number">11451</span>],low[<span class="number">11451</span>];<span class="comment">// cnt：SCC数量（+1）</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dfncnt=<span class="number">1</span>;<span class="comment">// 时间戳</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[u]=low[u]=dfncnt++;</span><br><span class="line">	stk.<span class="built_in">push_back</span>(u);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> v:e[u])<span class="comment">// 范围 for，遍历邻居</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])<span class="comment">// 未访问</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v);</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],low[v]);<span class="comment">// 访问并更新</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(!bel[v])<span class="comment">// in stk</span></span><br><span class="line">		&#123;</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],dfn[v]);<span class="comment">// 单纯更新</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(low[u]==dfn[u])<span class="comment">// 是当前 SCC 的根</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> t;</span><br><span class="line">		scc.<span class="built_in">push_back</span>(&#123;&#125;);</span><br><span class="line">		<span class="keyword">while</span>(stk.<span class="built_in">back</span>()!=u)<span class="comment">// 退栈到 u</span></span><br><span class="line">		&#123;</span><br><span class="line">			t=stk.<span class="built_in">back</span>();</span><br><span class="line">			stk.<span class="built_in">pop_back</span>();</span><br><span class="line">			scc[cnt].<span class="built_in">push_back</span>(t);<span class="comment">// 保存</span></span><br><span class="line">			bel[t]=cnt;</span><br><span class="line">		&#125;</span><br><span class="line">		scc[cnt].<span class="built_in">push_back</span>(u);</span><br><span class="line">		<span class="built_in">sort</span>(scc[cnt].<span class="built_in">begin</span>(),scc[cnt].<span class="built_in">end</span>());</span><br><span class="line">		bel[u]=cnt++;</span><br><span class="line">		stk.<span class="built_in">pop_back</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注意图可能不连通，所以主函数里要加上：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(!dfn[i])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">tarjan</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>每次都调用一遍 <code>tarjan</code>。</p>
-<h2 id="缩点"><a href="#缩点" class="headerlink" title="缩点"></a>缩点</h2><p>缩点很好理解，就是将每个强连通分量中的点的信息合并，缩成一个点，形成一个 DAG（有向无环图）。</p>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">&#123;</span><br><span class="line">	newval[bel[i]]+=val[i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j:e[i])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(bel[i]!=bel[j])</span><br><span class="line">		&#123;</span><br><span class="line">			newe[bel[i]].<span class="built_in">push_back</span>(bel[j]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中 <code>e</code> 为原图，<code>newe</code> 为新图，<code>val</code> 为原图点权（或者什么类似点权的值），<code>newval</code> 为新图点权。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/349530425" title="推荐 ta 的文章！">这位大佬的博客</a></li>
+<h2 id="缩点">缩点</h2>
+<p>缩点很好理解，就是将每个强连通分量中的点的信息合并，缩成一个点，形成一个
+DAG（有向无环图）。</p>
+<h3 id="代码-1">代码</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">&#123;</span><br><span class="line">	newval[bel[i]]+=val[i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j:e[i])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(bel[i]!=bel[j])</span><br><span class="line">		&#123;</span><br><span class="line">			newe[bel[i]].<span class="built_in">push_back</span>(bel[j]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>e</code> 为原图，<code>newe</code>
+为新图，<code>val</code>
+为原图点权（或者什么类似点权的值），<code>newval</code> 为新图点权。</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/349530425"
+title="推荐 ta 的文章！">这位大佬的博客</a></li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-scc/" data-id="clymff436000a68izctbs4lga" class="article-share-link">
+      <a data-url="https://po7ed.github.io/tarjan-scc/" data-id="clymfw37j000by0iza62teyc7" class="article-share-link">
         分享
       </a>
       
