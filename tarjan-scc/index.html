@@ -82,20 +82,20 @@
 <li>dfs 生成树：由 <em>dfs 过程中访问的边组成的边集</em> 和 <em>原图的点集</em> 组成的树。</li>
 <li>树边，非树边：属于 <em>dfs 过程中访问的边</em> 为树边，否则为非树边。</li>
 </ul>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/jmxeajyk.png" alt="image"></p>
+<p><img src="https://github.com/Po7ed/Image-hosting/blob/master/tarjan-1.png?raw=true" alt="tree edge"></p>
 <ul>
 <li>返祖边（反向边）：从孩子连接到祖先的边。</li>
 <li>前向边：从祖先连接到孩子的边。</li>
 <li>横插边：除返祖边和前向边之外的非树边。（连接没有祖孙关系的两点的边。）</li>
 </ul>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/h861nfw4.png" alt="image"></p>
+<p><img src="https://github.com/Po7ed/Image-hosting/blob/master/tarjan-2.png?raw=true" alt="edge types"></p>
 <ul>
 <li>某个强连通分量的根：这个强连通分量重 dfs 序最小的节点。</li>
 </ul>
 <h2 id="tarjan-算法">Tarjan 算法</h2>
 <p>设两个数组 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>f</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">\mathit{dfn}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathit">d</span><span class="mord mathit">f</span><span class="mord mathit">n</span></span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">\mathit{low}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord"><span class="mord mathit">l</span><span class="mord mathit">o</span><span class="mord mathit">w</span></span></span></span></span>，分别表示 dfs 序和<strong>至多通过 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 条非树边所能到达的点的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>f</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">\mathit{dfn}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathit">d</span><span class="mord mathit">f</span><span class="mord mathit">n</span></span></span></span></span> 的最小值</strong>。</p>
 <p>看下面这张图：</p>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/mvsbjut7.png" alt="image"></p>
+<p><img src="https://github.com/Po7ed/Image-hosting/blob/master/tarjan-3.png?raw=true" alt="dfn &amp; low"></p>
 <p>每个节点的编号就是它的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>f</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">\mathit{dfn}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathit">d</span><span class="mord mathit">f</span><span class="mord mathit">n</span></span></span></span></span>，旁边标注的数字是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">\mathit{low}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord"><span class="mord mathit">l</span><span class="mord mathit">o</span><span class="mord mathit">w</span></span></span></span></span>，可以自行理解一下。</p>
 <p>另外，我们还需要一个栈 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>t</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">\mathit{stk}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord"><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mord mathit">k</span></span></span></span></span> 存节点。</p>
 <h3 id="算法流程">算法流程</h3>
@@ -137,8 +137,8 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-scc/" data-id="clymgdmvm000ezwiz8d56bva9" class="article-share-link">
-        分享
+      <a data-url="https://po7ed.github.io/tarjan-scc/" data-id="clyo2jcl2000bfsiz73bgazsh" class="article-share-link">
+        Share
       </a>
       
 <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
@@ -152,7 +152,7 @@
 <nav class="article-nav">
   
   <a href="/tarjan-cut/" class="article-nav-link">
-    <strong class="article-nav-caption">前一篇</strong>
+    <strong class="article-nav-caption">Newer</strong>
     <div class="article-nav-title">
       
       Tarjan 求割点和桥
@@ -211,25 +211,25 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/archives">Archives</a>
+      <a class="nav-item-link" href="/archives/">Archives</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/categories">Categories</a>
+      <a class="nav-item-link" href="/categories/">Categories</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/tags">Tags</a>
+      <a class="nav-item-link" href="/tags/">Tags</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/about">About</a>
+      <a class="nav-item-link" href="/about/">About</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="搜索">
+      <a class="nav-item-link nav-item-search" title="Search">
         <i class="fe fe-search"></i>
-        搜索
+        Search
       </a>
     </li>
   </ul>

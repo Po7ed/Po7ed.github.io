@@ -75,7 +75,7 @@
 <ul>
 <li>割点：对于一个点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span>，若删除 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span> 会使当前无向图中连通分量增多，我们就称 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span> 为该图的割点。</li>
 <li>桥（割边）：同理，对于一条边 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>，若删除 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span> 会使当前无向图中连通分量增多，我们就称 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span> 为该图的桥。</li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chargedcreeper/p/tarjan-scc.html">Tarjan 求强连通分量和缩点</a></li>
+<li><a href="https://po7ed.github.io/tarjan-scc/">Tarjan 求强连通分量和缩点</a></li>
 </ul>
 <span id="more"></span>
 <h2 id="tarjan-求割点">Tarjan 求割点</h2>
@@ -93,7 +93,7 @@
 <ul>
 <li>如果未被访问过，就先 dfs，然后更新 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>l</mi><mi>o</mi><mi>w</mi></mrow><mi>u</mi></msub><mo>←</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><msub><mrow><mi>l</mi><mi>o</mi><mi>w</mi></mrow><mi>u</mi></msub><mo separator="true">,</mo><msub><mrow><mi>l</mi><mi>o</mi><mi>w</mi></mrow><mi>v</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{low}_v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathit">l</span><span class="mord mathit">o</span><span class="mord mathit">w</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">←</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord mathit">l</span><span class="mord mathit">o</span><span class="mord mathit">w</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord"><span class="mord mathit">l</span><span class="mord mathit">o</span><span class="mord mathit">w</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。</li>
 <li>如果访问过，就更新 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>l</mi><mi>o</mi><mi>w</mi></mrow><mi>u</mi></msub><mo>←</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><msub><mrow><mi>l</mi><mi>o</mi><mi>w</mi></mrow><mi>u</mi></msub><mo separator="true">,</mo><msub><mrow><mi>d</mi><mi>f</mi><mi>n</mi></mrow><mi>v</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathit{low}_u\gets\min(\mathit{low}_u,\mathit{dfn}_v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathit">l</span><span class="mord mathit">o</span><span class="mord mathit">w</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">←</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord mathit">l</span><span class="mord mathit">o</span><span class="mord mathit">w</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord"><span class="mord mathit">d</span><span class="mord mathit">f</span><span class="mord mathit">n</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.057252em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。</li>
-<li>如果你想知道为什么这样更新，请看<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chargedcreeper/p/tarjan-scc.html">这个</a>。</li>
+<li>如果你想知道为什么这样更新，请看<a href="https://po7ed.github.io/tarjan-scc/">这个</a>。</li>
 <li>如果满足 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>l</mi><mi>o</mi><mi>w</mi></mrow><mi>v</mi></msub><mo>≥</mo><msub><mrow><mi>d</mi><mi>f</mi><mi>n</mi></mrow><mi>u</mi></msub></mrow><annotation encoding="application/x-tex">\mathit{low}_v\ge \mathit{dfn}_u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathit">l</span><span class="mord mathit">o</span><span class="mord mathit">w</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mord"><span class="mord"><span class="mord mathit">d</span><span class="mord mathit">f</span><span class="mord mathit">n</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.057252em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span></span></span></span>，将 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span> 标记为割点。但要特判根节点。</li>
 </ul>
 </li>
@@ -127,8 +127,8 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-cut/" data-id="clymgdmvh000azwiz6mv0fkc6" class="article-share-link">
-        分享
+      <a data-url="https://po7ed.github.io/tarjan-cut/" data-id="clyo2jcl1000afsizevbremry" class="article-share-link">
+        Share
       </a>
       
 <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
@@ -142,7 +142,7 @@
 <nav class="article-nav">
   
   <a href="/max_flow-min_cut/" class="article-nav-link">
-    <strong class="article-nav-caption">前一篇</strong>
+    <strong class="article-nav-caption">Newer</strong>
     <div class="article-nav-title">
       
       最大流与最小割
@@ -152,7 +152,7 @@
   
   
   <a href="/tarjan-scc/" class="article-nav-link">
-    <strong class="article-nav-caption">后一篇</strong>
+    <strong class="article-nav-caption">Older</strong>
     <div class="article-nav-title">Tarjan 求强连通分量和缩点</div>
   </a>
   
@@ -206,25 +206,25 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/archives">Archives</a>
+      <a class="nav-item-link" href="/archives/">Archives</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/categories">Categories</a>
+      <a class="nav-item-link" href="/categories/">Categories</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/tags">Tags</a>
+      <a class="nav-item-link" href="/tags/">Tags</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/about">About</a>
+      <a class="nav-item-link" href="/about/">About</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="搜索">
+      <a class="nav-item-link nav-item-search" title="Search">
         <i class="fe fe-search"></i>
-        搜索
+        Search
       </a>
     </li>
   </ul>

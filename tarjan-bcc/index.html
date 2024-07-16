@@ -76,7 +76,7 @@
 <ul>
 <li>点双连通分量：若一个连通分量任意两点间 都存在 至少两条不经过（除起点和终点外）相同点的路径，我们就称这个连通分量 为点双连通分量。</li>
 <li>边双连通分量：同理，若一个连通分量任意两点间 都存在 至少两条不经过 相同边的路径，我们就称这个连通分量 为边双连通分量。</li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chargedcreeper/p/tarjan-cut.html">Tarjan 求割点和桥</a></li>
+<li><a href="https://po7ed.github.io/tarjan-cut/">Tarjan 求割点和桥</a></li>
 </ul>
 <p>首先要明确的是，若一点（或边）对于原图是割点（或桥），对于其任意包含该点（或边）的子图，该点（或边）仍是割点（或桥）。</p>
 <p>可以想到，在一张无向图的点双连通分量中，一个割点所连的点有且只有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 个（注意这个点必须是指定点双连通分量中的）。<strong>注意不是度数为</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，因为可能有重边。原因是若某割点连接了一点双连通分量中的两个点，必然有删去它后该点双连通分量不连通。反之它就不是割点。</p>
@@ -111,8 +111,8 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/tarjan-bcc/" data-id="clymgdmvf0007zwiz9ngt8aja" class="article-share-link">
-        分享
+      <a data-url="https://po7ed.github.io/tarjan-bcc/" data-id="clyo2jckz0007fsizbf5g4rzo" class="article-share-link">
+        Share
       </a>
       
 <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
@@ -126,7 +126,7 @@
 <nav class="article-nav">
   
   <a href="/hello-world/" class="article-nav-link">
-    <strong class="article-nav-caption">前一篇</strong>
+    <strong class="article-nav-caption">Newer</strong>
     <div class="article-nav-title">
       
       Hello World
@@ -136,7 +136,7 @@
   
   
   <a href="/mt/" class="article-nav-link">
-    <strong class="article-nav-caption">后一篇</strong>
+    <strong class="article-nav-caption">Older</strong>
     <div class="article-nav-title">莫队</div>
   </a>
   
@@ -190,25 +190,25 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/archives">Archives</a>
+      <a class="nav-item-link" href="/archives/">Archives</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/categories">Categories</a>
+      <a class="nav-item-link" href="/categories/">Categories</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/tags">Tags</a>
+      <a class="nav-item-link" href="/tags/">Tags</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/about">About</a>
+      <a class="nav-item-link" href="/about/">About</a>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="搜索">
+      <a class="nav-item-link nav-item-search" title="Search">
         <i class="fe fe-search"></i>
-        搜索
+        Search
       </a>
     </li>
   </ul>
