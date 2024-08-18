@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>2024 年暑假总结</title>
+      <link href="/summary-2024summer/"/>
+      <url>/summary-2024summer/</url>
+      
+        <content type="html"><![CDATA[<h3 id="薄弱点">薄弱点</h3><ol><li>思维；</li><li>动态规划（dp）；</li><li>计数。</li></ol><p>三者都是因为缺乏锻炼，导致平时完成上述类型的绿题都有困难。</p><p>部分算法知识需要巩固 / 学习：</p><ol><li>字符串：KMP、AC 自动机；</li><li>数学：数论。</li></ol><h3 id="计划">计划</h3><p>加强练习，锻炼思维、dp、计数能力。写博客复习 / 学习缺失算法知识。</p><p>练习中不会的题目进行总结，有用的技巧也进行总结。对以前做过的好题进行复习。</p><h3 id="关于博客">关于博客</h3><p>已迁移至 <a href="https://po7ed.github.io">本站（po7ed.github.io）</a>，<a href="https://po7ed.github.io/vp/">这里</a> 保存了好题复习。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Summary </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Valuable Problems</title>
       <link href="/vp/"/>
       <url>/vp/</url>
