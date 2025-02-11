@@ -1,61 +1,244 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  
-  
-  <title>
-    
-    Po7ed&#39;s Blog
-  </title>
-  <!-- Icon -->
-  
-    <link rel="shortcut icon" href="/favicon.ico">
-    
-  
-<link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/i.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/i.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/i.ico">
+  <link rel="mask-icon" href="/images/i.ico" color="#222">
 
-  
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/css/main.css">
 
-  
-  
-<script src="/js/pace.min.js"></script>
 
-<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Po7ed's Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"po7ed.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Tasks cdq 分治、扩欧拉。 Problems 概率、构造、Ad-hoc、数数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Po7ed&#39;s Blog">
+<meta property="og:url" content="https://po7ed.github.io/problem-summary/index.html">
+<meta property="og:site_name" content="Po7ed&#39;s Blog">
+<meta property="og:description" content="Tasks cdq 分治、扩欧拉。 Problems 概率、构造、Ad-hoc、数数。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/08/07/Yzba5WgrJsjqZXQ.png">
+<meta property="article:published_time" content="2024-11-21T05:35:08.285Z">
+<meta property="article:modified_time" content="2024-10-23T08:47:26.085Z">
+<meta property="article:author" content="Po7ed">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/08/07/Yzba5WgrJsjqZXQ.png">
+
+<link rel="canonical" href="https://po7ed.github.io/problem-summary/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | Po7ed's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Po7ed's Blog" type="application/atom+xml">
 <link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
-<body>
-  <main class="content">
-    <section class="outer">
-  <article id="post-problem-summary" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-  <div class="article-inner">
-    
-
-    
-    <div class="article-meta">
-      <a href="/problem-summary/" class="article-date">
-  <time datetime="2024-10-13T09:10:29.603Z" itemprop="datePublished">2024-10-13</time>
-</a>
-      
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Po7ed's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://po7ed.github.io/problem-summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.luogu.com.cn/upload/usericon/745171.png">
+      <meta itemprop="name" content="Po7ed">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Po7ed's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-11-21 13:35:08" itemprop="dateCreated datePublished" datetime="2024-11-21T13:35:08+08:00">2024-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-10-23 16:47:26" itemprop="dateModified" datetime="2024-10-23T16:47:26+08:00">2024-10-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
 
     
     
-<div class="tocbot"></div>
-
     
+    <div class="post-body" itemprop="articleBody">
 
-    <div class="article-entry" itemprop="articleBody">
-      
-      
       
         <h2 id="tasks">Tasks</h2>
 <p>cdq 分治、扩欧拉。</p>
@@ -386,173 +569,193 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
 <h3 id="85587511-训练-train"><a target="_blank" rel="noopener" href="http://218.5.5.242:9019/problem/85587511">#85587511. 训练 (train)</a></h3>
 <p>容斥好题。</p>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="https://po7ed.github.io/problem-summary/" data-id="cm2smd2su000eekiz20pi61gb" class="article-share-link">
-        Share
-      </a>
-      
-    </footer>
 
-  </div>
+    
+    
+    
 
-  
-  
-<nav class="article-nav">
-  
-  <a href="/hs-math/" class="article-nav-link">
-    <strong class="article-nav-caption">Newer</strong>
-    <div class="article-nav-title">
-      
-      高中数学
-      
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-  </a>
-  
-  
-  <a href="/number-theory/" class="article-nav-link">
-    <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">数论</div>
-  </a>
-  
-</nav>
-
-  
-
-  
+      </footer>
+    
+  </article>
   
   
   
 
-</article>
-</section>
-    <footer class="footer">
-  <div class="outer">
-    <ul class="list-inline">
-      <li>Po7ed&#39;s Blog &copy; 2024</li>
-      
-        <li>
+
+
+          </div>
           
-            <a href="https://beian.miit.gov.cn/" target="_blank"></a>
-            
-        </li>
-      
-      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
-      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
-    </ul>
-    <p><ul class="list-inline">
-  
-  <li><i class="fe fe-smile-alt tooltip" data-tooltip="UV"></i> <span id="busuanzi_value_site_uv"></span></li>
-  
-  <li><i class="fe fe-bookmark tooltip" data-tooltip="PV"></i> <span id="busuanzi_value_page_pv"></span></li>
-  
-</ul></p>
-  </div>
-</footer>
-  </main>
-  <aside class="sidebar">
-    <button class="navbar-toggle"></button>
-<nav class="navbar">
-  
-  <div class="logo">
-    <a href="/"><img src="/images/hexo.svg" alt="Po7ed&#39;s Blog"></a>
-  </div>
-  
-  <ul class="nav nav-main">
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/">Home</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/archives/">Archives</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/categories/">Categories</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/tags/">Tags</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/about/">About</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="Search">
-        <i class="fe fe-search"></i>
-        Search
-      </a>
-    </li>
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      <div class="totop" id="totop">
-  <i class="fe fe-rocket"></i>
-</div>
-    </li>
-    <li class="nav-item">
-      
-      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-        <i class="fe fe-feed"></i>
-      </a>
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-  </aside>
-  
-<script src="/js/jquery-2.0.3.min.js"></script>
-
-
-<script src="/js/jquery.justifiedGallery.min.js"></script>
-
-
-<script src="/js/lazyload.min.js"></script>
-
-
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
-
-
-
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-
-<script src="/js/tocbot.min.js"></script>
-
 
 <script>
-  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
-  tocbot.init({
-    tocSelector: '.tocbot',
-    contentSelector: '.article-entry',
-    headingSelector: 'h1, h2, h3, h4, h5, h6',
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    positionFixedSelector: '.tocbot',
-    positionFixedClass: 'is-position-fixed',
-    fixedSidebarOffset: 'auto',
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
   });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tasks"><span class="nav-number">1.</span> <span class="nav-text">Tasks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#problems"><span class="nav-number">2.</span> <span class="nav-text">Problems</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#p1397-noi2013-%E7%9F%A9%E9%98%B5%E6%B8%B8%E6%88%8F"><span class="nav-number">2.1.</span> <span class="nav-text">P1397 [NOI2013] 矩阵游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p1450-haoi2008-%E7%A1%AC%E5%B8%81%E8%B4%AD%E7%89%A9"><span class="nav-number">2.2.</span> <span class="nav-text">P1450 [HAOI2008] 硬币购物</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p1545-usaco04dec-dividing-the-path-g"><span class="nav-number">2.3.</span> <span class="nav-text">P1545 [USACO04DEC] Dividing the Path G</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p1654-osu"><span class="nav-number">2.4.</span> <span class="nav-text">P1654 OSU!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p1864-noi2009-%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91"><span class="nav-number">2.5.</span> <span class="nav-text">! P1864 [NOI2009] 二叉查找树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p2424-%E7%BA%A6%E6%95%B0%E5%92%8C"><span class="nav-number">2.6.</span> <span class="nav-text">P2424 约数和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p2487-sdoi2011-%E6%8B%A6%E6%88%AA%E5%AF%BC%E5%BC%B9"><span class="nav-number">2.7.</span> <span class="nav-text">P2487 [SDOI2011] 拦截导弹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p5358-sdoi2019-%E5%BF%AB%E9%80%9F%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.8.</span> <span class="nav-text">P5358 [SDOI2019] 快速查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p6146-usaco20feb-help-yourself-g"><span class="nav-number">2.9.</span> <span class="nav-text">P6146 [USACO20FEB] Help Yourself G</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p6649-swtr-5-grid"><span class="nav-number">2.10.</span> <span class="nav-text">P6649 「SWTR-5」Grid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p7074-csp-j-2020-%E6%96%B9%E6%A0%BC%E5%8F%96%E6%95%B0"><span class="nav-number">2.11.</span> <span class="nav-text">P7074 [CSP-J 2020] 方格取数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p7167-ejoi2020-day1-fountain"><span class="nav-number">2.12.</span> <span class="nav-text">P7167 [eJOI2020 Day1] Fountain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p7402-coci2020-2021-5-sjeckanje-9019-85587446-%E4%BC%A0%E6%83%85%E4%BC%9E-emotion"><span class="nav-number">2.13.</span> <span class="nav-text">P7402 [COCI2020-2021#5] Sjeckanje | 9019 #85587446. 传情伞（emotion）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p7913-csp-s-2021-%E5%BB%8A%E6%A1%A5%E5%88%86%E9%85%8D"><span class="nav-number">2.14.</span> <span class="nav-text">P7913 [CSP-S 2021] 廊桥分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p7914-csp-s-2021-%E6%8B%AC%E5%8F%B7%E5%BA%8F%E5%88%97"><span class="nav-number">2.15.</span> <span class="nav-text">P7914 [CSP-S 2021] 括号序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p7915-csp-s-2021-%E5%9B%9E%E6%96%87"><span class="nav-number">2.16.</span> <span class="nav-text">P7915 [CSP-S 2021] 回文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p8675-%E8%93%9D%E6%A1%A5%E6%9D%AF-2018-%E5%9B%BD-b-%E6%90%AD%E7%A7%AF%E6%9C%A8"><span class="nav-number">2.17.</span> <span class="nav-text">P8675 [蓝桥杯 2018 国 B] 搭积木</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p8815-csp-j-2022-%E9%80%BB%E8%BE%91%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.18.</span> <span class="nav-text">P8815 [CSP-J 2022] 逻辑表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p9209-%E4%B8%8D%E7%81%AD-%E4%B8%8D%E6%AD%BB%E9%B8%9F%E4%B9%8B%E5%B0%BE"><span class="nav-number">2.19.</span> <span class="nav-text">P9209 不灭「不死鸟之尾」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p9345-%E5%A4%95%E9%98%B3%E8%A5%BF%E4%B8%8B%E5%87%A0%E6%97%B6%E5%9B%9E"><span class="nav-number">2.20.</span> <span class="nav-text">P9345 夕阳西下几时回</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p9474-yloi2022-%E9%95%BF%E5%AE%89%E5%B9%BB%E4%B8%96%E7%BB%98"><span class="nav-number">2.21.</span> <span class="nav-text">P9474 [yLOI2022] 长安幻世绘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p9594-daily-oi-round-1-memory"><span class="nav-number">2.22.</span> <span class="nav-text">P9594 「Daily OI Round 1」Memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p9751-csp-j-2023-%E6%97%85%E6%B8%B8%E5%B7%B4%E5%A3%AB"><span class="nav-number">2.23.</span> <span class="nav-text">P9751 [CSP-J 2023] 旅游巴士</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p10134-usaco24jan-cowmpetency-s"><span class="nav-number">2.24.</span> <span class="nav-text">P10134 [USACO24JAN] Cowmpetency S</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p10190-usaco24feb-target-practice-ii-s"><span class="nav-number">2.25.</span> <span class="nav-text">P10190 [USACO24FEB] Target Practice II S</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p10309-cfz-round-2-max-of-distance"><span class="nav-number">2.26.</span> <span class="nav-text">P10309 「Cfz Round 2」Max of Distance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p11036-mx-x3-t3-rioi-4-gcd-%E4%B8%8E-lcm-%E9%97%AE%E9%A2%98"><span class="nav-number">2.27.</span> <span class="nav-text">P11036 【MX-X3-T3】「RiOI-4」GCD 与 LCM 问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#agc005d-k-perm-counting-9019-85587454-%E9%94%99%E6%8E%92-perm"><span class="nav-number">2.28.</span> <span class="nav-text">[AGC005D] ~K Perm Counting | 9019 #85587454. 错排 (perm)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9019-85587522-2024-10-12-%E8%81%94%E8%80%83-%E5%8E%9F%E7%A5%9E-genshin"><span class="nav-number">2.29.</span> <span class="nav-text">9019 #85587522. 「2024-10-12 联考」原神 (genshin)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#85587509-%E6%95%B0%E6%B0%B4%E6%9E%9C-fruit"><span class="nav-number">2.30.</span> <span class="nav-text">#85587509. 数水果 (fruit)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#85587510-%E8%A7%86%E9%A2%91-video"><span class="nav-number">2.31.</span> <span class="nav-text">#85587510. 视频 (video)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#85587511-%E8%AE%AD%E7%BB%83-train"><span class="nav-number">2.32.</span> <span class="nav-text">#85587511. 训练 (train)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Po7ed"
+      src="https://cdn.luogu.com.cn/upload/usericon/745171.png">
+  <p class="site-author-name" itemprop="name">Po7ed</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
 
 
-<script src="/js/ocean.js"></script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Po7ed</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
-
 </html>
