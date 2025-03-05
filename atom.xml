@@ -6,7 +6,7 @@
   <link href="https://po7ed.github.io/atom.xml" rel="self"/>
   
   <link href="https://po7ed.github.io/"/>
-  <updated>2025-03-05T12:53:08.544Z</updated>
+  <updated>2025-03-05T13:16:11.009Z</updated>
   <id>https://po7ed.github.io/</id>
   
   <author>
@@ -21,17 +21,18 @@
     <link href="https://po7ed.github.io/summary-uts2025/"/>
     <id>https://po7ed.github.io/summary-uts2025/</id>
     <published>2025-03-05T12:48:59.000Z</published>
-    <updated>2025-03-05T12:53:08.544Z</updated>
+    <updated>2025-03-05T13:16:11.009Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="联合省选-2025-总结">联合省选 2025 总结</h2><h3 id="比赛情况">比赛情况</h3><h4 id="d1t1">D1T1</h4><p>思考 [1,1.5]h 无果，遂放弃。没有想到关键结论：最大化中位数必不劣。高估题目难度。</p><h4 id="d1t2">D1T2</h4><p>约 1h 解决暴力，2h 左右疯狂卡常 + 乱搞，试图冲过 8e4，比较成功。约 88pts，但是用时过长。</p><h4 id="d1t3">D1T3</h4><p>过难。</p><h4 id="d2t1">D2T1</h4><p>思考约 1h，暴力写 + 调约 2h，写线段树 + 调约 1.5h。没调出来，与暴力同分。非常失败，原因是胡思乱想时间过长，写暴力能力（准确度）有待提升。</p><h4 id="d2t2">D2T2</h4><p>暴力都难写。</p><h4 id="d2t3">D2T3</h4><p>没时间看。</p><p>比赛经验较缺乏，习惯于长时间思考。应快速验证做法并在想清楚后实施，避免浪费时间。</p><h3 id="将来计划">将来计划</h3><ol><li>复习已学算法和数据结构，巩固基础；</li><li>练习 ARC 和 CF Div 1,2，练习观察性质和题目转化能力；</li><li>学习省选算法，练习相应例题。</li></ol>]]></content>
+    <content type="html"><![CDATA[<span id="more"></span><h2 id="联合省选-2025-总结">联合省选 2025 总结</h2><h3 id="比赛情况">比赛情况</h3><h4 id="d1t1">D1T1</h4><p>思考 [1,1.5]h 无果，遂放弃。没有想到关键结论：最大化中位数必不劣。高估题目难度。</p><h4 id="d1t2">D1T2</h4><p>约 1h 解决暴力，2h 左右疯狂卡常 + 乱搞，试图冲过 8e4，比较成功。约 88pts，但是用时过长。</p><h4 id="d1t3">D1T3</h4><p>过难。</p><h4 id="d2t1">D2T1</h4><p>思考约 1h，暴力写 + 调约 2h，写线段树 + 调约 1.5h。没调出来，与暴力同分。非常失败，原因是胡思乱想时间过长，写暴力能力（准确度）有待提升。</p><h4 id="d2t2">D2T2</h4><p>暴力都难写。</p><h4 id="d2t3">D2T3</h4><p>没时间看。</p><p>比赛经验较缺乏，习惯于长时间思考。应快速验证做法并在想清楚后实施，避免浪费时间。</p><h3 id="将来计划">将来计划</h3><ol><li>复习已学算法和数据结构，巩固基础；</li><li>练习 ARC 和 CF Div 1,2，练习观察性质和题目转化能力；</li><li>学习省选算法，练习相应例题。</li></ol>]]></content>
     
     
       
       
-    <summary type="html">&lt;h2 id=&quot;联合省选-2025-总结&quot;&gt;联合省选 2025 总结&lt;/h2&gt;
+    <summary type="html">&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
+&lt;h2 id=&quot;联合省选-2025-总结&quot;&gt;联合省选 2025 总结&lt;/h2&gt;
 &lt;h3 id=&quot;比赛情况&quot;&gt;比赛情况&lt;/h3&gt;
 &lt;h4 id=&quot;d1t1&quot;&gt;D1T1&lt;/h4&gt;
-&lt;p&gt;思考 [1,1.5]h 无果，遂放弃。没有想到关键结论：最大化中位数必不劣。高估题目难度。&lt;/p&gt;</summary>
+&lt;p&gt;思考 [1,1.5]h 无果，遂放弃。没有想到关键</summary>
       
     
     
