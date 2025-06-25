@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/i.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/i.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/i.ico">
+  <link rel="mask-icon" href="/images/i.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"po7ed.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.23.1","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="wzh 2025.2.22 这个问题的根源在于没有想明确思路，需要考虑思路是否正确，然后把代码流程细化到一个粒度（一般是常见板子算法或者常用片段），最后实现。 如果要完全避免问题就需要非常细致。要平衡时间并且水平充分高可以少细化一点，根据自己的感觉判断是否正确或者是否可以推出（但不去细究，写代码的时候再次考虑），非常难并且会有一定的风险。 暂时先给出一些想法：  AtCoder 比赛题目大多源自">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学长建议">
+<meta property="og:url" content="https://po7ed.github.io/suggestion/index.html">
+<meta property="og:site_name" content="Po7ed&#39;s Blog">
+<meta property="og:description" content="wzh 2025.2.22 这个问题的根源在于没有想明确思路，需要考虑思路是否正确，然后把代码流程细化到一个粒度（一般是常见板子算法或者常用片段），最后实现。 如果要完全避免问题就需要非常细致。要平衡时间并且水平充分高可以少细化一点，根据自己的感觉判断是否正确或者是否可以推出（但不去细究，写代码的时候再次考虑），非常难并且会有一定的风险。 暂时先给出一些想法：  AtCoder 比赛题目大多源自">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-23T02:07:06.000Z">
+<meta property="article:modified_time" content="2025-06-23T08:43:37.110Z">
+<meta property="article:author" content="Po7ed">
+<meta property="article:tag" content="Summary">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://po7ed.github.io/suggestion/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://po7ed.github.io/suggestion/","path":"suggestion/","title":"学长建议"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>学长建议 | Po7ed's Blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Po7ed's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#wzh-2025-2-22"><span class="nav-number">1.</span> <span class="nav-text">wzh 2025.2.22</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Po7ed"
+      src="https://cdn.luogu.com.cn/upload/usericon/745171.png">
+  <p class="site-author-name" itemprop="name">Po7ed</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Po7ed" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Po7ed" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:3058960438@qq.com" title="E-Mail → mailto:3058960438@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://po7ed.github.io/suggestion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.luogu.com.cn/upload/usericon/745171.png">
+      <meta itemprop="name" content="Po7ed">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Po7ed's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="学长建议 | Po7ed's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          学长建议
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-02-23 10:07:06" itemprop="dateCreated datePublished" datetime="2025-02-23T10:07:06+08:00">2025-02-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-06-23 16:43:37" itemprop="dateModified" datetime="2025-06-23T16:43:37+08:00">2025-06-23</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><span id="more"></span>
+<h3 id="wzh-2025-2-22">wzh 2025.2.22</h3>
+<p>这个问题的根源在于没有想明确思路，需要考虑思路是否正确，然后把代码流程细化到一个粒度（一般是常见板子算法或者常用片段），最后实现。<br>
+如果要完全避免问题就需要非常细致。要平衡时间并且水平充分高可以少细化一点，根据自己的感觉判断是否正确或者是否可以推出（但不去细究，写代码的时候再次考虑），非常难并且会有一定的风险。</p>
+<p>暂时先给出一些想法：</p>
+<ol>
+<li>AtCoder 比赛题目大多源自于 agc，arc，abc 这类比赛，这些比赛时间短，题目多，所以题目会有一些限制：</li>
+</ol>
+<ul>
+<li>很难出现代码量长度较大的题目，因此像复杂点的数据结构和计数就不一定能够出现</li>
+<li>风格偏思维（这是容易发现的），并且题目做法经常不会和算法直接挂钩。<br>
+这些说明：</li>
+<li>很难在 atcoder 里面出现数据结构优化题目，比如线段树合并等。（abc 后面的题会稍微好一点）</li>
+<li>图论、字符串、网络流这些基本看不到的。</li>
+<li>数论、数学、计数 dp、结论题目。非常常见，特别是计数和结论。其次是 最优化 dp 和贪心。<br>
+做偏向结论或者偏向发现的题目，这些结论几乎不可能再利用到其他大量题上（除了一些比较有价值、前提少的结论），所以做题就会感觉很散。</li>
+</ul>
+<ol>
+<li>CF 题目类似，但是分布会稍微均衡一些。（例如 div1 里可以出现一些比较复杂的数据结构，总体思维程度略低）</li>
+<li>可以发现平时做题平均每题代码量是比较少的，这样平时做题的时候代码流程短；而正赛和模拟赛时几乎不可能几行关键语句就能过题，所以代码就会变得很长，这方面在平时做题就不能得到训练。</li>
+<li>模拟赛其实之前（17 号前）的数学浓度有点高，所以可能会导致误判。</li>
+<li>正赛考的题目会偏向数据结构、贪心、dp、图论和一点计数。</li>
+<li>模拟赛和正赛不可能出单纯的算法，需要对题目进行分析性质，发现可以使用算法的条件对号入座。</li>
+</ol>
+<p>然后给出一点参考做法：</p>
+<ol>
+<li>如何测试自己的实力？<br>
+目前的做题不能很好地覆盖知识点的范围。<br>
+一道题目分为两个步骤：找出足够多的条件/性质，使用对应的算法（变种）解决问题。<br>
+在 Atcoder 里，主要是训练找出足够多的条件，而比赛中重要的使用对应的算法（包括条件最后也是要服务于算法）就没有练习。<br>
+可能需要一些简单偏模板的算法做题来试探。除了普通的博客板子题目，一些往年的国内（早年省选、往年大部分 NOIP）、校内比赛题也是可以参考的（洛谷月赛除外），这些题目基本不用太难的发现。<br>
+然后 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/alex-wei/p/contents.html">https://www.cnblogs.com/alex-wei/p/contents.html</a> 里面的题可以再去试试看能不能做出来，由于已经学过一遍了，可以直接口胡出详细的代码流程，然后说明正确性。如果没有相同的题解就去实现一遍，否则对比。<br>
+<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/pcikmsis">https://www.luogu.com.cn/article/pcikmsis</a> 也可以参考。<br>
+如果你发现这些主考察算法使用优化的题目都能很轻松的通过了，那么可以选择深入省选算法的同时训练 arc（说明真的需要练习找性质，方向比较可以），但大概率不可能是这样。</li>
+<li>如何找题目？<br>
+<a target="_blank" rel="noopener" href="http://218.5.5.242:9019/article/1726">http://218.5.5.242:9019/article/1726</a> 是一份提高及以上的知识点概括和对应资料收集和部分题目，包括许多 luogu 上面的题，很多解法主要偏向算法一侧，而不是找性质。但有些分类不够彻底。其难度从易到难都有。<br>
+如果是算法的问题，一般有一个明显的词汇（例如长链剖分优化），直接使用 bing 搜索等等（baidu 难搜到 cnblogs）找对应讲解和例题。<br>
+同时可以找一些做题记录（不要求写，可以只想，如果太困难或者太水果断放弃）。<br>
+一些往年校内模拟赛也可以接受（风格可能会比较贴合现在的比赛），也可以考虑往年南外模拟赛。<br>
+现在一般不可以把随机跳题放到主要做题来源里头，除非发现算法都学的很会了就可以开始重点关照分析题目性质一侧。</li>
+<li>如何复盘？<br>
+如果是“思维”部分（推性质）卡壳，需要考虑一下推导结论运用的范围是否广泛，如果是的话可以记录一下，不是的话可以放弃。尽量找到题目可能存在的切入点（使思考不是很跳跃）<br>
+如果是“算法”部分卡壳，需要考虑一下为什么这题能够使用这个算法。有哪些潜在的切入方向，自己思考的时候是否忽略了这部分运用。<br>
+还有一些情况就是误入歧途，这时候要对你现在所作出的思考有一定的评价和时间限额，超出就要考虑是否替换。</li>
+</ol>
+<p>DP、贪心主要的是需要发现一些能够套用的性质<br>
+DP 是指能够通过各种方式（缩减答案空间，转化问题）将每个候选答案设计出一种相对固定的动态构造方式，然后只保留对答案和下一步构造（转移）有关的信息量形成状态。<br>
+贪心在提高组里主要是考虑反证法和调整法，多尝试证明和做几道题目就会使用了。</p>
+<p>结论题比上述的哪些更为困难，并且如上述所说，优先级和收益都很低（难以运用）。</p>
+<p>对于往年的省选题，一些难度过大（黑）不建议做，比如 ZJOI 等。做题方向可以偏向蓝紫，适当减少绿题做题量。</p>
+<p>上面总体来说，意思是先巩固算法基础（同时通过例题可以获得一定的分析性质能力），再去考虑专项提升找性质和结论能力（比如 atcoder 的更难比赛）</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Summary/" rel="tag"># Summary</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/record/" rel="prev" title="练习进程">
+                  <i class="fa fa-angle-left"></i> 练习进程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/summary-uts2025/" rel="next" title="联合省选 2025 总结">
+                  联合省选 2025 总结 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Po7ed</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
