@@ -1218,7 +1218,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #25c825;
+  background: #b5edcc;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2719,7 +2719,7 @@ header.header {
 /* italic font settings */
 em {
   font-style: normal;
-  font-family: /* "霞鹜文楷", */ "KaiTi", "STKaiti", serif;
+  font-family: 'Times New Roman', "KaiTi", "STKaiti", serif;
 }
 /* details settings */
 details {
