@@ -1218,7 +1218,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #949afc;
+  background: #04a806;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2715,6 +2715,26 @@ header.header {
 }
 .sub-menu .menu-item {
   display: inline-block;
+}
+/* 仅首页生效 */
+body.home .main-inner {
+  padding-top: 0;
+}
+/* 首屏全屏图片 */
+body.home::before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: url("/images/cover.jpg") center/cover no-repeat;
+  z-index: -1;
+}
+/* 首页正文区向下偏移一屏 */
+body.home .main {
+  margin-top: 100vh;
 }
 /* italic font settings */
 em {
