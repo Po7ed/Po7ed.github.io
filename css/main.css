@@ -1218,7 +1218,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #ffff53;
+  background: #ff65de;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2716,25 +2716,23 @@ header.header {
 .sub-menu .menu-item {
   display: inline-block;
 }
-/* 仅首页生效 */
-body.home .main-inner {
-  padding-top: 0;
+.heimu {
+  position: relative;
+  color: var(--text-color);
+  text-decoration: none; /* 去掉下划线 */
+  padding: 0.1em; /* ? */
 }
-/* 首屏全屏图片 */
-body.home::before {
-  content: '';
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: url("/images/cover.jpg") center/cover no-repeat;
-  z-index: -1;
+.heimu::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* 覆盖整个元素 */
+  background: var(--text-color);
+  transition: background-color 0.3s ease;
+  z-index: 1; /* 位于文字之上 */
+  pointer-events: none;
 }
-/* 首页正文区向下偏移一屏 */
-body.home .main {
-  margin-top: 100vh;
+.heimu:hover::before {
+  background: transparent; /* 悬停时让遮罩变透明 */
 }
 /* italic font settings */
 em {
@@ -2757,7 +2755,7 @@ summary {
   cursor: pointer;
   list-style: none;
   margin: 0 -0.8em;
-  padding: 0.3em 0.55em 0.3em 0.6em;
+  padding: 0em 0.55em 0em 0.6em;
   font-weight: bold;
   background-color: rgba(68,138,255,0.102);
 }
