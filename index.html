@@ -1,150 +1,31 @@
 <!doctype html>
-<html lang="zh-CN">
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Po7ed.github.io</title>
-<link rel="icon" href="/images/i.ico" type="image/x-icon">
-<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
-<link href="https://fonts.font.im/css?family=Playball" rel="stylesheet">
-<!-- <link href="https://fonts.googleapis.com/css2?family=Playball&display=swap" rel="stylesheet"> -->
-<!-- <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet"> -->
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","PingFang SC","Microsoft YaHei",sans-serif;scroll-behavior:smooth;color:#222;background:#fafafa}
+  <meta charset="utf-8">
+  <title>Post</title>
 
-  /* 全屏首图 */
-  .hero{
-    height:100vh;
-    width:100%;
-    background:url(/images/hero.jpg) center/cover no-repeat;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    position:relative;
-  }
-  .hero::after{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:rgba(0,0,0,0.35);
-  }
-  .hero h1{
-    font-size:3.5rem;
-    color:#fff;
-    z-index:1;
-    letter-spacing:3px;
-    font-family:'PlayBall',serif;
-    text-shadow:0 15px 12px rgba(0,0,0,0.5); /* 增加对比 */
-  }
-  .hero p{
-    margin-top:1rem;
-    color:#eee;
-    z-index:1;
-  }
-  .scroll-down{
-    position:absolute;
-    bottom:30px;
-    color:#fff;
-    font-size:1.2rem;
-    z-index:1;
-    animation:updown 1.6s ease-in-out infinite;
-  }
-  @keyframes updown{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(8px)}
-  }
+  <!-- markdown renderer -->
+  <script src="https://testingcf.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-  /* 正文区 */
-  .content{
-    max-width:900px;
-    margin:10px auto 80px;   /* 减少负 margin 防止被遮挡 */
-    background:#fff;
-    border-radius:10px;
-    box-shadow:0 4px 20px rgba(0,0,0,0.08);
-    padding:60px 40px;
-    position:relative;
-    z-index:2;
-  }
-  .content h2{
-    font-size:1.8rem;
-    margin-bottom:1rem;
-  }
-  .content p{
-    line-height:1.8;
-    margin-bottom:1rem;
-    opacity:0;
-    transform:translateY(20px);
-    transition:all 0.8s ease-out;
-  }
-  .content p.show{
-    opacity:1;
-    transform:translateY(0);
-  }
+  <!-- KaTeX CSS + JS -->
+  <link rel="stylesheet" href="https://testingcf.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://testingcf.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 
-  /* 底部 */
-  footer{
-    text-align:center;
-    color:#888;
-    font-size:.9rem;
-    padding:30px 0;
-  }
+  <!-- KaTeX auto-render (必须在 katex.js 后加载) -->
+  <script src="https://testingcf.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
-  @media(max-width:768px){
-    .hero h1{font-size:2rem}
-    .content{margin:-20px 16px 60px;padding:30px 20px}
-  }
+  <!-- highlight.js -->
+  <link rel="stylesheet" href="https://testingcf.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css">
+  <script src="https://testingcf.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+  <script src="https://testingcf.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/languages/cpp.min.js"></script>
+	
+  <!-- 样式 -->
+  <link rel="stylesheet" type="text/css" href="style.css">
 
-  .enter-btn{
-    display:block;
-    width:max-content;
-    margin:40px auto;   /* 居中并加上下间距 */
-    background:#0078d4;
-    color:#fff;
-    padding:12px 28px;
-    border-radius:6px;
-    text-decoration:none;
-    font-size:1.1rem;
-    transition:background 0.3s;
-  }
-  .enter-btn:hover{
-    background:#005fa3;
-  }
-</style>
+  <!-- main.js 作为 module（可使用 import / export） -->
+  <script type="module" src="main.js"></script>
 </head>
 <body>
-
-<header class="hero" role="banner">
-  <h1>Po7ed's Blog</h1>
-  <p>此鸟不飞则已，一飞冲天；不鸣则已，一鸣惊人。</p>
-  <a href="#main" class="scroll-down">↓ 向下滚动</a>
-</header>
-
-<main id="main" class="content" role="main">
-  <h2>欢迎来到 Po7ed.github.io</h2>
-  <p>这里将有一段个人简介……咕咕咕。</p>
-  <p><a href="/articles/" class="enter-btn">进入博客</a></p>
-</main>
-
-<footer>
-  © 2025 Po7ed · Powered by Hexo & NexT
-</footer>
-
-<script>
-  // 简单滚动淡入动画
-  const observer = new IntersectionObserver(entries=>{
-    for(const e of entries){
-      if(e.isIntersecting){
-        e.target.classList.add('show');
-        observer.unobserve(e.target);
-      }
-    }
-  },{threshold:0.1});
-  document.querySelectorAll('.content p').forEach(p=>observer.observe(p));
-</script>
-
+  <div id="content" class="container-lg px-3 my-5 markdown-body"></div> <!--  -->
 </body>
 </html>
