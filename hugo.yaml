@@ -3,6 +3,9 @@ title: "Po7ed 的橱窗"
 theme: "github-style"
 
 markup:
+  highlight:
+    style: "github"
+    noClasses: false
   goldmark:
     extensions:
       passthrough:
