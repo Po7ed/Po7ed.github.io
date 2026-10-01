@@ -19,6 +19,7 @@ markup:
             - ['$', '$']
 
 params:
+  lastmod: true
   math: true
   avatar: "/images/avatar.png"
   headerIcon: "/images/github.svg"
@@ -46,3 +47,11 @@ outputFormats.json:
 caches:
   images:
     dir: :cacheDir/images
+
+hasCJKLanguage: true
+summaryLength: 60
+
+enableGitInfo: true
+
+frontmatter:
+  lastmod: [':git', 'lastmod', 'date', 'publishDate']
