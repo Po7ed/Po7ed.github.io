@@ -1,0 +1,45 @@
+baseURL: "https://po7ed.github.io/"
+title: "Po7ed 的橱窗"
+theme: "github-style"
+
+markup:
+  goldmark:
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - ['\[', '\]']
+            - ['$$', '$$']
+          inline:
+            - ['\(', '\)']
+            - ['$', '$']
+
+params:
+  math: true
+  avatar: "/images/avatar.png"
+  headerIcon: "/images/github.svg"
+  # author: "1lfds"
+  description: "Ad astra per aspera"
+  location: "China"
+  github: "Po7ed"
+  links: 
+    - title: "Luogu"
+      href: "https://www.luogu.com.cn/user/745171"
+      icon: "https://luogu.com.cn/favicon.ico"
+    - title: "Cnblogs"
+      href: "https://www.cnblogs.com/chargedcreeper"
+      icon: "https://www.cnblogs.com/favicon.ico"
+  enableSearch: true
+
+outputs:
+  home: ["html", "json"]
+
+outputFormats.json:
+  mediaType: "application/json"
+  baseName: "index"
+  isPlainText: false
+
+caches:
+  images:
+    dir: :cacheDir/images
