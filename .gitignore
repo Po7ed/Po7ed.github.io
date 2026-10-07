@@ -10,3 +10,6 @@ Thumbs.db
 # Editor
 .vscode/
 .idea/
+
+# Obsidian
+**/.obsidian/

@@ -19,6 +19,7 @@ markup:
             - ['$', '$']
 
 params:
+  custom_css: ["css/custom.css"]
   lastmod: true
   math: true
   avatar: "/images/avatar.png"
